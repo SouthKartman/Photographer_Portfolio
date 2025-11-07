@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Слайдер фотогалереи</title>
+    <style>
+        /* Стили для слайдера */
+        .rogat-slider {
+            font-family: 'Arial', sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            box-sizing: border-box;
+        }
+        
+        .rogat-slider__header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+        
+        .rogat-slider__title {
+            font-size: 36px;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin: 0;
+        }
+        
+        .rogat-slider__link {
+            color: #000;
+            text-decoration: none;
+            font-size: 16px;
+            position: relative;
+            padding-right: 20px;
+        }
+        
+        .rogat-slider__link::after {
+            content: '→';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .rogat-slider__container {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .rogat-slider__track {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+        
+        .rogat-slider__slide {
+            flex: 0 0 33.333%;
+            padding: 0 15px;
+            box-sizing: border-box;
+        }
+        
+        .rogat-slider__image-container {
+            position: relative;
+            overflow: hidden;
+            height: 400px;
+            margin-bottom: 20px;
+        }
+        
+        .rogat-slider__image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .rogat-slider__slide:hover .rogat-slider__image {
+            transform: scale(1.05);
+        }
+        
+        .rogat-slider__info {
+            text-align: center;
+        }
+        
+        .rogat-slider__project-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .rogat-slider__project-date {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        .rogat-slider__project-link {
+            display: inline-block;
+            padding: 8px 20px;
+            border: 1px solid #000;
+            color: #000;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .rogat-slider__project-link:hover {
+            background-color: #000;
+            color: #fff;
+        }
+        
+        .rogat-slider__nav {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        
+        .rogat-slider__nav-button {
+            background: none;
+            border: 1px solid #000;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            margin: 0 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .rogat-slider__nav-button:hover {
+            background-color: #000;
+            color: #fff;
+        }
+        
+        .rogat-slider__nav-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .rogat-slider__nav-button:disabled:hover {
+            background-color: transparent;
+            color: #000;
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 992px) {
+            .rogat-slider__slide {
+                flex: 0 0 50%;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .rogat-slider__slide {
+                flex: 0 0 100%;
+            }
+            
+            .rogat-slider__header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .rogat-slider__link {
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Контейнер слайдера -->
+    <div class="rogat-slider">
+        <div class="rogat-slider__header">
+            <a href="#" class="rogat-slider__link">Смотреть еще работы</a>
+        </div>
+        
+        <div class="rogat-slider__container">
+            <div class="rogat-slider__track">
+                <!-- Слайд 1 -->
+                <div class="rogat-slider__slide">
+                    <div class="rogat-slider__image-container">
+                        <img src="https://via.placeholder.com/400x400/cccccc/666666?text=Пара+из+сквера" alt="Пара из сквера" class="rogat-slider__image">
+                    </div>
+                    <div class="rogat-slider__info">
+                        <h3 class="rogat-slider__project-title">Пара из сквера</h3>
+                        <p class="rogat-slider__project-date">Мюль 2023</p>
+                        <a href="#" class="rogat-slider__project-link">СМОТРЕТЬ ПРОЕКТ</a>
+                    </div>
+                </div>
+                
+                <!-- Слайд 2 -->
+                <div class="rogat-slider__slide">
+                    <div class="rogat-slider__image-container">
+                        <img src="https://via.placeholder.com/400x400/cccccc/666666?text=Счастье+спорта" alt="Счастье спорта" class="rogat-slider__image">
+                    </div>
+                    <div class="rogat-slider__info">
+                        <h3 class="rogat-slider__project-title">Счастье спорта</h3>
+                        <p class="rogat-slider__project-date">Мюнь 2024</p>
+                        <a href="#" class="rogat-slider__project-link">СМОТРЕТЬ ПРОЕКТ</a>
+                    </div>
+                </div>
+                
+                <!-- Слайд 3 -->
+                <div class="rogat-slider__slide">
+                    <div class="rogat-slider__image-container">
+                        <img src="https://via.placeholder.com/400x400/cccccc/666666?text=с.+Дивeевo" alt="с. Дивeевo" class="rogat-slider__image">
+                    </div>
+                    <div class="rogat-slider__info">
+                        <h3 class="rogat-slider__project-title">с. Дивeевo</h3>
+                        <p class="rogat-slider__project-date">Мюль 2025</p>
+                        <a href="#" class="rogat-slider__project-link">СМОТРЕТЬ ПРОЕКТ</a>
+                    </div>
+                </div>
+                
+                <!-- Дополнительные слайды для демонстрации работы слайдера -->
+                <div class="rogat-slider__slide">
+                    <div class="rogat-slider__image-container">
+                        <img src="https://via.placeholder.com/400x400/cccccc/666666?text=Проект+4" alt="Проект 4" class="rogat-slider__image">
+                    </div>
+                    <div class="rogat-slider__info">
+                        <h3 class="rogat-slider__project-title">Проект 4</h3>
+                        <p class="rogat-slider__project-date">Мюнь 2024</p>
+                        <a href="#" class="rogat-slider__project-link">СМОТРЕТЬ ПРОЕКТ</a>
+                    </div>
+                </div>
+                
+                <div class="rogat-slider__slide">
+                    <div class="rogat-slider__image-container">
+                        <img src="https://via.placeholder.com/400x400/cccccc/666666?text=Проект+5" alt="Проект 5" class="rogat-slider__image">
+                    </div>
+                    <div class="rogat-slider__info">
+                        <h3 class="rogat-slider__project-title">Проект 5</h3>
+                        <p class="rogat-slider__project-date">Мюль 2025</p>
+                        <a href="#" class="rogat-slider__project-link">СМОТРЕТЬ ПРОЕКТ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="rogat-slider__nav">
+            <button class="rogat-slider__nav-button rogat-slider__nav-button--prev">←</button>
+            <button class="rogat-slider__nav-button rogat-slider__nav-button--next">→</button>
+        </div>
+    </div>
+
+    <script>
+        // Код для работы слайдера
+        document.addEventListener('DOMContentLoaded', function() {
+            const sliderTrack = document.querySelector('.rogat-slider__track');
+            const slides = document.querySelectorAll('.rogat-slider__slide');
+            const prevButton = document.querySelector('.rogat-slider__nav-button--prev');
+            const nextButton = document.querySelector('.rogat-slider__nav-button--next');
+            
+            let currentSlide = 0;
+            const slidesToShow = getSlidesToShow();
+            
+            // Функция для определения количества отображаемых слайдов
+            function getSlidesToShow() {
+                if (window.innerWidth < 576) return 1;
+                if (window.innerWidth < 992) return 2;
+                return 3;
+            }
+            
+            // Функция для обновления позиции слайдера
+            function updateSlider() {
+                const slideWidth = slides[0].offsetWidth;
+                sliderTrack.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
+                
+                // Обновляем состояние кнопок
+                prevButton.disabled = currentSlide === 0;
+                nextButton.disabled = currentSlide >= slides.length - slidesToShow;
+            }
+            
+            // Обработчики для кнопок навигации
+            prevButton.addEventListener('click', function() {
+                if (currentSlide > 0) {
+                    currentSlide--;
+                    updateSlider();
+                }
+            });
+            
+            nextButton.addEventListener('click', function() {
+                if (currentSlide < slides.length - slidesToShow) {
+                    currentSlide++;
+                    updateSlider();
+                }
+            });
+            
+            // Обработчик изменения размера окна
+            window.addEventListener('resize', function() {
+                const newSlidesToShow = getSlidesToShow();
+                if (newSlidesToShow !== slidesToShow) {
+                    currentSlide = 0;
+                    updateSlider();
+                }
+            });
+            
+            // Инициализация слайдера
+            updateSlider();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>Photographer</title>
+
+	<!-- GSAP -->
+	<script src="libs/gsap/gsap.min.js" defer></script>
+	<script src="libs/gsap/ScrollTrigger.min.js" defer></script>
+	<script src="libs/gsap/ScrollSmoother.min.js" defer></script>
+
+	<!-- fonts -->
+	<!-- Mansalva -->
+	<!-- <link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Mansalva&display=swap" rel="stylesheet"> -->
+	<!-- Jost -->
+	<!-- <link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"> -->
+
+	<!-- Manrope -->
+	<!-- <link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet"> -->
+
+	<!-- Styles -->
+	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="./css/slider2.css">
+	<link rel="stylesheet" href="./css/faq.css">
+
+	<!-- scripts -->
+	<script src="js/app.js" defer></script>
+
+</head>
+<body>
+<!-- preloader -->
+<style>.preloader{position:fixed;inset:0;background:#000;display:grid;place-items:center;z-index:9999;opacity:1;transition:opacity 0.5s ease}.loader{width:40px;height:40px;border:3px solid #333;border-top:3px solid #fff;border-radius:50%;animation:spin 1s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}</style>
+<div class="preloader"><div class="loader"></div></div>
+<script>window.onload=()=>{document.querySelector('.preloader').style.opacity='0';setTimeout(()=>document.querySelector('.preloader').remove(),500)}</script>
+
+<!-- top\down -->
+<style>.scroll-btn{position:fixed;bottom:69px;right:65px;width:50px;height:50px;background:#000;border:1px solid #2a2a2a;cursor:pointer;opacity:0;transform:translateY(20px);transition:all 0.3s ease;display:grid;place-items:center;z-index:1000}.scroll-btn.show{opacity:1;transform:translateY(0)}.scroll-btn:hover{background:#333;transform:scale(1.1)}.scroll-btn::before{content:'';width:12px;height:12px;border-right:2px solid #fff;border-bottom:2px solid #fff;transform:rotate(45deg) translate(-1px,-1px);transition:transform 0.3s ease}.scroll-btn.to-top::before{transform:rotate(-135deg) translate(-1px,-1px)}</style>
+<div class="scroll-btn"></div>
+<script>const b=document.querySelector('.scroll-btn');window.addEventListener('scroll',()=>{const t=window.innerHeight+window.scrollY>=document.body.offsetHeight-100;b.classList.toggle('show',window.scrollY>300);b.classList.toggle('to-top',t)});b.addEventListener('click',()=>window.scrollTo({top:b.classList.contains('to-top')?0:document.body.scrollHeight,behavior:'smooth'}))</script>
+	
+
+	<div class="wrapper">
+
+	  
+
+		<div class="content">
+			
+			  <header class="head">
+					<container class="empty-head">
+
+					</container>
+
+					<container class="header-content">
+						<div class="logo mansalva-regular">
+						Social Beach
+					</div>
+					<nav class="main-nav">
+						<a class="angle" href="#">Главное</a>
+						<a href="#about">Я</a>
+						<a href="#portfolio">Портфолио</a>
+						<a class="angle-2" href="#service">Услуги</a>
+					</nav>
+					<div class="menu">
+						<a href=""><li>Связаться</li></a>
+					</div>
+					</container>
+
+					<container class="empty-head">
+
+					</container>
+			
+		</header>
+
+			<div class="hero-section">
+				<img data-speed=".6" class="hero" src="img/hero1.jpg" alt="Alt" >
+				<div class="container">
+					<div data-speed=".75" class="main-header">
+						<h4 class="main-description title-regular">#Качественные фотографии от</h4>
+						<h1 class="main-title Jost">Artem Mishin</h1>
+						<h4 class="main-quote title-regular">#Вижу уникальность<BR>с первого кадра</h4>
+					</div>
+				</div>
+			</div>
+
+				
+		
+
+			
+
+
+			<div class="portfolio">
+
+				<div class="container">
+					<div class="gallery-hero">
+						<div class="gallery-content">
+							
+							<!-- <div class="img-card"><img src="./img/gallery/1.jpg" alt=""></div>
+							<div class="img-card"><img src="./img/gallery/2.jpg" alt=""></div>
+							<div class="img-card"><img src="./img/gallery/3.jpg" alt=""></div>
+							<div class="img-card"><img src="./img/gallery/4.jpg" alt=""></div>
+							<div class="img-card"><img src="./img/gallery/5.jpg" alt=""></div>
+							<div class="img-card"><img src="./img/gallery/6.jpg" alt=""></div> -->
+						</div>
+					</div>
+				</div>
+			</div>
+				
+				<div class="container">
+					<main class="gallery">
+												<!-- Left -->
+						<div data-speed=".9" class="gallery__left">
+
+							<div class="title_gallary_card"> 
+								<h3 class="title-regular" id="about">ОБО МНЕ</h3>
+								<h1 class="title-regular">Я — АРТЕМ</h1>
+							</div>
+							
+							<img class="gallery__item" src="img/ava/photo_2024-06-02_21-50-36 (2).jpg" alt="Alt">
+							
+							<!-- <img class="gallery__item" src="img/work/2.jpg" alt="Alt"> -->
+
+							<div class="title_gallary_card "> 
+								<h3 class="title-regular">СЕРВИС</h3>
+								<h1 class="title-regular">МОИ ФОТОСЬЕМКИ</h1>
+							</div>
+
+							<div class="text-block gallery__item contact-from-item">
+								<div class="gallery__item_desc">
+									<h2 class="text-block__h title-regular">Мероприятия</h2>
+									<p class="text-block__p">Подарите себе живые эмоции и искренние моменты вашего праздника — будь то свадьба, корпоратив или семейное торжество. Работаю незаметно, чтобы поймать самые тёплые, динамичные и настоящие кадры. Пусть волшебство вашего события останется с вами навсегда!</p>
+								</div>
+								<div class="gallery__item_contact">
+									<h6 class="text-block__h">Что вы получаете?</h6>
+									<div class="gallery_contact-form">
+										<div class="gallery_contact-text">
+											<div class="possibilities">
+
+												<div class="possibilities-items">
+													<!-- <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+														<g clip-path="url(#clip0_49_1206)">
+														<mask id="mask0_49_1206" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="40" height="40">
+														<path d="M40 0H0V40H40V0Z" fill="white"/>
+														</mask>
+														<g mask="url(#mask0_49_1206)">
+														<path fill-rule="evenodd" clip-rule="evenodd" d="M37.7882 20C38.5538 20 39.2954 19.8972 40 19.7047C39.4398 19.5865 38.859 19.5244 38.2638 19.5244H28.371C26.737 19.5244 25.2122 19.0562 23.9238 18.2467C24.2054 16.5979 24.9826 15.0173 26.2554 13.7446L32.5782 7.42188C33.1196 6.88048 33.5712 6.28338 33.9334 5.64904C33.4536 5.96158 32.999 6.32832 32.5782 6.74926L25.5828 13.7446C24.4274 14.9 23.0182 15.647 21.5348 15.9857C20.568 14.6207 20 12.9534 20 11.1535V2.21186C20 1.44621 19.8972 0.70458 19.7047 0C19.5865 0.560142 19.5244 1.14093 19.5244 1.73624V11.6291C19.5244 13.2631 19.0562 14.7878 18.2467 16.0762C16.5979 15.7945 15.0173 15.0173 13.7446 13.7446L7.42188 7.42188C6.88048 6.88048 6.28338 6.42874 5.64904 6.06668C5.96158 6.5463 6.32832 7.00094 6.74926 7.42188L13.7446 14.4172C14.9 15.5726 15.647 16.9818 15.9857 18.4653C14.6207 19.4319 12.9534 20 11.1535 20H2.21186C1.44621 20 0.704578 20.1028 0 20.2954C0.560146 20.4134 1.14094 20.4756 1.73624 20.4756H11.6291C13.2631 20.4756 14.7878 20.9438 16.0762 21.7534C15.7945 23.402 15.0173 24.9826 13.7446 26.2554L7.42188 32.5782C6.8805 33.1196 6.42876 33.7166 6.0667 34.351C6.54632 34.0384 7.00094 33.6716 7.42188 33.2508L14.4172 26.2554C15.5726 25.1 16.9818 24.353 18.4653 24.0142C19.4319 25.3794 20 27.0466 20 28.8466V37.7882C20 38.5538 20.1028 39.2954 20.2954 40C20.4134 39.4398 20.4756 38.859 20.4756 38.2638V28.3708C20.4756 26.7368 20.9438 25.2122 21.7534 23.9238C23.402 24.2054 24.9826 24.9826 26.2554 26.2554L32.5782 32.5782C33.1196 33.1196 33.7166 33.5712 34.351 33.9334C34.0384 33.4536 33.6716 32.999 33.2508 32.5782L26.2554 25.5828C25.1 24.4274 24.353 23.0182 24.0144 21.5348C25.3794 20.568 27.0466 20 28.8466 20H37.7882Z" fill="#474752"/>
+														</g>
+														</g>
+														<defs>
+														<clipPath id="clip0_49_1206">
+														<rect width="40" height="40" fill="white"/>
+														</clipPath>
+														</defs>
+													</svg> -->
+
+													<p>Освещение свадеб, вечеринок, корпоративных мероприятий</p>
+												</div>
+
+												<div class="possibilities-items">
+													<!-- <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+														<g clip-path="url(#clip0_49_1206)">
+														<mask id="mask0_49_1206" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="40" height="40">
+														<path d="M40 0H0V40H40V0Z" fill="white"/>
+														</mask>
+														<g mask="url(#mask0_49_1206)">
+														<path fill-rule="evenodd" clip-rule="evenodd" d="M37.7882 20C38.5538 20 39.2954 19.8972 40 19.7047C39.4398 19.5865 38.859 19.5244 38.2638 19.5244H28.371C26.737 19.5244 25.2122 19.0562 23.9238 18.2467C24.2054 16.5979 24.9826 15.0173 26.2554 13.7446L32.5782 7.42188C33.1196 6.88048 33.5712 6.28338 33.9334 5.64904C33.4536 5.96158 32.999 6.32832 32.5782 6.74926L25.5828 13.7446C24.4274 14.9 23.0182 15.647 21.5348 15.9857C20.568 14.6207 20 12.9534 20 11.1535V2.21186C20 1.44621 19.8972 0.70458 19.7047 0C19.5865 0.560142 19.5244 1.14093 19.5244 1.73624V11.6291C19.5244 13.2631 19.0562 14.7878 18.2467 16.0762C16.5979 15.7945 15.0173 15.0173 13.7446 13.7446L7.42188 7.42188C6.88048 6.88048 6.28338 6.42874 5.64904 6.06668C5.96158 6.5463 6.32832 7.00094 6.74926 7.42188L13.7446 14.4172C14.9 15.5726 15.647 16.9818 15.9857 18.4653C14.6207 19.4319 12.9534 20 11.1535 20H2.21186C1.44621 20 0.704578 20.1028 0 20.2954C0.560146 20.4134 1.14094 20.4756 1.73624 20.4756H11.6291C13.2631 20.4756 14.7878 20.9438 16.0762 21.7534C15.7945 23.402 15.0173 24.9826 13.7446 26.2554L7.42188 32.5782C6.8805 33.1196 6.42876 33.7166 6.0667 34.351C6.54632 34.0384 7.00094 33.6716 7.42188 33.2508L14.4172 26.2554C15.5726 25.1 16.9818 24.353 18.4653 24.0142C19.4319 25.3794 20 27.0466 20 28.8466V37.7882C20 38.5538 20.1028 39.2954 20.2954 40C20.4134 39.4398 20.4756 38.859 20.4756 38.2638V28.3708C20.4756 26.7368 20.9438 25.2122 21.7534 23.9238C23.402 24.2054 24.9826 24.9826 26.2554 26.2554L32.5782 32.5782C33.1196 33.1196 33.7166 33.5712 34.351 33.9334C34.0384 33.4536 33.6716 32.999 33.2508 32.5782L26.2554 25.5828C25.1 24.4274 24.353 23.0182 24.0144 21.5348C25.3794 20.568 27.0466 20 28.8466 20H37.7882Z" fill="#474752"/>
+														</g>
+														</g>
+														<defs>
+														<clipPath id="clip0_49_1206">
+														<rect width="40" height="40" fill="white"/>
+														</clipPath>
+														</defs>
+													</svg> -->
+
+													<p>Опытные фотографы, которые умеют ловить момент.</p>
+												</div>
+
+												<div class="possibilities-items">
+													<!-- <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+														<g clip-path="url(#clip0_49_1206)">
+														<mask id="mask0_49_1206" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="40" height="40">
+														<path d="M40 0H0V40H40V0Z" fill="white"/>
+														</mask>
+														<g mask="url(#mask0_49_1206)">
+														<path fill-rule="evenodd" clip-rule="evenodd" d="M37.7882 20C38.5538 20 39.2954 19.8972 40 19.7047C39.4398 19.5865 38.859 19.5244 38.2638 19.5244H28.371C26.737 19.5244 25.2122 19.0562 23.9238 18.2467C24.2054 16.5979 24.9826 15.0173 26.2554 13.7446L32.5782 7.42188C33.1196 6.88048 33.5712 6.28338 33.9334 5.64904C33.4536 5.96158 32.999 6.32832 32.5782 6.74926L25.5828 13.7446C24.4274 14.9 23.0182 15.647 21.5348 15.9857C20.568 14.6207 20 12.9534 20 11.1535V2.21186C20 1.44621 19.8972 0.70458 19.7047 0C19.5865 0.560142 19.5244 1.14093 19.5244 1.73624V11.6291C19.5244 13.2631 19.0562 14.7878 18.2467 16.0762C16.5979 15.7945 15.0173 15.0173 13.7446 13.7446L7.42188 7.42188C6.88048 6.88048 6.28338 6.42874 5.64904 6.06668C5.96158 6.5463 6.32832 7.00094 6.74926 7.42188L13.7446 14.4172C14.9 15.5726 15.647 16.9818 15.9857 18.4653C14.6207 19.4319 12.9534 20 11.1535 20H2.21186C1.44621 20 0.704578 20.1028 0 20.2954C0.560146 20.4134 1.14094 20.4756 1.73624 20.4756H11.6291C13.2631 20.4756 14.7878 20.9438 16.0762 21.7534C15.7945 23.402 15.0173 24.9826 13.7446 26.2554L7.42188 32.5782C6.8805 33.1196 6.42876 33.7166 6.0667 34.351C6.54632 34.0384 7.00094 33.6716 7.42188 33.2508L14.4172 26.2554C15.5726 25.1 16.9818 24.353 18.4653 24.0142C19.4319 25.3794 20 27.0466 20 28.8466V37.7882C20 38.5538 20.1028 39.2954 20.2954 40C20.4134 39.4398 20.4756 38.859 20.4756 38.2638V28.3708C20.4756 26.7368 20.9438 25.2122 21.7534 23.9238C23.402 24.2054 24.9826 24.9826 26.2554 26.2554L32.5782 32.5782C33.1196 33.1196 33.7166 33.5712 34.351 33.9334C34.0384 33.4536 33.6716 32.999 33.2508 32.5782L26.2554 25.5828C25.1 24.4274 24.353 23.0182 24.0144 21.5348C25.3794 20.568 27.0466 20 28.8466 20H37.7882Z" fill="#474752"/>
+														</g>
+														</g>
+														<defs>
+														<clipPath id="clip0_49_1206">
+														<rect width="40" height="40" fill="white"/>
+														</clipPath>
+														</defs>
+													</svg> -->
+
+													<p>Сочетание постановочных и реальных снимков для создания целостной истории.</p>
+												</div>
+
+												<div class="possibilities-items">
+													<!-- <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+														<g clip-path="url(#clip0_49_1206)">
+														<mask id="mask0_49_1206" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="40" height="40">
+														<path d="M40 0H0V40H40V0Z" fill="white"/>
+														</mask>
+														<g mask="url(#mask0_49_1206)">
+														<path fill-rule="evenodd" clip-rule="evenodd" d="M37.7882 20C38.5538 20 39.2954 19.8972 40 19.7047C39.4398 19.5865 38.859 19.5244 38.2638 19.5244H28.371C26.737 19.5244 25.2122 19.0562 23.9238 18.2467C24.2054 16.5979 24.9826 15.0173 26.2554 13.7446L32.5782 7.42188C33.1196 6.88048 33.5712 6.28338 33.9334 5.64904C33.4536 5.96158 32.999 6.32832 32.5782 6.74926L25.5828 13.7446C24.4274 14.9 23.0182 15.647 21.5348 15.9857C20.568 14.6207 20 12.9534 20 11.1535V2.21186C20 1.44621 19.8972 0.70458 19.7047 0C19.5865 0.560142 19.5244 1.14093 19.5244 1.73624V11.6291C19.5244 13.2631 19.0562 14.7878 18.2467 16.0762C16.5979 15.7945 15.0173 15.0173 13.7446 13.7446L7.42188 7.42188C6.88048 6.88048 6.28338 6.42874 5.64904 6.06668C5.96158 6.5463 6.32832 7.00094 6.74926 7.42188L13.7446 14.4172C14.9 15.5726 15.647 16.9818 15.9857 18.4653C14.6207 19.4319 12.9534 20 11.1535 20H2.21186C1.44621 20 0.704578 20.1028 0 20.2954C0.560146 20.4134 1.14094 20.4756 1.73624 20.4756H11.6291C13.2631 20.4756 14.7878 20.9438 16.0762 21.7534C15.7945 23.402 15.0173 24.9826 13.7446 26.2554L7.42188 32.5782C6.8805 33.1196 6.42876 33.7166 6.0667 34.351C6.54632 34.0384 7.00094 33.6716 7.42188 33.2508L14.4172 26.2554C15.5726 25.1 16.9818 24.353 18.4653 24.0142C19.4319 25.3794 20 27.0466 20 28.8466V37.7882C20 38.5538 20.1028 39.2954 20.2954 40C20.4134 39.4398 20.4756 38.859 20.4756 38.2638V28.3708C20.4756 26.7368 20.9438 25.2122 21.7534 23.9238C23.402 24.2054 24.9826 24.9826 26.2554 26.2554L32.5782 32.5782C33.1196 33.1196 33.7166 33.5712 34.351 33.9334C34.0384 33.4536 33.6716 32.999 33.2508 32.5782L26.2554 25.5828C25.1 24.4274 24.353 23.0182 24.0144 21.5348C25.3794 20.568 27.0466 20 28.8466 20H37.7882Z" fill="#474752"/>
+														</g>
+														</g>
+														<defs>
+														<clipPath id="clip0_49_1206">
+														<rect width="40" height="40" fill="white"/>
+														</clipPath>
+														</defs>
+													</svg> -->
+
+													<p>Быстрый поворот событий, позволяющий вам вновь пережить самые яркие моменты дня.</p>
+												</div>
+
+											</div>
+										</div>
+										<!-- <div class="gallery_contact-buttons">
+											<div class="contact-media">
+												
+											</div>
+											
+										</div> -->
+									</div>
+								</div>
+							</div>
+
+							
+							<!-- <img class="gallery__item" src="img/work/6.jpg" alt="Alt"> -->
+		
+						</div>
+												<!-- Right -->
+						<div data-speed="1.1" class="gallery__right">
+							
+							<div class="text-block gallery__item contact-from-item">
+								<div class="gallery__item_desc">
+									<h2 class="text-block__h">Введение</h2>
+									<p class="text-block__p">Мой путь в фотографии — это поиск. Я ловлю мгновения, превращаю обыденность в волшебство и показываю мир через свой взгляд. Россия с её бескрайними просторами и яркими красками — мой главный источник вдохновения. Присоединяйтесь к моему путешествию: здесь каждый кадр — история, а каждая фотография — частица души.</p>
+								</div>
+								<div class="gallery__item_contact">
+									<h3 class="text-block__h">Контактная информация</h3>
+									<div class="gallery_contact-form">
+										<div class="gallery_contact-text">
+											<div class="contact-mail">
+												<h4>Email</h4>
+												<p>hfhdvdffvv@gmail.com</p>
+											</div>
+											<div class="contact-number">
+												<h4>Номер телефона</h4>
+												<p>+7 904-049-0663</p>
+											</div>
+										</div>
+										<div class="gallery_contact-buttons">
+											<div class="contact-media">
+												<a class="icon" href="#">
+													<svg width="20" height="20" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+														<g clip-path="url(#clip0_910_44)">
+														<path fill-rule="evenodd" clip-rule="evenodd" d="M24.0199 0C10.7375 0 0 10.8167 0 24.1983C0 34.895 6.87988 43.9495 16.4241 47.1542C17.6174 47.3951 18.0545 46.6335 18.0545 45.9929C18.0545 45.4319 18.0151 43.509 18.0151 41.5055C11.3334 42.948 9.94198 38.6209 9.94198 38.6209C8.86818 35.8164 7.27715 35.0956 7.27715 35.0956C5.09022 33.6132 7.43645 33.6132 7.43645 33.6132C9.86233 33.7735 11.1353 36.0971 11.1353 36.0971C13.2824 39.7827 16.7422 38.7413 18.1341 38.1002C18.3328 36.5377 18.9695 35.456 19.6455 34.8552C14.3163 34.2942 8.70937 32.211 8.70937 22.9161C8.70937 20.2719 9.66321 18.1086 11.1746 16.4261C10.9361 15.8253 10.1008 13.3409 11.4135 10.0157C11.4135 10.0157 13.4417 9.3746 18.0146 12.4996C19.9725 11.9699 21.9916 11.7005 24.0199 11.6982C26.048 11.6982 28.1154 11.979 30.0246 12.4996C34.5981 9.3746 36.6262 10.0157 36.6262 10.0157C37.9389 13.3409 37.1031 15.8253 36.8646 16.4261C38.4158 18.1086 39.3303 20.2719 39.3303 22.9161C39.3303 32.211 33.7234 34.2539 28.3544 34.8552C29.2296 35.6163 29.9848 37.0583 29.9848 39.3421C29.9848 42.5871 29.9454 45.1915 29.9454 45.9924C29.9454 46.6335 30.383 47.3951 31.5758 47.1547C41.12 43.9491 47.9999 34.895 47.9999 24.1983C48.0392 10.8167 37.2624 0 24.0199 0Z" fill="white"/>
+														</g>
+														<defs>
+														<clipPath id="clip0_910_44">
+														<rect width="48" height="48" fill="white"/>
+														</clipPath>
+														</defs>
+													</svg>
+
+												</a>
+												<a class="icon" href="#">
+													<svg width="20" height="20" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+														<g clip-path="url(#clip0_318_75)">
+														<path fill-rule="evenodd" clip-rule="evenodd" d="M48 24C48 37.2548 37.2548 48 24 48C10.7452 48 0 37.2548 0 24C0 10.7452 10.7452 0 24 0C37.2548 0 48 10.7452 48 24ZM24.8601 17.7179C22.5257 18.6888 17.8603 20.6984 10.8638 23.7466C9.72766 24.1984 9.13251 24.6404 9.07834 25.0726C8.98677 25.803 9.90142 26.0906 11.1469 26.4822C11.3164 26.5355 11.4919 26.5907 11.6719 26.6492C12.8973 27.0475 14.5457 27.5135 15.4026 27.5321C16.1799 27.5489 17.0475 27.2284 18.0053 26.5707C24.5423 22.158 27.9168 19.9276 28.1286 19.8795C28.2781 19.8456 28.4852 19.803 28.6255 19.9277C28.7659 20.0524 28.7521 20.2886 28.7372 20.352C28.6466 20.7383 25.0562 24.0762 23.1982 25.8036C22.619 26.3421 22.2081 26.724 22.1242 26.8113C21.936 27.0067 21.7443 27.1915 21.56 27.3692C20.4215 28.4667 19.5678 29.2896 21.6072 30.6336C22.5873 31.2794 23.3715 31.8135 24.1539 32.3463C25.0084 32.9282 25.8606 33.5085 26.9632 34.2313C27.2442 34.4155 27.5125 34.6068 27.7738 34.7931C28.7681 35.5019 29.6615 36.1388 30.7652 36.0373C31.4065 35.9782 32.0689 35.3752 32.4053 33.5767C33.2004 29.3263 34.7633 20.1169 35.1244 16.3219C35.1561 15.9895 35.1163 15.5639 35.0843 15.3771C35.0523 15.1904 34.9855 14.9242 34.7427 14.7272C34.4552 14.4939 34.0113 14.4447 33.8127 14.4482C32.91 14.4641 31.5251 14.9456 24.8601 17.7179Z" fill="white"/>
+														</g>
+														<defs>
+														<clipPath id="clip0_318_75">
+														<rect width="48" height="48" fill="white"/>
+														</clipPath>
+														</defs>
+													</svg>
+
+												</a>
+												<a class="icon" href="#">
+													<svg width="20" height="20" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+														<g clip-path="url(#clip0_1106_8)">
+														<path fill-rule="evenodd" clip-rule="evenodd" d="M3.37413 3.37413C0 6.74826 0 12.1788 0 23.04V24.96C0 35.8212 0 41.2517 3.37413 44.6259C6.74826 48 12.1788 48 23.04 48H24.96C35.8212 48 41.2517 48 44.6259 44.6259C48 41.2517 48 35.8212 48 24.96V23.04C48 12.1788 48 6.74826 44.6259 3.37413C41.2517 0 35.8212 0 24.96 0H23.04C12.1788 0 6.74826 0 3.37413 3.37413ZM8.10012 14.6001C8.36012 27.0801 14.6001 34.5801 25.5401 34.5801H26.1602V27.4401C30.1802 27.8401 33.22 30.7801 34.44 34.5801H40.1201C38.5601 28.9001 34.4599 25.7601 31.8999 24.5601C34.4599 23.0801 38.0599 19.4801 38.9199 14.6001H33.7598C32.6398 18.5601 29.3202 22.1601 26.1602 22.5001V14.6001H21V28.4401C17.8 27.6401 13.7601 23.7601 13.5801 14.6001H8.10012Z" fill="white"/>
+														</g>
+														<defs>
+														<clipPath id="clip0_1106_8">
+														<rect width="48" height="48" fill="white"/>
+														</clipPath>
+														</defs>
+													</svg>
+
+												</a>
+											</div>
+											<div class="contact-button">
+												<a class="button" href="#">Связаться</a>
+												<a class="button" href="#">Скачать CV</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+		
+							<!-- <img class="gallery__item" src="img/work/4.jpg" alt="Alt"> -->
+							 <div class="gallery__item"><img class="gallery-img" src="./img/portfolio/2.jpg" alt="Alt"></div>
+							
+							<!-- <img class="gallery__item" src="img/work/3.jpg" alt="Alt"> -->
+							
+						</div>
+						
+						
+					</main>
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+					<div class="rogat-slider">
+						
+
+						<div class="title_gallary_place">
+								<!-- <div class="title_gallary_card "> 
+									<h3 class="title-regular">PORTFOLIO</h3>
+									<h1 class="title-regular">EXPLORE MY PHOTOGRAPHY WORK.</h1>
+								</div> -->
+
+								<div class="title_gallary_place">
+								<div class="title_gallary_card" id="portfolio" style="width: 150%;"> 
+									<h3 class="title-regular">Портфолио</h3>
+									<h1 class="title-regular" >Исследуй мои<br> эксперементы и работы.</h1>
+								</div>
+								<!-- <div class="title_gallary_place_buttons">
+									<div class="rogat-slider__nav">
+										<button class="rogat-slider__nav-button rogat-slider__nav-button--prev">←</button>
+										<button class="rogat-slider__nav-button rogat-slider__nav-button--next">→</button>
+									</div>
+									<div class="rogat-slider__header">
+										<a href="#" class="rogat-slider__link">Смотреть еще работы</a>
+									</div>
+								</div> -->
+								
+						
+							</div>
+								<div class="title_gallary_place_buttons">
+									<div class="rogat-slider__nav">
+										<button class="rogat-slider__nav-button rogat-slider__nav-button--prev"></button>
+										<button class="rogat-slider__nav-button rogat-slider__nav-button--next"></button>
+									</div>
+									<div class="rogat-slider__header">
+										<a class="rogat-slider__button__link"><p href="#" class="rogat-slider__link">Смотреть еще работы</p></a>
+									</div>
+								</div>
+								
+						
+							</div>
+
+
+						<div class="rogat-slider__container">
+							<div class="rogat-slider__track">
+								<!-- Слайд 1 -->
+								<div class="rogat-slider__slide">
+									<div class="rogat-slider__image-container">
+										<img src="./img/portfolio/5.JPG" alt="Пара из сквера" class="rogat-slider__image">
+									</div>
+									<div class="rogat-slider__info">
+										<div class="">
+											<h3 class="rogat-slider__project-title">Пара из сквера</h3>
+											<p class="rogat-slider__project-date">Мюль 2023</p>
+										</div>
+										
+										<a href="#" class="rogat-slider__project-link">СМОТРЕТЬ ПРОЕКТ
+											<svg class="arrow" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+												<path fill-rule="evenodd" clip-rule="evenodd" d="M4.5 4.91738e-07L15.75 0C15.9489 0 16.1397 0.0790176 16.2803 0.21967C16.421 0.360322 16.5 0.551088 16.5 0.75V12C16.5 12.4142 16.1642 12.75 15.75 12.75C15.3358 12.75 15 12.4142 15 12V2.56066L1.28033 16.2803C0.987437 16.5732 0.512563 16.5732 0.21967 16.2803C-0.0732233 15.9874 -0.0732233 15.5126 0.21967 15.2197L13.9393 1.5L4.5 1.5C4.08579 1.5 3.75 1.16421 3.75 0.75C3.75 0.335787 4.08579 4.91738e-07 4.5 4.91738e-07Z" fill="white"/>
+											</svg>
+										</a>
+									</div>
+								</div>
+								
+								<!-- Слайд 2 -->
+								<div class="rogat-slider__slide">
+									<div class="rogat-slider__image-container">
+										<img src="./img/portfolio/3.jpg" alt="Счастье спорта" class="rogat-slider__image">
+									</div>
+									<div class="rogat-slider__info">
+										<div class="">
+											<h3 class="rogat-slider__project-title">Счастье спорта</h3>
+											<p class="rogat-slider__project-date">Мюнь 2024</p>
+										</div>
+										
+										<a href="#" class="rogat-slider__project-link">СМОТРЕТЬ ПРОЕКТ
+											<svg class="arrow" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+												<path fill-rule="evenodd" clip-rule="evenodd" d="M4.5 4.91738e-07L15.75 0C15.9489 0 16.1397 0.0790176 16.2803 0.21967C16.421 0.360322 16.5 0.551088 16.5 0.75V12C16.5 12.4142 16.1642 12.75 15.75 12.75C15.3358 12.75 15 12.4142 15 12V2.56066L1.28033 16.2803C0.987437 16.5732 0.512563 16.5732 0.21967 16.2803C-0.0732233 15.9874 -0.0732233 15.5126 0.21967 15.2197L13.9393 1.5L4.5 1.5C4.08579 1.5 3.75 1.16421 3.75 0.75C3.75 0.335787 4.08579 4.91738e-07 4.5 4.91738e-07Z" fill="white"/>
+											</svg>
+										</a>
+									</div>
+								</div>
+								
+								<!-- Слайд 3 -->
+								<div class="rogat-slider__slide">
+									<div class="rogat-slider__image-container">
+										<img src="/img/portfolio/4.jpg" alt="с. Дивeевo" class="rogat-slider__image">
+									</div>
+									<div class="rogat-slider__info">
+										<div>
+											<h3 class="rogat-slider__project-title">с. Дивeевo</h3>
+											<p class="rogat-slider__project-date">Мюль 2025</p>
+										</div>
+										
+										<a href="#" class="rogat-slider__project-link">СМОТРЕТЬ ПРОЕКТ
+											<svg class="arrow" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+												<path fill-rule="evenodd" clip-rule="evenodd" d="M4.5 4.91738e-07L15.75 0C15.9489 0 16.1397 0.0790176 16.2803 0.21967C16.421 0.360322 16.5 0.551088 16.5 0.75V12C16.5 12.4142 16.1642 12.75 15.75 12.75C15.3358 12.75 15 12.4142 15 12V2.56066L1.28033 16.2803C0.987437 16.5732 0.512563 16.5732 0.21967 16.2803C-0.0732233 15.9874 -0.0732233 15.5126 0.21967 15.2197L13.9393 1.5L4.5 1.5C4.08579 1.5 3.75 1.16421 3.75 0.75C3.75 0.335787 4.08579 4.91738e-07 4.5 4.91738e-07Z" fill="white"/>
+											</svg>
+										</a>
+									</div>
+								</div>
+								
+								<!-- Дополнительные слайды для демонстрации работы слайдера -->
+								<div class="rogat-slider__slide">
+									<div class="rogat-slider__image-container">
+										<img src="https://via.placeholder.com/400x400/cccccc/666666?text=Проект+4" alt="Проект 4" class="rogat-slider__image">
+									</div>
+									<div class="rogat-slider__info">
+										<div>
+											<h3 class="rogat-slider__project-title">с. Дивeевo</h3>
+											<p class="rogat-slider__project-date">Мюль 2025</p>
+										</div>
+										<a href="#" class="rogat-slider__project-link">СМОТРЕТЬ ПРОЕКТ
+											<svg class="arrow" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+												<path fill-rule="evenodd" clip-rule="evenodd" d="M4.5 4.91738e-07L15.75 0C15.9489 0 16.1397 0.0790176 16.2803 0.21967C16.421 0.360322 16.5 0.551088 16.5 0.75V12C16.5 12.4142 16.1642 12.75 15.75 12.75C15.3358 12.75 15 12.4142 15 12V2.56066L1.28033 16.2803C0.987437 16.5732 0.512563 16.5732 0.21967 16.2803C-0.0732233 15.9874 -0.0732233 15.5126 0.21967 15.2197L13.9393 1.5L4.5 1.5C4.08579 1.5 3.75 1.16421 3.75 0.75C3.75 0.335787 4.08579 4.91738e-07 4.5 4.91738e-07Z" fill="white"/>
+											</svg>
+										</a>
+									</div>
+								</div>
+								
+								<div class="rogat-slider__slide">
+									<div class="rogat-slider__image-container">
+										<img src="https://via.placeholder.com/400x400/cccccc/666666?text=Проект+5" alt="Проект 5" class="rogat-slider__image">
+									</div>
+									<div class="rogat-slider__info">
+										<div>
+											<h3 class="rogat-slider__project-title">с. Дивeевo</h3>
+											<p class="rogat-slider__project-date">Июль 2025</p>
+										</div>
+										<a href="#" class="rogat-slider__project-link">СМОТРЕТЬ ПРОЕКТ
+											<svg class="arrow" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+												<path fill-rule="evenodd" clip-rule="evenodd" d="M4.5 4.91738e-07L15.75 0C15.9489 0 16.1397 0.0790176 16.2803 0.21967C16.421 0.360322 16.5 0.551088 16.5 0.75V12C16.5 12.4142 16.1642 12.75 15.75 12.75C15.3358 12.75 15 12.4142 15 12V2.56066L1.28033 16.2803C0.987437 16.5732 0.512563 16.5732 0.21967 16.2803C-0.0732233 15.9874 -0.0732233 15.5126 0.21967 15.2197L13.9393 1.5L4.5 1.5C4.08579 1.5 3.75 1.16421 3.75 0.75C3.75 0.335787 4.08579 4.91738e-07 4.5 4.91738e-07Z" fill="white"/>
+											</svg>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						
+					</div>
+				</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+				<div class="container">
+					
+					<main class="gallery">
+												<!-- Left -->
+						<div data-speed=".9" class="gallery__left">
+
+							<div class="title_gallary_card "> 
+								<h3 class="title-regular" id="service">Услуги</h3>
+								<h1 class="title-regular">Мои предложения</h1>
+							</div>
+							
+							
+							<div class="text-block gallery__item contact-from-item">
+								<div class="gallery__item_desc">
+									<h2 class="text-block__h title-regular">Портретная Фотография</h2>
+									<p class="text-block__p">Портретная фотосъёмка: раскройте свою индивидуальность. Ваша уникальность — наш главный объектив. Профессиональные портреты, тёплые семейные кадры или смелые персональные фотосессии — мы поможем вам выглядеть естественно и выразительно. Работаем с светом, эмоциями и вашим комфортом, чтобы создать не просто фото, а историю в одном кадре.</p>
+								</div>
+								<div class="gallery__item_contact">
+									<a class="rogat-slider__project-link">Смотреть проекты
+										<svg class="arrow" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path fill-rule="evenodd" clip-rule="evenodd" d="M4.5 4.91738e-07L15.75 0C15.9489 0 16.1397 0.0790176 16.2803 0.21967C16.421 0.360322 16.5 0.551088 16.5 0.75V12C16.5 12.4142 16.1642 12.75 15.75 12.75C15.3358 12.75 15 12.4142 15 12V2.56066L1.28033 16.2803C0.987437 16.5732 0.512563 16.5732 0.21967 16.2803C-0.0732233 15.9874 -0.0732233 15.5126 0.21967 15.2197L13.9393 1.5L4.5 1.5C4.08579 1.5 3.75 1.16421 3.75 0.75C3.75 0.335787 4.08579 4.91738e-07 4.5 4.91738e-07Z" fill="white"/>
+										</svg>
+									</a>
+								</div>
+							</div>
+							<!-- <img class="gallery__item" src="img/work/2.jpg" alt="Alt"> -->
+
+							
+							
+
+
+
+
+
+
+
+
+<!-- 
+							<div class="title_gallary_card "> 
+								<h3 class="title-regular">PORTFOLIO</h3>
+								<h1 class="title-regular">EXPLORE MY PHOTOGRAPHY WORK.</h1>
+							</div> -->
+							<!-- <img class="gallery__item" src="img/work/6.jpg" alt="Alt"> -->
+		
+						</div>
+												<!-- Right -->
+						<div data-speed="1.1" class="gallery__right">
+							
+							<!-- <img class="gallery__item item_offering_img" src="/img/portfolio/6.JPG" alt="Alt"> -->
+		
+							<!-- <img class="gallery__item" src="img/work/4.jpg" alt="Alt"> -->
+							    <div class="ps-slider-container gallery__item item_offering_img" id="psSlider">
+									<div class="ps-slider-wrapper">
+										<!-- Слайд 1 -->
+										<div class="ps-slide ps-active">
+											<div class="ps-slide-content">
+
+												<img class="item_offering_img" src="/img/portfolio/6.JPG" alt="Alt">
+
+											</div>
+										</div>
+										
+										<!-- Слайд 2 -->
+										<div class="ps-slide">
+											<div class="ps-slide-content">
+												<img class="item_offering_img" src="/img/portfolio/7.JPG" alt="Alt">
+											</div>
+										</div>
+										
+										<!-- Слайд 3 -->
+										<div class="ps-slide">
+											<div class="ps-slide-content">
+												<img class="item_offering_img" src="/img/portfolio/7.JPG" alt="Alt">
+											</div>
+										</div>
+									</div>
+									
+									<!-- Навигационные точки -->
+									<div class="ps-slider-nav" style="display: none;">
+										<span class="ps-nav-dot ps-active" data-slide="0"></span>
+										<span class="ps-nav-dot" data-slide="1"></span>
+										<span class="ps-nav-dot" data-slide="2"></span>
+									</div>
+									
+									<!-- Кнопки навигации -->
+									 <div class="nav_ps_slider">
+										<button id="Left-ps" class="ps-slider-arrow ps-prev">‹</button>
+										<button id="Right-ps" class="ps-slider-arrow ps-next">›</button>
+									 </div>
+									
+								</div>
+							<!-- <img class="gallery__item" src="img/work/3.jpg" alt="Alt"> -->
+		
+						</div>
+						
+						
+					</main>
+
+				</div>
+
+
+
+
+
+
+
+				
+				<div class="container price-container">
+					
+					<main class="gallery  price-container" style="padding: 0px;">
+												<!-- Left -->
+						<div data-speed=".9" class="gallery__left price-container-gallery">
+<!-- 
+							<div class="title_gallary_card "> 
+								<h3 class="title-regular">SERVICES</h3>
+								<h1 class="title-regular">DIVERSE PHOTOGRAPHY OFFERINGS</h1>
+							</div> -->
+							
+							
+							<div class="text-block gallery__item price-container-gallery contact-from-item">
+
+								<div class="price">
+									<div class="gallery__item_desc">
+										<h2 class="text-block__h">Личная съемка</h2>
+									</div>
+									<div class="gallery__item_desc">
+										<div class="price_button">
+											<div><h1 class="text-block__h price_num manrope">600₽</h1></div>
+											<a href="#" class="button">
+												Написать
+												<svg  viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+													<path fill-rule="evenodd" clip-rule="evenodd" d="M4.5 4.91738e-07L15.75 0C15.9489 0 16.1397 0.0790176 16.2803 0.21967C16.421 0.360322 16.5 0.551088 16.5 0.75V12C16.5 12.4142 16.1642 12.75 15.75 12.75C15.3358 12.75 15 12.4142 15 12V2.56066L1.28033 16.2803C0.987437 16.5732 0.512563 16.5732 0.21967 16.2803C-0.0732233 15.9874 -0.0732233 15.5126 0.21967 15.2197L13.9393 1.5L4.5 1.5C4.08579 1.5 3.75 1.16421 3.75 0.75C3.75 0.335787 4.08579 4.91738e-07 4.5 4.91738e-07Z" fill="white"/>
+												</svg>
+											</a>
+										</div>
+									</div>
+									<!-- <div class="gallery__item_contact">
+										<h3 class="rogat-slider__project-link">Смотреть проекты</h3>
+									</div> -->
+								</div>
+
+								<div class="price-desc">
+									<div class="gallery__item_desc price_blocks">
+										<p class="text-block__p">Идеально подходит для отражения вашей уникальной индивидуальности и стиля.</p>
+									</div>
+									<div class="gallery__item_desc price_blocks">
+										<p class="text-block__p">Включает 2-часовую фотосессию и 10 профессионально отредактированных фотографий.</p>
+									</div>
+									<div class="gallery__item_desc price_blocks">
+										<p class="text-block__p">Дополнительные изображения можно приобрести по цене 50 рублей за штуку.</p>
+									</div>
+									<!-- <div class="gallery__item_contact">
+										<h3 class="rogat-slider__project-link">Смотреть проекты</h3>
+									</div> -->
+								</div>
+							</div>
+
+
+							<div class="text-block gallery__item price-container-gallery contact-from-item">
+
+								<div class="price">
+									<div class="gallery__item_desc">
+										<h2 class="text-block__h">Семейная съемка</h2>
+									</div>
+									<div class="gallery__item_desc">
+										<div class="price_button">
+											<div><h1 class="text-block__h price_num manrope">1500₽</h1></div>
+											<a href="#" class="button">
+												Написать
+												<svg  viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+													<path fill-rule="evenodd" clip-rule="evenodd" d="M4.5 4.91738e-07L15.75 0C15.9489 0 16.1397 0.0790176 16.2803 0.21967C16.421 0.360322 16.5 0.551088 16.5 0.75V12C16.5 12.4142 16.1642 12.75 15.75 12.75C15.3358 12.75 15 12.4142 15 12V2.56066L1.28033 16.2803C0.987437 16.5732 0.512563 16.5732 0.21967 16.2803C-0.0732233 15.9874 -0.0732233 15.5126 0.21967 15.2197L13.9393 1.5L4.5 1.5C4.08579 1.5 3.75 1.16421 3.75 0.75C3.75 0.335787 4.08579 4.91738e-07 4.5 4.91738e-07Z" fill="white"/>
+												</svg>
+											</a>
+										</div>
+									</div>
+									<!-- <div class="gallery__item_contact">
+										<h3 class="rogat-slider__project-link">Смотреть проекты</h3>
+									</div> -->
+								</div>
+
+								<div class="price-desc">
+									<div class="gallery__item_desc price_blocks">
+										<p class="text-block__p">Идеально подходит для создания незабываемых воспоминаний с любимыми людьми.</p>
+									</div>
+									<div class="gallery__item_desc price_blocks">
+										<p class="text-block__p">Включает 3-часовую фотосессию и 30 профессионально отредактированных фотографий.</p>
+									</div>
+									<div class="gallery__item_desc price_blocks">
+										<p class="text-block__p">Дополнительные изображения можно приобрести по  цене 50 рублей за штуку.</p>
+									</div>
+									<!-- <div class="gallery__item_contact">
+										<h3 class="rogat-slider__project-link">Смотреть проекты</h3>
+									</div> -->
+								</div>
+							</div>
+
+
+
+							<div class="text-block gallery__item price-container-gallery contact-from-item">
+
+								<div class="price">
+									<div class="gallery__item_desc">
+										<h2 class="text-block__h">Парная съемка</h2>
+									</div>
+									<div class="gallery__item_desc">
+										<div class="price_button">
+											<div><h1 class="text-block__h price_num manrope">1200₽</h1></div>
+											<a href="#" class="button">
+												Написать
+												<svg  viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+													<path fill-rule="evenodd" clip-rule="evenodd" d="M4.5 4.91738e-07L15.75 0C15.9489 0 16.1397 0.0790176 16.2803 0.21967C16.421 0.360322 16.5 0.551088 16.5 0.75V12C16.5 12.4142 16.1642 12.75 15.75 12.75C15.3358 12.75 15 12.4142 15 12V2.56066L1.28033 16.2803C0.987437 16.5732 0.512563 16.5732 0.21967 16.2803C-0.0732233 15.9874 -0.0732233 15.5126 0.21967 15.2197L13.9393 1.5L4.5 1.5C4.08579 1.5 3.75 1.16421 3.75 0.75C3.75 0.335787 4.08579 4.91738e-07 4.5 4.91738e-07Z" fill="white"/>
+												</svg>
+											</a>
+										</div>
+									</div>
+									<!-- <div class="gallery__item_contact">
+										<h3 class="rogat-slider__project-link">Смотреть проекты</h3>
+									</div> -->
+								</div>
+
+								<div class="price-desc">
+									<div class="gallery__item_desc price_blocks">
+										<p class="text-block__p">Отпразднуйте свою историю любви с помощью парной фотосессии.</p>
+									</div>
+									<div class="gallery__item_desc price_blocks">
+										<p class="text-block__p">Включает 2,5-часовую фотосессию и 25 профессионально отредактированных фотографий.</p>
+									</div>
+									<div class="gallery__item_desc price_blocks">
+										<p class="text-block__p">Дополнительные изображения можно приобрести по цене 50 рублей за штуку.</p>
+									</div>
+									<!-- <div class="gallery__item_contact">
+										<h3 class="rogat-slider__project-link">Смотреть проекты</h3>
+									</div> -->
+								</div>
+							</div>
+
+							
+							<!-- <img class="gallery__item" src="img/work/2.jpg" alt="Alt"> -->
+
+							
+							
+
+
+
+
+
+
+
+
+<!-- 
+							<div class="title_gallary_card "> 
+								<h3 class="title-regular">PORTFOLIO</h3>
+								<h1 class="title-regular">EXPLORE MY PHOTOGRAPHY WORK.</h1>
+							</div> -->
+							<!-- <img class="gallery__item" src="img/work/6.jpg" alt="Alt"> -->
+		
+						</div>
+												<!-- Right -->
+						<div data-speed="1.1" class="gallery__right">
+							
+							<!-- <img class="gallery__item item_offering_img" src="/img/portfolio/6.JPG" alt="Alt"> -->
+		
+							<!-- <img class="gallery__item" src="img/work/4.jpg" alt="Alt"> -->
+						
+							<!-- <img class="gallery__item" src="img/work/3.jpg" alt="Alt"> -->
+		
+						</div>
+						
+						
+					</main>
+
+				</div>
+
+				
+
+
+
+
+
+
+
+
+
+
+
+
+				<div class="container">
+					
+					<main class="gallery">
+												<!-- Left -->
+						<div data-speed=".9" class="gallery__left">
+
+							
+							
+							<div class="text-block gallery__item contact-from-item">
+								<div class="gallery__item_desc">
+									<h2 class="text-block__h title-regular">Фотосессии Событий</h2>
+									<p class="text-block__p">Наши услуги по фотосъемке мероприятий помогут вам запечатлеть волшебство ваших особых событий. Будь то свадьба, корпоративное мероприятие или празднование знаменательной даты, мы готовы запечатлеть каждый трогательный момент. Мы растворимся в фоне, обеспечивая естественные и искренние снимки, передающие эмоции этого дня.</p>
+								</div>
+								<div class="gallery__item_contact">
+									<a class="rogat-slider__project-link">Смотреть проекты
+										<svg class="arrow" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path fill-rule="evenodd" clip-rule="evenodd" d="M4.5 4.91738e-07L15.75 0C15.9489 0 16.1397 0.0790176 16.2803 0.21967C16.421 0.360322 16.5 0.551088 16.5 0.75V12C16.5 12.4142 16.1642 12.75 15.75 12.75C15.3358 12.75 15 12.4142 15 12V2.56066L1.28033 16.2803C0.987437 16.5732 0.512563 16.5732 0.21967 16.2803C-0.0732233 15.9874 -0.0732233 15.5126 0.21967 15.2197L13.9393 1.5L4.5 1.5C4.08579 1.5 3.75 1.16421 3.75 0.75C3.75 0.335787 4.08579 4.91738e-07 4.5 4.91738e-07Z" fill="white"/>
+										</svg>
+									</a>
+								</div>
+							</div>
+							<!-- <img class="gallery__item" src="img/work/2.jpg" alt="Alt"> -->
+
+							
+							
+
+
+
+
+
+
+
+
+<!-- 
+							<div class="title_gallary_card "> 
+								<h3 class="title-regular">PORTFOLIO</h3>
+								<h1 class="title-regular">EXPLORE MY PHOTOGRAPHY WORK.</h1>
+							</div> -->
+							<!-- <img class="gallery__item" src="img/work/6.jpg" alt="Alt"> -->
+		
+						</div>
+												<!-- Right -->
+						<div data-speed="1.1" class="gallery__right">
+							
+							<!-- <img class="gallery__item item_offering_img" src="/img/portfolio/6.JPG" alt="Alt"> -->
+		
+							<!-- <img class="gallery__item" src="img/work/4.jpg" alt="Alt"> -->
+							    <div class="ps-slider-container  ps-slider-container_after gallery__item item_offering_img" id="psSlider">
+									<div class="ps-slider-wrapper">
+										<!-- Слайд 1 -->
+										<div class="ps-slide ps-active">
+											<div class="ps-slide-content">
+
+												<img class="item_offering_img" src="/img/portfolio/6.JPG" alt="Alt">
+
+											</div>
+										</div>
+										
+										<!-- Слайд 2 -->
+										<div class="ps-slide">
+											<div class="ps-slide-content">
+												<img class="item_offering_img" src="/img/portfolio/7.JPG" alt="Alt">
+											</div>
+										</div>
+										
+										<!-- Слайд 3 -->
+										<div class="ps-slide">
+											<div class="ps-slide-content">
+												<img class="item_offering_img" src="/img/portfolio/7.JPG" alt="Alt">
+											</div>
+										</div>
+									</div>
+									
+									<!-- Навигационные точки -->
+									<div class="ps-slider-nav" style="display: none;">
+										<span class="ps-nav-dot ps-active" data-slide="0"></span>
+										<span class="ps-nav-dot" data-slide="1"></span>
+										<span class="ps-nav-dot" data-slide="2"></span>
+									</div>
+									
+									<!-- Кнопки навигации -->
+									 <div class="nav_ps_slider">
+										<button id="Left-ps" class="ps-slider-arrow ps-prev">‹</button>
+										<button id="Right-ps" class="ps-slider-arrow ps-next">›</button>
+									 </div>
+									
+								</div>
+							<!-- <img class="gallery__item" src="img/work/3.jpg" alt="Alt"> -->
+		
+						</div>
+						
+						
+					</main>
+
+				</div>
+
+
+
+
+
+
+
+				
+				<div class="container price-container">
+					
+					<main class="gallery  price-container" style="padding: 0px;">
+												<!-- Left -->
+						<div data-speed=".9" class="gallery__left price-container-gallery">
+<!-- 
+							<div class="title_gallary_card "> 
+								<h3 class="title-regular">SERVICES</h3>
+								<h1 class="title-regular">DIVERSE PHOTOGRAPHY OFFERINGS</h1>
+							</div> -->
+							
+							
+							<div class="text-block gallery__item price-container-gallery contact-from-item">
+
+								<div class="price">
+									<div class="gallery__item_desc">
+										<h2 class="text-block__h">Свадебная Фотография</h2>
+									</div>
+									<div class="gallery__item_desc">
+										<div class="price_button">
+											<div><h1 class="text-block__h price_num manrope">4500₽</h1></div>
+											<a href="#" class="button">
+												Написать
+												<svg  viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+													<path fill-rule="evenodd" clip-rule="evenodd" d="M4.5 4.91738e-07L15.75 0C15.9489 0 16.1397 0.0790176 16.2803 0.21967C16.421 0.360322 16.5 0.551088 16.5 0.75V12C16.5 12.4142 16.1642 12.75 15.75 12.75C15.3358 12.75 15 12.4142 15 12V2.56066L1.28033 16.2803C0.987437 16.5732 0.512563 16.5732 0.21967 16.2803C-0.0732233 15.9874 -0.0732233 15.5126 0.21967 15.2197L13.9393 1.5L4.5 1.5C4.08579 1.5 3.75 1.16421 3.75 0.75C3.75 0.335787 4.08579 4.91738e-07 4.5 4.91738e-07Z" fill="white"/>
+												</svg>
+											</a>
+										</div>
+									</div>
+									<!-- <div class="gallery__item_contact">
+										<h3 class="rogat-slider__project-link">Смотреть проекты</h3>
+									</div> -->
+								</div>
+
+								<div class="price-desc">
+									<div class="gallery__item_desc price_blocks">
+										<p class="text-block__p">Сохраните волшебство вашего особенного дня.</p>
+									</div>
+									<div class="gallery__item_desc price_blocks">
+										<p class="text-block__p">Включает съемку в течение всего дня, второго фотографа и более 300 профессионально отредактированных изображений.</p>
+									</div>
+									<div class="gallery__item_desc price_blocks">
+										<p class="text-block__p">Доступны индивидуальные пакеты услуг, соответствующие конкретным потребностям вашей свадьбы.</p>
+									</div>
+									<!-- <div class="gallery__item_contact">
+										<h3 class="rogat-slider__project-link">Смотреть проекты</h3>
+									</div> -->
+								</div>
+								
+							</div>
+
+
+							<div class="text-block gallery__item price-container-gallery contact-from-item">
+
+								<div class="price">
+									<div class="gallery__item_desc">
+										<h2 class="text-block__h">Освещение концертов</h2>
+									</div>
+									<div class="gallery__item_desc">
+										<div class="price_button">
+											<div><h1 class="text-block__h price_num manrope">2500₽</h1></div>
+											<a href="#" class="button">
+												Написать
+												<svg  viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+													<path fill-rule="evenodd" clip-rule="evenodd" d="M4.5 4.91738e-07L15.75 0C15.9489 0 16.1397 0.0790176 16.2803 0.21967C16.421 0.360322 16.5 0.551088 16.5 0.75V12C16.5 12.4142 16.1642 12.75 15.75 12.75C15.3358 12.75 15 12.4142 15 12V2.56066L1.28033 16.2803C0.987437 16.5732 0.512563 16.5732 0.21967 16.2803C-0.0732233 15.9874 -0.0732233 15.5126 0.21967 15.2197L13.9393 1.5L4.5 1.5C4.08579 1.5 3.75 1.16421 3.75 0.75C3.75 0.335787 4.08579 4.91738e-07 4.5 4.91738e-07Z" fill="white"/>
+												</svg>
+											</a>
+										</div>
+									</div>
+									<!-- <div class="gallery__item_contact">
+										<h3 class="rogat-slider__project-link">Смотреть проекты</h3>
+									</div> -->
+								</div>
+
+								<div class="price-desc">
+									<div class="gallery__item_desc price_blocks">
+										<p class="text-block__p">Сохраните веселье и волнение вашего мероприятия.</p>
+									</div>
+									<div class="gallery__item_desc price_blocks">
+										<p class="text-block__p">Включает до 4 часов репортажа и более 150 профессионально отредактированных изображений.</p>
+									</div>
+									<div class="gallery__item_desc price_blocks">
+										<p class="text-block__p">Дополнительные часы можно добавить по цене 500 рублей в час.</p>
+									</div>
+									<!-- <div class="gallery__item_contact">
+										<h3 class="rogat-slider__project-link">Смотреть проекты</h3>
+									</div> -->
+								</div>
+							</div>
+
+
+
+							<div class="text-block gallery__item price-container-gallery contact-from-item">
+
+								<div class="price">
+									<div class="gallery__item_desc">
+										<h2 class="text-block__h">Корпоративные события</h2>
+									</div>
+									<div class="gallery__item_desc">
+										<div class="price_button">
+											<div><h1 class="text-block__h price_num price_text manrope">Цена Договорная</h1></div>
+											<a href="#" class="button">
+												Написать
+												<svg  viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+													<path fill-rule="evenodd" clip-rule="evenodd" d="M4.5 4.91738e-07L15.75 0C15.9489 0 16.1397 0.0790176 16.2803 0.21967C16.421 0.360322 16.5 0.551088 16.5 0.75V12C16.5 12.4142 16.1642 12.75 15.75 12.75C15.3358 12.75 15 12.4142 15 12V2.56066L1.28033 16.2803C0.987437 16.5732 0.512563 16.5732 0.21967 16.2803C-0.0732233 15.9874 -0.0732233 15.5126 0.21967 15.2197L13.9393 1.5L4.5 1.5C4.08579 1.5 3.75 1.16421 3.75 0.75C3.75 0.335787 4.08579 4.91738e-07 4.5 4.91738e-07Z" fill="white"/>
+												</svg>
+											</a>
+										</div>
+									</div>
+									<!-- <div class="gallery__item_contact">
+										<h3 class="rogat-slider__project-link">Смотреть проекты</h3>
+									</div> -->
+								</div>
+
+								<div class="price-desc">
+									<div class="gallery__item_desc price_blocks">
+										<p class="text-block__p">Индивидуальные решения для корпоративных мероприятий, конференций и семинаров.</p>
+									</div>
+									<div class="gallery__item_desc price_blocks">
+										<p class="text-block__p">Свяжитесь с нами, чтобы получить персональное предложение с учетом требований вашего мероприятия.</p>
+									</div>
+									<!-- <div class="gallery__item_desc price_blocks">
+										<p class="text-block__p">Дополнительные изображения можно приобрести по цене 50 рублей за штуку.</p>
+									</div> -->
+									<!-- <div class="gallery__item_contact">
+										<h3 class="rogat-slider__project-link">Смотреть проекты</h3>
+									</div> -->
+								</div>
+							</div>
+
+							
+							<!-- <img class="gallery__item" src="img/work/2.jpg" alt="Alt"> -->
+
+							
+							
+
+
+
+
+
+
+
+
+<!-- 
+							<div class="title_gallary_card "> 
+								<h3 class="title-regular">PORTFOLIO</h3>
+								<h1 class="title-regular">EXPLORE MY PHOTOGRAPHY WORK.</h1>
+							</div> -->
+							<!-- <img class="gallery__item" src="img/work/6.jpg" alt="Alt"> -->
+		
+						</div>
+												<!-- Right -->
+						<div data-speed="1.1" class="gallery__right">
+							
+							<!-- <img class="gallery__item item_offering_img" src="/img/portfolio/6.JPG" alt="Alt"> -->
+		
+							<!-- <img class="gallery__item" src="img/work/4.jpg" alt="Alt"> -->
+						
+							<!-- <img class="gallery__item" src="img/work/3.jpg" alt="Alt"> -->
+		
+						</div>
+						
+						
+					</main>
+
+				</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+				<div class="container">
+					
+					<main class="gallery">
+												<!-- Left -->
+						<div data-speed=".9" class="gallery__left">
+							
+							
+							<div class="text-block gallery__item contact-from-item">
+								<div class="gallery__item_desc">
+									<h2 class="text-block__h title-regular">Коммерческая фотография</h2>
+									<p class="text-block__p">Наша коммерческая съёмка создаёт продающие образы ваших продуктов и услуг. Мы делаем чёткие, детализированные кадры для каталогов, рекламы и соцсетей, которые подчеркнут преимущества бренда и увеличат конверсию. В мире, где первое впечатление критично, доверьте визуальную коммуникацию профессионалам.</p>
+								</div>
+								<div class="gallery__item_contact">
+									<a class="rogat-slider__project-link">Смотреть проекты
+										<svg class="arrow" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path fill-rule="evenodd" clip-rule="evenodd" d="M4.5 4.91738e-07L15.75 0C15.9489 0 16.1397 0.0790176 16.2803 0.21967C16.421 0.360322 16.5 0.551088 16.5 0.75V12C16.5 12.4142 16.1642 12.75 15.75 12.75C15.3358 12.75 15 12.4142 15 12V2.56066L1.28033 16.2803C0.987437 16.5732 0.512563 16.5732 0.21967 16.2803C-0.0732233 15.9874 -0.0732233 15.5126 0.21967 15.2197L13.9393 1.5L4.5 1.5C4.08579 1.5 3.75 1.16421 3.75 0.75C3.75 0.335787 4.08579 4.91738e-07 4.5 4.91738e-07Z" fill="white"/>
+										</svg>
+									</a>
+								</div>
+							</div>
+							<!-- <img class="gallery__item" src="img/work/2.jpg" alt="Alt"> -->
+
+							
+							
+
+
+
+
+
+
+
+
+<!-- 
+							<div class="title_gallary_card "> 
+								<h3 class="title-regular">PORTFOLIO</h3>
+								<h1 class="title-regular">EXPLORE MY PHOTOGRAPHY WORK.</h1>
+							</div> -->
+							<!-- <img class="gallery__item" src="img/work/6.jpg" alt="Alt"> -->
+		
+						</div>
+												<!-- Right -->
+						<div data-speed="1.1" class="gallery__right">
+							
+							<!-- <img class="gallery__item item_offering_img" src="/img/portfolio/6.JPG" alt="Alt"> -->
+		
+							<!-- <img class="gallery__item" src="img/work/4.jpg" alt="Alt"> -->
+							    <div class="ps-slider-container  ps-slider-container_after gallery__item item_offering_img" id="psSlider">
+									<div class="ps-slider-wrapper">
+										<!-- Слайд 1 -->
+										<div class="ps-slide ps-active">
+											<div class="ps-slide-content">
+
+												<img class="item_offering_img" src="/img/portfolio/6.JPG" alt="Alt">
+
+											</div>
+										</div>
+										
+										<!-- Слайд 2 -->
+										<div class="ps-slide">
+											<div class="ps-slide-content">
+												<img class="item_offering_img" src="/img/portfolio/7.JPG" alt="Alt">
+											</div>
+										</div>
+										
+										<!-- Слайд 3 -->
+										<div class="ps-slide">
+											<div class="ps-slide-content">
+												<img class="item_offering_img" src="/img/portfolio/7.JPG" alt="Alt">
+											</div>
+										</div>
+									</div>
+									
+									<!-- Навигационные точки -->
+									<div class="ps-slider-nav" style="display: none;">
+										<span class="ps-nav-dot ps-active" data-slide="0"></span>
+										<span class="ps-nav-dot" data-slide="1"></span>
+										<span class="ps-nav-dot" data-slide="2"></span>
+									</div>
+									
+									<!-- Кнопки навигации -->
+									 <div class="nav_ps_slider">
+										<button id="Left-ps" class="ps-slider-arrow ps-prev">‹</button>
+										<button id="Right-ps" class="ps-slider-arrow ps-next">›</button>
+									 </div>
+									
+								</div>
+							<!-- <img class="gallery__item" src="img/work/3.jpg" alt="Alt"> -->
+		
+						</div>
+						
+						
+					</main>
+
+				</div>
+
+
+
+
+
+
+
+				
+				<div class="container price-container">
+					
+					<main class="gallery  price-container" style="padding: 0px;">
+												<!-- Left -->
+						<div data-speed=".9" class="gallery__left price-container-gallery">
+<!-- 
+							<div class="title_gallary_card "> 
+								<h3 class="title-regular">SERVICES</h3>
+								<h1 class="title-regular">DIVERSE PHOTOGRAPHY OFFERINGS</h1>
+							</div> -->
+							
+							
+							<div class="text-block gallery__item price-container-gallery contact-from-item">
+
+								<div class="price">
+									<div class="gallery__item_desc">
+										<h2 class="text-block__h">Съемка продукта</h2>
+									</div>
+									<div class="gallery__item_desc">
+										<div class="price_button">
+											<div><h1 class="text-block__h price_num manrope">850₽</h1></div>
+											<a href="#" class="button">
+												Написать
+												<svg  viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+													<path fill-rule="evenodd" clip-rule="evenodd" d="M4.5 4.91738e-07L15.75 0C15.9489 0 16.1397 0.0790176 16.2803 0.21967C16.421 0.360322 16.5 0.551088 16.5 0.75V12C16.5 12.4142 16.1642 12.75 15.75 12.75C15.3358 12.75 15 12.4142 15 12V2.56066L1.28033 16.2803C0.987437 16.5732 0.512563 16.5732 0.21967 16.2803C-0.0732233 15.9874 -0.0732233 15.5126 0.21967 15.2197L13.9393 1.5L4.5 1.5C4.08579 1.5 3.75 1.16421 3.75 0.75C3.75 0.335787 4.08579 4.91738e-07 4.5 4.91738e-07Z" fill="white"/>
+												</svg>
+											</a>
+										</div>
+									</div>
+									<!-- <div class="gallery__item_contact">
+										<h3 class="rogat-slider__project-link">Смотреть проекты</h3>
+									</div> -->
+								</div>
+
+								<div class="price-desc">
+									<div class="gallery__item_desc price_blocks">
+										<p class="text-block__p">Представьте свою продукцию в лучшем свете.</p>
+									</div>
+									<div class="gallery__item_desc price_blocks">
+										<p class="text-block__p">Включает в себя фотосессию продолжительностью полдня, 20 профессионально отредактированных изображений продукта и файлы высокого разрешения.</p>
+									</div>
+									<div class="gallery__item_desc price_blocks">
+										<p class="text-block__p">Дополнительные часы можно добавить по цене 500 рублей в час.</p>
+									</div>
+									<!-- <div class="gallery__item_contact">
+										<h3 class="rogat-slider__project-link">Смотреть проекты</h3>
+									</div> -->
+								</div>
+							</div>
+
+
+							<div class="text-block gallery__item price-container-gallery contact-from-item">
+
+								<div class="price">
+									<div class="gallery__item_desc">
+										<h2 class="text-block__h">Фотография недвижимости</h2>
+									</div>
+									<div class="gallery__item_desc">
+										<div class="price_button">
+											<div><h1 class="text-block__h price_num manrope">2350₽</h1></div>
+											<a href="#" class="button">
+												Написать
+												<svg  viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+													<path fill-rule="evenodd" clip-rule="evenodd" d="M4.5 4.91738e-07L15.75 0C15.9489 0 16.1397 0.0790176 16.2803 0.21967C16.421 0.360322 16.5 0.551088 16.5 0.75V12C16.5 12.4142 16.1642 12.75 15.75 12.75C15.3358 12.75 15 12.4142 15 12V2.56066L1.28033 16.2803C0.987437 16.5732 0.512563 16.5732 0.21967 16.2803C-0.0732233 15.9874 -0.0732233 15.5126 0.21967 15.2197L13.9393 1.5L4.5 1.5C4.08579 1.5 3.75 1.16421 3.75 0.75C3.75 0.335787 4.08579 4.91738e-07 4.5 4.91738e-07Z" fill="white"/>
+												</svg>
+											</a>
+										</div>
+									</div>
+									<!-- <div class="gallery__item_contact">
+										<h3 class="rogat-slider__project-link">Смотреть проекты</h3>
+									</div> -->
+								</div>
+
+								<div class="price-desc">
+									<div class="gallery__item_desc price_blocks">
+										<p class="text-block__p">Подчеркните красоту вашей недвижимости.</p>
+									</div>
+									<div class="gallery__item_desc price_blocks">
+										<p class="text-block__p">Включает в себя внутренние и внешние снимки, 2-часовую фотосессию и 25 профессионально отредактированных изображений.</p>
+									</div>
+									<div class="gallery__item_desc price_blocks">
+										<p class="text-block__p">Дополнительные изображения можно приобрести по цене 70 рублей  за штуку.</p>
+									</div>
+									<!-- <div class="gallery__item_contact">
+										<h3 class="rogat-slider__project-link">Смотреть проекты</h3>
+									</div> -->
+								</div>
+							</div>
+
+
+
+							<div class="text-block gallery__item price-container-gallery contact-from-item">
+
+								<div class="price">
+									<div class="gallery__item_desc">
+										<h2 class="text-block__h">Съемка бренда</h2>
+									</div>
+									<div class="gallery__item_desc">
+										<div class="price_button">
+											<div><h1 class="text-block__h price_num price_text manrope">Цена Договорная</h1></div>
+											<a href="#" class="button">
+												Написать
+												<svg  viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+													<path fill-rule="evenodd" clip-rule="evenodd" d="M4.5 4.91738e-07L15.75 0C15.9489 0 16.1397 0.0790176 16.2803 0.21967C16.421 0.360322 16.5 0.551088 16.5 0.75V12C16.5 12.4142 16.1642 12.75 15.75 12.75C15.3358 12.75 15 12.4142 15 12V2.56066L1.28033 16.2803C0.987437 16.5732 0.512563 16.5732 0.21967 16.2803C-0.0732233 15.9874 -0.0732233 15.5126 0.21967 15.2197L13.9393 1.5L4.5 1.5C4.08579 1.5 3.75 1.16421 3.75 0.75C3.75 0.335787 4.08579 4.91738e-07 4.5 4.91738e-07Z" fill="white"/>
+												</svg>
+											</a>
+										</div>
+									</div>
+									<!-- <div class="gallery__item_contact">
+										<h3 class="rogat-slider__project-link">Смотреть проекты</h3>
+									</div> -->
+								</div>
+
+								<div class="price-desc">
+									<div class="gallery__item_desc price_blocks">
+										<p class="text-block__p">Создайте визуальное повествование, соответствующее идентичности вашего бренда.</p>
+									</div>
+									<div class="gallery__item_desc price_blocks">
+										<p class="text-block__p">Свяжитесь с нами, чтобы обсудить ваши потребности в брендовой фотосъемке и получить индивидуальное предложение.</p>
+									</div>
+									<!-- <div class="gallery__item_desc price_blocks">
+										<p class="text-block__p">Дополнительные часы можно добавить по цене 500 рублей в час.</p>
+									</div> -->
+									<!-- <div class="gallery__item_contact">
+										<h3 class="rogat-slider__project-link">Смотреть проекты</h3>
+									</div> -->
+								</div>
+							</div>
+
+		
+						</div>
+
+					</main>
+
+				</div>
+
+		
+			<div class="FAQ_Container container">
+
+					<div class="title_gallary_card "> 
+							<h3 class="title-regular">FAQ</h3>
+							<h1 class="title-regular">ЧАСТО ЗАДАВАЕМЫЕ ВОПРОСЫ.</h1>
+					</div>
+					<div class="faq-container">
+			<!-- <h1 class="faq-title">Часто задаваемые вопросы</h1> -->
+
+						<div class="section_faq">
+
+
+								<div class="faq-item">
+								<button class="faq-question">
+									<span>НА КАКОМ ВИДЕ ФОТОГРАФИИ ВЫ СПЕЦИАЛИЗИРУЕТЕСЬ?</span>
+									<span class="faq-icon">+</span>
+								</button>
+								<div class="faq-answer">
+									<div class="faq-answer-content">
+										<p>Я специализируюсь на портретной, пейзажной, репортажной и т. д. фотографии, запечатлевая моменты, рассказывающие уникальные истории.</p>
+									</div>
+								</div>
+							</div>
+							
+							<div class="faq-item">
+								<button class="faq-question">
+									<span>КАК Я МОГУ ЗАПИСАТЬСЯ НА ФОТОСЕССИЮ У ВАС?</span>
+									<span class="faq-icon">+</span>
+								</button>
+								<div class="faq-answer">
+									<div class="faq-answer-content">
+										<p>Для записи на фотосессию вы можете связаться со мной через указанные контакты или заполнить форму на сайте. Мы обсудим детали и согласуем удобное время.</p>
+									</div>
+								</div>
+							</div>
+							
+							<div class="faq-item">
+								<button class="faq-question">
+									<span>КАКОЕ ОБОРУДОВАНИЕ ВЫ ИСПОЛЬЗУЕТЕ ДЛЯ ФОТОСЪЕМКИ?</span>
+									<span class="faq-icon">+</span>
+								</button>
+								<div class="faq-answer">
+									<div class="faq-answer-content">
+										<p>Я работаю с профессиональной фототехникой ведущих брендов, что позволяет достигать высокого качества изображений в любых условиях съемки.</p>
+									</div>
+								</div>
+							</div>
+							
+							<div class="faq-item">
+								<button class="faq-question">
+									<span>МОГУ ЛИ Я ЗАПРОСИТЬ КОНКРЕТНОЕ МЕСТО ДЛЯ ФОТОСЕТА?</span>
+									<span class="faq-icon">+</span>
+								</button>
+								<div class="faq-answer">
+									<div class="faq-answer-content">
+										<p>Да, конечно! Я открыт для ваших идей и предложений по локациям. Мы вместе можем обсудить и выбрать оптимальное место для съемки.</p>
+									</div>
+								</div>
+							</div>
+
+
+							</div>
+
+
+							<div class="section_faq">
+
+
+								<div class="faq-item">
+								<button class="faq-question">
+									<span>КАК ВЫГЛЯДИТ ПРОЦЕСС РЕДАКТИРОВАНИЯ?</span>
+									<span class="faq-icon">+</span>
+								</button>
+								<div class="faq-answer">
+									<div class="faq-answer-content">
+										<p>Процесс редактирования включает цветокоррекцию, ретушь и художественную обработку. Я стараюсь подчеркнуть естественную красоту кадра, сохраняя его аутентичность.</p>
+									</div>
+								</div>
+							</div>
+
+							<div class="faq-item">
+								<button class="faq-question">
+									<span>ВКЛЮЧЕНЫ ЛИ ЦИФРОВЫЕ ФАЙЛЫ В ВАШИ ПАКЕТЫ ФОТОУСЛУГ?</span>
+									<span class="faq-icon">+</span>
+								</button>
+								<div class="faq-answer">
+									<div class="faq-answer-content">
+										<p>Да, все мои пакеты услуг включают цифровые файлы в высоком разрешении с правом на печать.</p>
+									</div>
+								</div>
+							</div>
+							
+							<div class="faq-item">
+								<button class="faq-question">
+									<span>ПРЕДЛАГАЕТЕ ЛИ ВЫ ПЕЧАТЬ СВОИХ ФОТОГРАФИЙ?</span>
+									<span class="faq-icon">+</span>
+								</button>
+								<div class="faq-answer">
+									<div class="faq-answer-content">
+										<p>Нет, только исходники для печати. В дальнейшем планируется расширение.</p>
+									</div>
+								</div>
+							</div>
+							
+							<div class="faq-item">
+								<button class="faq-question">
+									<span>ЧЕРЕЗ СКОЛЬКО ВРЕМЕНИ ПОСЛЕ СЕАНСА Я ПОЛУЧУ ОТРЕДАКТИРОВАННЫЕ ФОТОГРАФИИ?</span>
+									<span class="faq-icon">+</span>
+								</button>
+								<div class="faq-answer">
+									<div class="faq-answer-content">
+										<p>Срок обработки фотографий составляет от 7 до 14 дней. В отдельных случаях время может быть увеличено по договоренности.</p>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+				</div>
+					
+			</div>
+
+		
+			<footer class="footer">
+					<div class="footer-container">
+
+						<div class="content_footer">
+							<div class="footer-top">
+							<div class="footer-Desc">
+								Дом для Фотографий
+							</div>
+							<div class="footer-slogan">
+								<div class="button_footer"><p>ДАВАЙТЕ</p><a></a></div> 
+								<p>РАБОТАТЬ ВМЕСТЕ</p>
+							</div>
+							<!-- <a href="#contact" class="cta-button">ДАВАЙТЕ РАБОТАТЬ ВМЕСТЕ</a> -->
+						</div>
+
+						<!-- Основная часть: три колонки -->
+						<div class="footer-main">
+							<!-- Левая колонка -->
+							<div class="footer-section">
+								<h3>ДОМ</h3>
+								<nav class="footer-nav">
+									<div class="nav-column">
+										<ul>
+											<li><a href="#events">СОБЫТИЯ</a></li>
+											<li><a href="#commerce">КОММЕРЦИЯ</a></li>
+											<li><a href="#faq">ВОПРОСЫ</a></li>
+											<li><a href="#about">О МНЕ</a></li>
+											<li><a href="#works">РАБОТЫ</a></li>
+											<li><a href="#portrait">ПОРТРЕТ</a></li>
+										</ul>
+									</div>
+								</nav>
+							</div>
+
+							<!-- Центральная колонка -->
+							<div class="footer-section">
+								<h3>ПОРТФОЛИО</h3>
+								<div class="portfolio-grid">
+									<div class="portfolio-item">СОБЫТИЯ</div>
+									<div class="portfolio-item">ПОРТРЕТ</div>
+									<div class="portfolio-item">БРЕНД</div>
+									<div class="portfolio-item">КОММЕРЦИЯ</div>
+									<div class="portfolio-item">СВАДЬБЫ</div>
+								</div>
+							</div>
+
+							<!-- Правая колонка -->
+							<div class="footer-section">
+								<h3>СВЯЗАТЬСЯ</h3>
+								<div class="contact-info">
+									<p>ИНФОРМАЦИЯ</p>
+									<p>СВЯЗАТЬСЯ</p>
+									<p>ФОРМА</p>
+								</div>
+							</div>
+							</div>
+						</div>
+						<!-- Верхняя часть: слоган слева, кнопка справа -->
+						
+
+						
+					</div>
+					<!-- Нижняя часть -->
+						<div class="footer-bottom">
+							<div class="legal-links">
+								<a href="#terms">Terms & Conditions</a>
+								<a href="#privacy">Privacy Policy</a>
+							</div>
+							<div class="footer_media">
+								<div class="contact-media" style=" margin:0px">
+												<a class="icon" href="#">
+													<svg width="20" height="20" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+														<g clip-path="url(#clip0_910_44)">
+														<path fill-rule="evenodd" clip-rule="evenodd" d="M24.0199 0C10.7375 0 0 10.8167 0 24.1983C0 34.895 6.87988 43.9495 16.4241 47.1542C17.6174 47.3951 18.0545 46.6335 18.0545 45.9929C18.0545 45.4319 18.0151 43.509 18.0151 41.5055C11.3334 42.948 9.94198 38.6209 9.94198 38.6209C8.86818 35.8164 7.27715 35.0956 7.27715 35.0956C5.09022 33.6132 7.43645 33.6132 7.43645 33.6132C9.86233 33.7735 11.1353 36.0971 11.1353 36.0971C13.2824 39.7827 16.7422 38.7413 18.1341 38.1002C18.3328 36.5377 18.9695 35.456 19.6455 34.8552C14.3163 34.2942 8.70937 32.211 8.70937 22.9161C8.70937 20.2719 9.66321 18.1086 11.1746 16.4261C10.9361 15.8253 10.1008 13.3409 11.4135 10.0157C11.4135 10.0157 13.4417 9.3746 18.0146 12.4996C19.9725 11.9699 21.9916 11.7005 24.0199 11.6982C26.048 11.6982 28.1154 11.979 30.0246 12.4996C34.5981 9.3746 36.6262 10.0157 36.6262 10.0157C37.9389 13.3409 37.1031 15.8253 36.8646 16.4261C38.4158 18.1086 39.3303 20.2719 39.3303 22.9161C39.3303 32.211 33.7234 34.2539 28.3544 34.8552C29.2296 35.6163 29.9848 37.0583 29.9848 39.3421C29.9848 42.5871 29.9454 45.1915 29.9454 45.9924C29.9454 46.6335 30.383 47.3951 31.5758 47.1547C41.12 43.9491 47.9999 34.895 47.9999 24.1983C48.0392 10.8167 37.2624 0 24.0199 0Z" fill="white"/>
+														</g>
+														<defs>
+														<clipPath id="clip0_910_44">
+														<rect width="48" height="48" fill="white"/>
+														</clipPath>
+														</defs>
+													</svg>
+
+												</a>
+												<a class="icon" href="#">
+													<svg width="20" height="20" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+														<g clip-path="url(#clip0_318_75)">
+														<path fill-rule="evenodd" clip-rule="evenodd" d="M48 24C48 37.2548 37.2548 48 24 48C10.7452 48 0 37.2548 0 24C0 10.7452 10.7452 0 24 0C37.2548 0 48 10.7452 48 24ZM24.8601 17.7179C22.5257 18.6888 17.8603 20.6984 10.8638 23.7466C9.72766 24.1984 9.13251 24.6404 9.07834 25.0726C8.98677 25.803 9.90142 26.0906 11.1469 26.4822C11.3164 26.5355 11.4919 26.5907 11.6719 26.6492C12.8973 27.0475 14.5457 27.5135 15.4026 27.5321C16.1799 27.5489 17.0475 27.2284 18.0053 26.5707C24.5423 22.158 27.9168 19.9276 28.1286 19.8795C28.2781 19.8456 28.4852 19.803 28.6255 19.9277C28.7659 20.0524 28.7521 20.2886 28.7372 20.352C28.6466 20.7383 25.0562 24.0762 23.1982 25.8036C22.619 26.3421 22.2081 26.724 22.1242 26.8113C21.936 27.0067 21.7443 27.1915 21.56 27.3692C20.4215 28.4667 19.5678 29.2896 21.6072 30.6336C22.5873 31.2794 23.3715 31.8135 24.1539 32.3463C25.0084 32.9282 25.8606 33.5085 26.9632 34.2313C27.2442 34.4155 27.5125 34.6068 27.7738 34.7931C28.7681 35.5019 29.6615 36.1388 30.7652 36.0373C31.4065 35.9782 32.0689 35.3752 32.4053 33.5767C33.2004 29.3263 34.7633 20.1169 35.1244 16.3219C35.1561 15.9895 35.1163 15.5639 35.0843 15.3771C35.0523 15.1904 34.9855 14.9242 34.7427 14.7272C34.4552 14.4939 34.0113 14.4447 33.8127 14.4482C32.91 14.4641 31.5251 14.9456 24.8601 17.7179Z" fill="white"/>
+														</g>
+														<defs>
+														<clipPath id="clip0_318_75">
+														<rect width="48" height="48" fill="white"/>
+														</clipPath>
+														</defs>
+													</svg>
+
+												</a>
+												<a class="icon" href="#">
+													<svg width="20" height="20" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+														<g clip-path="url(#clip0_1106_8)">
+														<path fill-rule="evenodd" clip-rule="evenodd" d="M3.37413 3.37413C0 6.74826 0 12.1788 0 23.04V24.96C0 35.8212 0 41.2517 3.37413 44.6259C6.74826 48 12.1788 48 23.04 48H24.96C35.8212 48 41.2517 48 44.6259 44.6259C48 41.2517 48 35.8212 48 24.96V23.04C48 12.1788 48 6.74826 44.6259 3.37413C41.2517 0 35.8212 0 24.96 0H23.04C12.1788 0 6.74826 0 3.37413 3.37413ZM8.10012 14.6001C8.36012 27.0801 14.6001 34.5801 25.5401 34.5801H26.1602V27.4401C30.1802 27.8401 33.22 30.7801 34.44 34.5801H40.1201C38.5601 28.9001 34.4599 25.7601 31.8999 24.5601C34.4599 23.0801 38.0599 19.4801 38.9199 14.6001H33.7598C32.6398 18.5601 29.3202 22.1601 26.1602 22.5001V14.6001H21V28.4401C17.8 27.6401 13.7601 23.7601 13.5801 14.6001H8.10012Z" fill="white"/>
+														</g>
+														<defs>
+														<clipPath id="clip0_1106_8">
+														<rect width="48" height="48" fill="white"/>
+														</clipPath>
+														</defs>
+													</svg>
+
+												</a>
+											</div>
+							</div>
+							<div class="copyright">
+								© 2025 SocialBeach Photography. All rights reserved.
+							</div>
+						</div>
+						
+				</footer>
+			
+			</div>
+
+		</div>
+		
+	</div>
+
+
+
+	
+
+
+	<script src="./js/slider_portfolio.js"></script>
+	<script src="./js/faq_slider.js"></script>
+</body>
+</html>

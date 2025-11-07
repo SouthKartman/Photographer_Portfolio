@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ Фотограф</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #0a0a0a;
+            color: #ffffff;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .faq-container {
+
+            margin: 0 auto;
+            display: flex;
+        }
+
+        .faq-title {
+            text-align: center;
+            margin-bottom: 60px;
+            font-size: 3rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #ffffff;
+            position: relative;
+        }
+
+        .faq-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #ffffff, transparent);
+        }
+
+        .faq-item {
+         
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 0;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            border-color: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .faq-question {
+            height: 100px;
+            padding: 25px 30px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 400;
+            font-size: 1.2rem;
+            background: none;
+            border: none;
+            width: 100%;
+            text-align: left;
+            color: #ffffff;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .faq-icon {
+            font-size: 1.8rem;
+            color: #ffffff;
+            font-weight: 300;
+            transition: all 0.3s ease;
+            min-width: 30px;
+            text-align: center;
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(45deg);
+            color: #cccccc;
+        }
+
+        .faq-answer {
+            height: 0;
+            overflow: hidden;
+            background: rgba(0, 0, 0, 0.3);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .faq-answer-content {
+            padding: 30px;
+            opacity: 0;
+            transform: translateY(-10px);
+            color: #e0e0e0;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .highlight {
+            background: transparent;
+            color: #ffffff;
+            font-weight: 500;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 2px 4px;
+            font-style: italic;
+        }
+
+        /* Анимация для появления элементов при загрузке */
+        .faq-item {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            body {
+                padding: 20px 15px;
+            }
+
+            .faq-title {
+                font-size: 2rem;
+                margin-bottom: 40px;
+            }
+
+            .faq-question {
+                padding: 20px;
+                font-size: 1.1rem;
+            }
+
+            .faq-answer-content {
+                padding: 20px;
+                font-size: 1rem;
+            }
+
+            .faq-icon {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .faq-title {
+                font-size: 1.8rem;
+            }
+
+            .faq-question {
+                padding: 15px;
+                font-size: 1rem;
+            }
+
+            .faq-answer-content {
+                padding: 15px;
+            }
+        }
+        .section_faq
+        {
+            padding: 20px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="faq-container">
+        <!-- <h1 class="faq-title">Часто задаваемые вопросы</h1> -->
+
+        <div class="section_faq">
+
+
+            <div class="faq-item">
+            <button class="faq-question">
+                <span>НА КАКОМ ВИДЕ ФОТОГРАФИИ ВЫ СПЕЦИАЛИЗИРУЕТЕСЬ?</span>
+                <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+                <div class="faq-answer-content">
+                    <p>Я специализируюсь на <span class="highlight">портретной, пейзажной, репортажной и т. д.</span> фотографии, запечатлевая моменты, рассказывающие уникальные истории.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="faq-item">
+            <button class="faq-question">
+                <span>КАК Я МОГУ ЗАПИСАТЬСЯ НА ФОТОСЕССИЮ У ВАС?</span>
+                <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+                <div class="faq-answer-content">
+                    <p>Для записи на фотосессию вы можете связаться со мной через указанные контакты или заполнить форму на сайте. Мы обсудим детали и согласуем удобное время.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="faq-item">
+            <button class="faq-question">
+                <span>КАКОЕ ОБОРУДОВАНИЕ ВЫ ИСПОЛЬЗУЕТЕ ДЛЯ ФОТОСЪЕМКИ?</span>
+                <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+                <div class="faq-answer-content">
+                    <p>Я работаю с профессиональной фототехникой ведущих брендов, что позволяет достигать высокого качества изображений в любых условиях съемки.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="faq-item">
+            <button class="faq-question">
+                <span>МОГУ ЛИ Я ЗАПРОСИТЬ КОНКРЕТНОЕ МЕСТО ДЛЯ ФОТОСЕТА?</span>
+                <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+                <div class="faq-answer-content">
+                    <p>Да, конечно! Я открыт для ваших идей и предложений по локациям. Мы вместе можем обсудить и выбрать оптимальное место для съемки.</p>
+                </div>
+            </div>
+        </div>
+
+
+        </div>
+
+
+        <div class="section_faq">
+
+
+            <div class="faq-item">
+            <button class="faq-question">
+                <span>КАК ВЫГЛЯДИТ ПРОЦЕСС РЕДАКТИРОВАНИЯ?</span>
+                <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+                <div class="faq-answer-content">
+                    <p>Процесс редактирования включает цветокоррекцию, ретушь и художественную обработку. Я стараюсь подчеркнуть естественную красоту кадра, сохраняя его аутентичность.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question">
+                <span>ВКЛЮЧЕНЫ ЛИ ЦИФРОВЫЕ ФАЙЛЫ В ВАШИ ПАКЕТЫ ФОТОУСЛУГ?</span>
+                <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+                <div class="faq-answer-content">
+                    <p>Да, все мои пакеты услуг включают цифровые файлы в высоком разрешении с правом на печать.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="faq-item">
+            <button class="faq-question">
+                <span>ПРЕДЛАГАЕТЕ ЛИ ВЫ ПЕЧАТЬ СВОИХ ФОТОГРАФИЙ?</span>
+                <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+                <div class="faq-answer-content">
+                    <p>Нет, только исходники для печати. В дальнейшем планируется расширение.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="faq-item">
+            <button class="faq-question">
+                <span>ЧЕРЕЗ СКОЛЬКО ВРЕМЕНИ ПОСЛЕ СЕАНСА Я ПОЛУЧУ ОТРЕДАКТИРОВАННЫЕ ФОТОГРАФИИ?</span>
+                <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+                <div class="faq-answer-content">
+                    <p>Срок обработки фотографий составляет от 7 до 14 дней. В отдельных случаях время может быть увеличено по договоренности.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+        </div>
+        
+        
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            // Анимация появления элементов при загрузке
+            gsap.to('.faq-item', {
+                opacity: 1,
+                y: 0,
+                duration: 0.6,
+                stagger: 0.1,
+                ease: 'power2.out'
+            });
+            
+            // Функция для открытия FAQ
+            function openFAQ(item) {
+                const answer = item.querySelector('.faq-answer');
+                const answerContent = item.querySelector('.faq-answer-content');
+                const icon = item.querySelector('.faq-icon');
+                
+                const tl = gsap.timeline();
+                
+                tl.to(answer, {
+                    height: 'auto',
+                    duration: 0.4,
+                    ease: 'power2.inOut'
+                })
+                .to(answerContent, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.3,
+                    ease: 'power2.out'
+                }, '-=0.2')
+                .to(icon, {
+                    rotation: 45,
+                    duration: 0.3,
+                    ease: 'power2.inOut'
+                }, '-=0.3');
+                
+                item.classList.add('active');
+            }
+            
+            // Функция для закрытия FAQ
+            function closeFAQ(item) {
+                const answer = item.querySelector('.faq-answer');
+                const answerContent = item.querySelector('.faq-answer-content');
+                const icon = item.querySelector('.faq-icon');
+                
+                const tl = gsap.timeline();
+                
+                tl.to(answerContent, {
+                    opacity: 0,
+                    y: -10,
+                    duration: 0.2
+                })
+                .to(answer, {
+                    height: 0,
+                    duration: 0.3,
+                    ease: 'power2.inOut'
+                }, '-=0.1')
+                .to(icon, {
+                    rotation: 0,
+                    duration: 0.2
+                }, '-=0.2');
+                
+                item.classList.remove('active');
+            }
+            
+            // Обработчик кликов
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                
+                question.addEventListener('click', () => {
+                    const isActive = item.classList.contains('active');
+                    
+                    // Закрываем все остальные открытые элементы
+                    faqItems.forEach(otherItem => {
+                        if (otherItem !== item && otherItem.classList.contains('active')) {
+                            closeFAQ(otherItem);
+                        }
+                    });
+                    
+                    // Открываем или закрываем текущий элемент
+                    if (!isActive) {
+                        openFAQ(item);
+                    } else {
+                        closeFAQ(item);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

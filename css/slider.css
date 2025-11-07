@@ -1,0 +1,168 @@
+        .rogat-slider {
+            font-family: 'Arial', sans-serif;
+            width: 100%;
+            /* margin: 0 auto; */
+            /* padding: 40px 20px; */
+            padding: 40px 35px;
+            box-sizing: border-box;
+        }
+        
+        .rogat-slider__header {
+            display: flex;
+            /* justify-content: space-between; */
+            align-items: center;
+            /* margin-bottom: 40px; */
+        }
+        
+        .rogat-slider__title {
+            font-size: 36px;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin: 0;
+        }
+        
+        .rogat-slider__link {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            position: relative;
+            padding-right: 20px;
+        }
+        
+        .rogat-slider__link::after {
+            content: '→';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .rogat-slider__container {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .rogat-slider__track {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+        
+        .rogat-slider__slide {
+            flex: 0 0 33.333%;
+            padding: 0 15px;
+            box-sizing: border-box;
+        }
+        
+        .rogat-slider__image-container {
+            position: relative;
+            overflow: hidden;
+            height: 500px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+        }
+        
+        .rogat-slider__image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .rogat-slider__slide:hover .rogat-slider__image {
+            transform: scale(1.05);
+        }
+        
+        .rogat-slider__info {
+            /* text-align: center; */
+            display: flex;
+            justify-content: space-between;
+          
+        }
+        
+        .rogat-slider__project-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .rogat-slider__project-date {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        .rogat-slider__project-link {
+            display: inline-block;
+            padding: 8px 20px;
+            border: 1px solid #000;
+            color: #666;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .rogat-slider__project-link:hover {
+            background-color: #000;
+            color: #fff;
+        }
+        
+        .rogat-slider__nav {
+            display: flex;
+            justify-content: center;
+            /* margin-top: 30px; */
+            align-items: center;
+        }
+        
+        .rogat-slider__nav-button {
+            background: none;
+            border: 1px solid #000;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            margin: 0 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .rogat-slider__nav-button:hover {
+            background-color: #000;
+            color: #fff;
+        }
+        
+        .rogat-slider__nav-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .rogat-slider__nav-button:disabled:hover {
+            background-color: transparent;
+            color: #000;
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 992px) {
+            .rogat-slider__slide {
+                flex: 0 0 50%;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .rogat-slider__slide {
+                flex: 0 0 100%;
+            }
+            
+            .rogat-slider__header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .rogat-slider__link {
+                margin-top: 10px;
+            }
+        }
+        .ps-slider-container_after
+        {
+            padding-top: 276px !important;
+        }
