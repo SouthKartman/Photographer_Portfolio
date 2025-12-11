@@ -13,7 +13,8 @@
    11. FAQ
    12. FOOTER
    13. RESPONSIVE STYLES
-   14. ADAPTIVE FONTS
+   14. ADAPTIVE
+   15. ADAPTIVE FONTS AND CONTAINERS
    ========================================================================== */
 
 /* ==========================================================================
@@ -775,7 +776,6 @@ body {
 }
 
 .rogat-slider__project-link:hover {
-    background-color: #000;
     color: #fff;
 }
 
@@ -1316,6 +1316,10 @@ body {
 }
 
 @media (max-width: 768px) {
+    .head
+    {
+        height: 80px;
+    }
     .footer-main {
         grid-template-columns: 1fr;
         gap: 40px;

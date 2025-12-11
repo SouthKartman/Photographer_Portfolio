@@ -1,6 +1,6 @@
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
-if (ScrollTrigger.isTouch !== 1) {
+// if (ScrollTrigger.isTouch !== 1) {
     const smoother = ScrollSmoother.create({
         wrapper: '.wrapper',
         content: '.content',
@@ -165,4 +165,4 @@ if (!supportsVideo()) {
 }
 
 
-}
+// }

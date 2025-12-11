@@ -118,7 +118,7 @@
     startAutoPlay() {
         this.autoPlayInterval = setInterval(() => {
             this.nextSlide();
-        }, 5000); // Смена каждые 5 секунд
+        }, 10000); // Смена каждые 5 секунд
     }
     
     stopAutoPlay() {
@@ -158,5 +158,8 @@
 
 // Инициализация слайдера при загрузке страницы
 document.addEventListener('DOMContentLoaded', function() {
-    new PortraitSlider('psSlider');
+    // Инициализируем все слайдеры
+    new PortraitSlider('psSlider1');
+    new PortraitSlider('psSlider2');
+    new PortraitSlider('psSlider3');
 });
