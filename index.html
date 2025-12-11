@@ -84,7 +84,7 @@
 			<div class="hero-section">
 				<!-- Видео для десктопа (скрывается на мобильных) -->
 				<video class="hero-video" autoplay muted loop playsinline>
-					<source src="./video/3.mp4" type="video/mp4">
+					<source src="./video/6.mp4" type="video/mp4">
 					<source src="./video/1.webm" type="video/webm">
 					<!-- Фолбэк изображение если видео не поддерживается -->
 					<img data-speed=".6" class="hero" src="img/hero1.jpg" alt="Alt">
@@ -358,9 +358,13 @@
 								</div> -->
 
 								<div class="title_gallary_place">
-								<div class="title_gallary_card" id="portfolio" style="width: 150%;"> 
+								<div class="title_gallary_card" id="portfolio" > 
 									<h3 class="title-regular second-title">Портфолио</h3>
 									<h1 class="title-regular" >Исследуй мои<br> эксперементы и работы.</h1>
+								</div>
+								<div class="title_gallary_card title_gallary_card_mobile"> 
+									<h5>Портфолио</h5>
+									<h3>Исследуй<br> эксперементы.</h3>
 								</div>
 								<!-- <div class="title_gallary_place_buttons">
 									<div class="rogat-slider__nav">
@@ -519,6 +523,11 @@
 								<h3 class="title-regular second-title" id="service">Услуги</h3>
 								<h1 class="title-regular">Мои предложения</h1>
 							</div>
+
+							<div class="title_gallary_card title_gallary_card_mobile"> 
+								<h5>Услуги</h5>
+								<h3>Ценообразование</h3>
+							</div>
 							
 							
 							<div class="text-block gallery__item contact-from-item">
@@ -573,14 +582,14 @@
 										
 										<!-- Слайд 2 -->
 										<div class="ps-slide" data-orientation="vertical">
-											<div class="ps-slide-content">
+											<div class="ps-slide-content" data-orientation="vertical">
 												<img class="item_offering_img" src="./img/portfolio/slider/2.jpg" alt="Alt">
 											</div>
 										</div>
 										
 										<!-- Слайд 3 -->
 										<div class="ps-slide" data-orientation="vertical">
-											<div class="ps-slide-content">
+											<div class="ps-slide-content" data-orientation="vertical">
 												<img class="item_offering_img" src="./img/portfolio/slider/3.jpg" alt="Alt">
 											</div>
 										</div>
@@ -1641,8 +1650,11 @@
 
 	
 
+	<!-- js scripts -->
 
 	<script src="./js/slider_portfolio.js"></script>
 	<script src="./js/faq_slider.js"></script>
+	<script src="./js//verficate_video.js"></script>
+
 </body>
 </html>

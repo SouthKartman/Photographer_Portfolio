@@ -4,7 +4,7 @@
     position: relative;
     width: 100%;
     /* height: 100vh; */
-    min-height: 500px;
+    min-height: 320px;
     overflow: hidden;
     font-family: 'Arial', sans-serif;
     isolation: isolate;
@@ -13,8 +13,8 @@
 .ps-slider-container[data-orientation="vertical"] {
     position: relative;
     width: 100%;
-    /* height: 100vh; */
-    min-height: 800px;
+    height: 150vh;
+    /* min-height: 800px; */
     overflow: hidden;
     font-family: 'Arial', sans-serif;
     isolation: isolate;
@@ -27,7 +27,7 @@
     z-index: 2;
 }
 .ps-slide-content[data-orientation="vertical"] {
-    max-width: 500px !important;
+    max-width: 200px !important;
     text-align: center;
     padding: 0 20px;
     z-index: 2;
