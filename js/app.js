@@ -38,7 +38,7 @@ if (ScrollTrigger.isTouch !== 1) {
             opacity: 1, x: 0,
             scrollTrigger: {
                 trigger: item,
-                start: '-750',
+                start: '-top 85%',
                 end: 'end',
                 scrub: true
             }
@@ -51,9 +51,9 @@ if (ScrollTrigger.isTouch !== 1) {
             opacity: 1, x: 0,
             scrollTrigger: {
                 trigger: item,
-                start: '-750',
-                end: 'top',
-                scrub: true
+                start: '-top 85%',
+                end: 'top 45%',
+                scrub: 2
             }
         })
     })
@@ -72,6 +72,97 @@ if (ScrollTrigger.isTouch !== 1) {
     })
 
 	
+
+
+
+// Оптимизация видеофона
+
+document.addEventListener('DOMContentLoaded', function() {
+    const video = document.querySelector('.hero-video');
+    const heroSection = document.querySelector('.hero-section');
+    
+    if (video) {
+        // Проверяем мобильное устройство
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+        
+        // Настройки для мобильных устройств
+        if (isMobile) {
+            // Устанавливаем poster для быстрой загрузки
+            video.setAttribute('poster', 'img/hero-poster.jpg');
+            
+            // Уменьшаем качество на мобильных для экономии трафика
+            video.preload = 'metadata';
+        }
+        
+        // Пытаемся воспроизвести видео
+        const playVideo = () => {
+            const playPromise = video.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    console.log('Автовоспроизведение не удалось:', error);
+                    
+                    // Показываем фолбэк изображение
+                    heroSection.classList.add('no-video');
+                    
+                    // Пробуем воспроизвести при клике
+                    document.addEventListener('click', function tryPlay() {
+                        video.play().then(() => {
+                            heroSection.classList.remove('no-video');
+                        });
+                        document.removeEventListener('click', tryPlay);
+                    }, { once: true });
+                });
+            }
+        };
+        
+        // Ждем загрузки метаданных видео
+        video.addEventListener('loadedmetadata', function() {
+            // Проверяем поддержку видеоформата
+            if (video.readyState >= 1) {
+                playVideo();
+            }
+        });
+        
+        // Пауза при скрытии вкладки
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden) {
+                video.pause();
+            } else {
+                video.play().catch(e => console.log('Не удалось возобновить:', e));
+            }
+        });
+        
+        // Управление воспроизведением при скролле (опционально)
+        let videoPausedByScroll = false;
+        
+        const handleScroll = () => {
+            const rect = heroSection.getBoundingClientRect();
+            const isInView = rect.bottom > 0 && rect.top < window.innerHeight;
+            
+            if (!isInView && !video.paused) {
+                video.pause();
+                videoPausedByScroll = true;
+            } else if (isInView && videoPausedByScroll && video.paused) {
+                video.play().catch(e => console.log('Не удалось возобновить:', e));
+                videoPausedByScroll = false;
+            }
+        };
+        
+        // Раскомментируйте если нужно останавливать видео при скролле
+        // window.addEventListener('scroll', handleScroll);
+    }
+});
+
+// Обнаружение поддержки видео
+function supportsVideo() {
+    const elem = document.createElement('video');
+    return !!elem.canPlayType;
+}
+
+if (!supportsVideo()) {
+    document.querySelector('.hero-section').classList.add('no-video');
 }
 
 
+}

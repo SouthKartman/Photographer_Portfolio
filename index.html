@@ -82,7 +82,17 @@
 		</header>
 
 			<div class="hero-section">
-				<img data-speed=".6" class="hero" src="img/hero1.jpg" alt="Alt" >
+				<!-- Видео для десктопа (скрывается на мобильных) -->
+				<video class="hero-video" autoplay muted loop playsinline>
+					<source src="./video/3.mp4" type="video/mp4">
+					<source src="./video/1.webm" type="video/webm">
+					<!-- Фолбэк изображение если видео не поддерживается -->
+					<img data-speed=".6" class="hero" src="img/hero1.jpg" alt="Alt">
+				</video>
+				
+				<!-- Старое изображение как фолбэк для мобильных -->
+				<img data-speed=".6" class="hero" src="img/hero1.jpg" alt="Alt">
+				
 				<div class="container">
 					<div data-speed=".75" class="main-header">
 						<h4 class="main-description title-regular">#Качественные фотографии от</h4>
@@ -121,7 +131,7 @@
 						<div data-speed=".9" class="gallery__left">
 
 							<div class="title_gallary_card"> 
-								<h3 class="title-regular" id="about">ОБО МНЕ</h3>
+								<h3 class="title-regular second-title" id="about">ОБО МНЕ</h3>
 								<h1 class="title-regular">Я — АРТЕМ</h1>
 							</div>
 							
@@ -130,7 +140,7 @@
 							<!-- <img class="gallery__item" src="img/work/2.jpg" alt="Alt"> -->
 
 							<div class="title_gallary_card "> 
-								<h3 class="title-regular">СЕРВИС</h3>
+								<h3 class="title-regular second-title">СЕРВИС</h3>
 								<h1 class="title-regular">МОИ ФОТОСЬЕМКИ</h1>
 							</div>
 
@@ -314,7 +324,7 @@
 							</div>
 		
 							<!-- <img class="gallery__item" src="img/work/4.jpg" alt="Alt"> -->
-							 <div class="gallery__item"><img class="gallery-img" src="./img/portfolio/2.jpg" alt="Alt"></div>
+							 <img class="gallery-img gallery__item" src="./img/portfolio/2.jpg" alt="Alt"/>
 							
 							<!-- <img class="gallery__item" src="img/work/3.jpg" alt="Alt"> -->
 							
@@ -349,7 +359,7 @@
 
 								<div class="title_gallary_place">
 								<div class="title_gallary_card" id="portfolio" style="width: 150%;"> 
-									<h3 class="title-regular">Портфолио</h3>
+									<h3 class="title-regular second-title">Портфолио</h3>
 									<h1 class="title-regular" >Исследуй мои<br> эксперементы и работы.</h1>
 								</div>
 								<!-- <div class="title_gallary_place_buttons">
@@ -506,7 +516,7 @@
 						<div data-speed=".9" class="gallery__left">
 
 							<div class="title_gallary_card "> 
-								<h3 class="title-regular" id="service">Услуги</h3>
+								<h3 class="title-regular second-title" id="service">Услуги</h3>
 								<h1 class="title-regular">Мои предложения</h1>
 							</div>
 							
@@ -1360,7 +1370,7 @@
 			<div class="FAQ_Container container">
 
 					<div class="title_gallary_card "> 
-							<h3 class="title-regular">FAQ</h3>
+							<h3 class="title-regular second-title">FAQ</h3>
 							<h1 class="title-regular">ЧАСТО ЗАДАВАЕМЫЕ ВОПРОСЫ.</h1>
 					</div>
 					<div class="faq-container">
@@ -1586,6 +1596,16 @@
 														</clipPath>
 														</defs>
 													</svg>
+
+												</a>
+												<a class="icon" href="https://southkartman.github.io/webdev-portfolio/">
+													<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+														<path d="M15.5 9L15.6716 9.17157C17.0049 10.5049 17.6716 11.1716 17.6716 12C17.6716 12.8284 17.0049 13.4951 15.6716 14.8284L15.5 15" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+														<path d="M13.2941 7.16992L12 11.9996L10.7059 16.8292" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+														<path d="M8.49994 9L8.32837 9.17157C6.99504 10.5049 6.32837 11.1716 6.32837 12C6.32837 12.8284 6.99504 13.4951 8.32837 14.8284L8.49994 15" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+														<path opacity="0.5" d="M2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2C16.714 2 19.0711 2 20.5355 3.46447C22 4.92893 22 7.28595 22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12Z" stroke="white" stroke-width="1.5"/>
+													</svg>
+
 
 												</a>
 											</div>
