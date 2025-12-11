@@ -4,40 +4,20 @@
     position: relative;
     width: 100%;
     /* height: 100vh; */
-    min-height: 320px;
+    min-height: 475px;
     overflow: hidden;
     font-family: 'Arial', sans-serif;
     isolation: isolate;
     /* padding-top: 470px !important; */
 }
-.ps-slider-container[data-orientation="vertical"] {
-    position: relative;
-    width: 100%;
-    height: 150vh;
-    /* min-height: 800px; */
-    overflow: hidden;
-    font-family: 'Arial', sans-serif;
-    isolation: isolate;
-    /* padding-top: 470px !important; */
-}
+
 .ps-slide-content {
     max-width: 600px;
     text-align: center;
     padding: 0 20px;
     z-index: 2;
 }
-.ps-slide-content[data-orientation="vertical"] {
-    max-width: 200px !important;
-    text-align: center;
-    padding: 0 20px;
-    z-index: 2;
-}
-.ps-slider-arrow[data-orientation="vertical"] {
-    /* position: absolute; */
-    top: 50%;
-    transform: translateY(600%);
-    background: #070708;
-}
+
 
 .ps-slider-container_after {
     /* padding-top: 370px !important; */

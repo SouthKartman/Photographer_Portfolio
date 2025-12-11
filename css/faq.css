@@ -110,7 +110,7 @@
         /* Адаптивность */
         @media (max-width: 768px) {
             body {
-                padding: 20px 15px;
+                padding: 0px;
             }
 
             .faq-title {

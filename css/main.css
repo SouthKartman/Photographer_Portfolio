@@ -1617,7 +1617,14 @@ body {
     .contact-info {
         font-size: var(--font-size-base); /* 16px вместо 18px */
     }
-    
+
+    .gallery-img
+    {
+        border-radius: 10px;
+        width: 100%;
+        margin: 0px;
+    }
+
     .legal-links a,
     .copyright {
         font-size: var(--font-size-base); /* 16px вместо 18px */
@@ -1788,8 +1795,34 @@ body {
         font-size: var(--font-size-3xl); /* 22px */
     }
     
+    .price_text
+    {
+        font-size: var(--font-size-xl) !important;
+    }
+
     .price_num {
         font-size: var(--font-size-3xl); /* 22px */
+    }
+    .footer-container {
+        max-width: 100%;
+        margin: 0 0;
+    }
+    .footer-top {
+        text-align: center;
+    }
+}
+@media (max-width:380px)
+{
+    .main-title {
+        font-size: var(--font-size-3xl);
+        top: 33vh;
+        right: -90px; /* 22px */
+    }
+    .main-description
+    {
+        top: 30vh;
+        right: -110px;
+        font-size: 14.5px;
     }
 }
 
