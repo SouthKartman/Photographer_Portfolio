@@ -1772,6 +1772,7 @@ body {
 
 /* Для очень маленьких экранов */
 @media (max-width: 480px) {
+    
     :root {
         --font-size-base: 13px;
         --font-size-lg: 15px;
@@ -1780,6 +1781,17 @@ body {
         --font-size-3xl: 38px;
     }
     
+    body
+    {
+        padding: 9px !important;
+    }
+
+    .scroll-btn
+    {
+        bottom: 20px !important;
+        right: 10px !important;
+    }
+
     .main-title {
         font-size: var(--font-size-3xl);
         top: 33vh;

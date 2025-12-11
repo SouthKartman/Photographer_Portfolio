@@ -11,6 +11,17 @@
     /* padding-top: 470px !important; */
 }
 
+@media (max-width:425px) {
+    .ps-slider-container
+    {
+        min-height: 475px;
+    }
+    .ps-slider-arrow {
+        transform: translateY(121%) !important;
+    }
+}
+
+
 .ps-slide-content {
     max-width: 600px;
     text-align: center;
