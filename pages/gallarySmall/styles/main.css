@@ -1407,6 +1407,11 @@ a {
     {
       display: none;
     }
+    .copyright {
+      color: #666666;
+      font-size: 12px;
+      font-weight: 300;
+    }
     .footer {
         padding: 40px 15px 20px;
     }
