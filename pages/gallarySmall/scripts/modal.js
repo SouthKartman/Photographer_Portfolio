@@ -11,6 +11,10 @@
 // 6. УТИЛИТЫ И ХЕЛПЕРЫ
 // ============================================================================
 
+// ============================================================================
+// МОДУЛЬ ИНТЕРАКТИВНОЙ ГАЛЕРЕИ - Универсальная версия
+// ============================================================================
+
 (function() {
     'use strict';
     
@@ -18,135 +22,43 @@
     // 1. КОНФИГУРАЦИЯ И КОНСТАНТЫ
     // ============================================================================
     
-    /**
-     * Конфигурационные параметры галереи
-     * @type {Object}
-     */
     const CONFIG = {
-        // Пороги для определения свайпа (в пикселях)
+        // Пороги для определения свайпа
         SWIPE: {
-            PREVIEW_THRESHOLD: 30,    // Порог для показа превью свайпа
-            ACTION_THRESHOLD: 50,     // Порог для выполнения действия
+            PREVIEW_THRESHOLD: 30,
+            ACTION_THRESHOLD: 50,
         },
         
-        // Тайминги анимаций (в миллисекундах)
+        // Тайминги анимаций
         TIMING: {
-            MODAL_OPEN: 300,          // Длительность открытия модального окна
-            MODAL_CLOSE: 300,         // Длительность закрытия модального окна
-            IMAGE_TRANSITION: 400,    // Длительность перехода между изображениями
-            HINT_HIDE_DELAY: 5000,    // Задержка перед скрытием подсказки
-            INDICATOR_SHOW_TIME: 2000,// Время показа индикаторов свайпа
+            MODAL_OPEN: 300,
+            MODAL_CLOSE: 300,
+            IMAGE_TRANSITION: 400,
+            HINT_HIDE_DELAY: 5000,
+            INDICATOR_SHOW_TIME: 2000,
         },
         
-        // Настройки GSAP анимаций
+        // Настройки GSAP
         GSAP: {
-            EASING: "back.out(1.7)",  // Функция easing для анимаций
-            INDICATOR_DELAY: 1,       // Задержка перед скрытием индикаторов
+            EASING: "back.out(1.7)",
+            INDICATOR_DELAY: 1,
         },
         
-        // Селекторы для поиска элементов
+        // Селекторы для сбора изображений
         SELECTORS: {
-            THUMBNAILS: '.gallery-module .photo-thumb',
-            SWIPE_DOTS: '.gallery-module .swipe-dot',
-            LIST_ITEMS: '.item',
-            HEADER_CARDS: '.card',
+            GALLERY_IMAGES: '.gallery__item img',
+            ALL_CLICKABLE_IMAGES: 'img[data-gallery]',
+            DEFAULT_SELECTOR: 'img'
         }
     };
-    
-    /**
-     * Данные галереи с изображениями
-     * Каждый объект содержит метаданные для отображения и навигации
-     * @type {Array<Object>}
-     */
-    const GALLERY_DATA = [
-        {
-            id: 1,
-            title: "Прогулка в сквере",
-            author: "SOCIAL BEACH",
-            url: "../../img/gallery/skver/1.jpg"
-        },
-        {
-            id: 2,
-            title: "Прогулка в сквере",
-            author: "SOCIAL BEACH",
-            url: "../../img/gallery/skver/2.jpg"
-        },
-        {
-            id: 3,
-            title: "Прогулка в сквере",
-            author: "SOCIAL BEACH",
-            url: "../../img/gallery/skver/3.jpg"
-        },
-        {
-            id: 4,
-            title: "Прогулка в сквере",
-            author: "SOCIAL BEACH",
-            url: "../../img/gallery/skver/4.jpg"
-        },
-        {
-            id: 5,
-            title: "Прогулка в сквере",
-            author: "SOCIAL BEACH",
-            url: "../../img/gallery/skver/5.jpg"
-        },
-        {
-            id: 6,
-            title: "Прогулка в сквере",
-            author: "SOCIAL BEACH",
-            url: "../../img/gallery/skver/6.jpg"
-        },
-        {
-            id: 7,
-            title: "Прогулка в сквере",
-            author: "SOCIAL BEACH",
-            url: "../../img/gallery/skver/7.jpg"
-        },
-        {
-            id: 8,
-            title: "Прогулка в сквере",
-            author: "SOCIAL BEACH",
-            url: "../../img/gallery/skver/8.jpg"
-        },
-        {
-            id: 9,
-            title: "Прогулка в сквере",
-            author: "SOCIAL BEACH",
-            url: "../../img/gallery/skver/9.jpg"
-        },
-        {
-            id: 10,
-            title: "Прогулка в сквере",
-            author: "SOCIAL BEACH",
-            url: "../../img/gallery/skver/10.jpg"
-        },
-        {
-            id: 11,
-            title: "Прогулка в сквере",
-            author: "SOCIAL BEACH",
-            url: "../../img/gallery/skver/11.jpg"
-        },
-        {
-            id: 12,
-            title: "Прогулка в сквере",
-            author: "SOCIAL BEACH",
-            url: "../../img/gallery/skver/12.jpg"
-        }
-    ];
     
     // ============================================================================
     // 2. ОПРЕДЕЛЕНИЕ ПЕРЕМЕННЫХ СОСТОЯНИЯ
     // ============================================================================
     
-    /**
-     * Текущий индекс активного изображения в галерее
-     * @type {number}
-     */
     let currentImageIndex = 0;
+    let imageCollection = [];
     
-    /**
-     * Состояние свайпа для отслеживания жестов
-     * @type {Object}
-     */
     const swipeState = {
         startX: 0,
         endX: 0,
@@ -157,31 +69,22 @@
     // 3. DOM-СЕЛЕКТОРЫ
     // ============================================================================
     
-    /**
-     * DOM элементы модуля галереи
-     * @type {Object}
-     */
     const DOM = {
-        // Основные элементы галереи
         galleryModule: document.getElementById('galleryModule'),
         thumbnailsContainer: document.getElementById('thumbnailsContainer'),
         
-        // Элементы модального окна
         modalOverlay: document.getElementById('modalOverlay'),
         modalContent: document.getElementById('modalContent'),
         modalImage: document.getElementById('modalImage'),
         
-        // Элементы информации о фото
         imageTitle: document.getElementById('imageTitle'),
         imageAuthor: document.getElementById('imageAuthor'),
         imageCounter: document.getElementById('imageCounter'),
         
-        // Элементы управления
         closeModalBtn: document.getElementById('closeModal'),
         prevBtn: document.getElementById('prevBtn'),
         nextBtn: document.getElementById('nextBtn'),
         
-        // Вспомогательные элементы
         touchHint: document.getElementById('touchHint'),
         swipeIndicator: document.getElementById('swipeIndicator'),
     };
@@ -190,48 +93,94 @@
     // 4. КЛАСС ГАЛЕРЕИ (основная логика)
     // ============================================================================
     
-    /**
-     * Основной класс для управления галереей
-     * Инкапсулирует всю бизнес-логику модуля
-     */
     class GalleryManager {
         constructor() {
-            this.data = GALLERY_DATA;
-            this.currentIndex = currentImageIndex;
+            this.currentIndex = 0;
             this.isModalOpen = false;
+            this.images = [];
         }
         
         /**
-         * Инициализирует галерею - создает миниатюры и настраивает события
-         * @returns {void}
+         * Инициализирует галерею, собирая все изображения на странице
          */
         init() {
-            this.createThumbnails();
-            this.createSwipeIndicators();
-            this.setupExternalImageHandlers();
+            this.collectAllImages();
+            
+            if (DOM.thumbnailsContainer) {
+                this.createThumbnails();
+            }
+            
+            if (DOM.swipeIndicator) {
+                this.createSwipeIndicators();
+            }
+            
             this.setupEventListeners();
-            this.hideTouchHintAfterDelay();
+            this.setupImageClickHandlers();
+            
+            if (DOM.touchHint) {
+                this.hideTouchHintAfterDelay();
+            }
         }
         
         /**
-         * Создает миниатюры для всех изображений в галерее
-         * @returns {void}
+         * Собирает все изображения со страницы для галереи
+         */
+        collectAllImages() {
+            this.images = [];
+            
+            // Пробуем разные селекторы для сбора изображений
+            let imageElements = [];
+            
+            // 1. Специальный селектор для галереи
+            if (document.querySelector(CONFIG.SELECTORS.GALLERY_IMAGES)) {
+                imageElements = document.querySelectorAll(CONFIG.SELECTORS.GALLERY_IMAGES);
+            }
+            // 2. Изображения с data-атрибутом
+            else if (document.querySelector(CONFIG.SELECTORS.ALL_CLICKABLE_IMAGES)) {
+                imageElements = document.querySelectorAll(CONFIG.SELECTORS.ALL_CLICKABLE_IMAGES);
+            }
+            // 3. Все изображения на странице (можно настроить более специфично)
+            else {
+                imageElements = document.querySelectorAll(CONFIG.SELECTORS.DEFAULT_SELECTOR);
+            }
+            
+            // Фильтруем изображения и создаем массив данных
+            imageElements.forEach((img, index) => {
+                // Пропускаем изображения без src
+                if (!img.src) return;
+                
+                // Пропускаем слишком маленькие изображения (возможно, иконки)
+                if (img.width < 50 && img.height < 50) return;
+                
+                this.images.push({
+                    id: index + 1,
+                    title: img.alt || `Изображение ${index + 1}`,
+                    author: img.dataset.author || 'SocialBeach',
+                    url: img.src,
+                    element: img
+                });
+            });
+            
+            // Сохраняем в глобальную переменную для обратной совместимости
+            imageCollection = this.images;
+        }
+        
+        /**
+         * Создает миниатюры для всех изображений
          */
         createThumbnails() {
-            // Очищаем контейнер перед созданием новых миниатюр
+            if (!DOM.thumbnailsContainer) return;
+            
             DOM.thumbnailsContainer.innerHTML = '';
             
-            this.data.forEach((image, index) => {
+            this.images.forEach((image, index) => {
                 const thumbnail = this.createThumbnailElement(image, index);
                 DOM.thumbnailsContainer.appendChild(thumbnail);
             });
         }
         
         /**
-         * Создает элемент миниатюры для отдельного изображения
-         * @param {Object} image - Данные изображения
-         * @param {number} index - Индекс изображения в массиве
-         * @returns {HTMLElement} Созданный элемент миниатюры
+         * Создает элемент миниатюры
          */
         createThumbnailElement(image, index) {
             const thumbnail = document.createElement('div');
@@ -253,7 +202,6 @@
                 </div>
             `;
             
-            // Добавляем обработчики событий
             thumbnail.addEventListener('click', () => this.openModal(index));
             thumbnail.addEventListener('keydown', (e) => {
                 if (e.key === 'Enter' || e.key === ' ') {
@@ -266,13 +214,14 @@
         }
         
         /**
-         * Создает индикаторы свайпа (точки навигации)
-         * @returns {void}
+         * Создает индикаторы свайпа
          */
         createSwipeIndicators() {
+            if (!DOM.swipeIndicator) return;
+            
             DOM.swipeIndicator.innerHTML = '';
             
-            this.data.forEach((_, index) => {
+            this.images.forEach((_, index) => {
                 const dot = document.createElement('div');
                 dot.className = 'swipe-dot';
                 dot.dataset.index = index;
@@ -282,33 +231,51 @@
         }
         
         /**
-         * Настраивает обработчики для внешних изображений на странице
-         * @returns {void}
+         * Настраивает обработчики кликов для всех изображений на странице
          */
-        setupExternalImageHandlers() {
-            // Обработчики для изображений в списке
-            document.querySelectorAll(CONFIG.SELECTORS.LIST_ITEMS).forEach((item, index) => {
-                item.addEventListener('click', () => {
-                    const safeIndex = Math.min(index, this.data.length - 1);
-                    this.openModal(safeIndex);
-                });
-            });
-            
-            // Обработчики для карточек в шапке
-            document.querySelectorAll(CONFIG.SELECTORS.HEADER_CARDS).forEach((card, index) => {
-                card.addEventListener('click', () => {
-                    const safeIndex = Math.min(index, this.data.length - 1);
-                    this.openModal(safeIndex);
+        setupImageClickHandlers() {
+            // Обрабатываем все изображения на странице
+            document.querySelectorAll('img').forEach((img, index) => {
+                // Добавляем data-атрибут для идентификации
+                img.dataset.galleryIndex = index;
+                
+                // Обработчик клика
+                img.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    
+                    // Находим индекс этого изображения в нашей коллекции
+                    const clickedIndex = Array.from(this.images).findIndex(
+                        imageData => imageData.element === img || imageData.url === img.src
+                    );
+                    
+                    if (clickedIndex !== -1) {
+                        this.openModal(clickedIndex);
+                    } else {
+                        // Если изображения нет в коллекции, добавляем его
+                        const newImage = {
+                            id: this.images.length + 1,
+                            title: img.alt || `Изображение ${this.images.length + 1}`,
+                            author: img.dataset.author || 'SocialBeach',
+                            url: img.src,
+                            element: img
+                        };
+                        
+                        this.images.push(newImage);
+                        this.openModal(this.images.length - 1);
+                    }
                 });
             });
         }
         
         /**
          * Открывает модальное окно с выбранным изображением
-         * @param {number} index - Индекс изображения для отображения
-         * @returns {void}
          */
         openModal(index) {
+            if (index < 0 || index >= this.images.length) {
+                console.warn(`Индекс ${index} выходит за пределы массива изображений`);
+                return;
+            }
+            
             this.currentIndex = index;
             this.isModalOpen = true;
             
@@ -317,126 +284,70 @@
             this.setupModalEventListeners();
             this.updateSwipeIndicators();
             
-            // Добавляем обработчик клавиатуры
             document.addEventListener('keydown', this.handleKeyDown.bind(this));
             
-            // Блокируем прокрутку body при открытом модальном окне
-            document.body.style.overflow = 'hidden';
+            if (document.body) {
+                document.body.style.overflow = 'hidden';
+            }
         }
         
         /**
          * Закрывает модальное окно
-         * @returns {void}
          */
         closeModal() {
             this.isModalOpen = false;
             
             this.hideModal();
-            this.removeModalEventListeners();
             
-            // Удаляем обработчик клавиатуры
             document.removeEventListener('keydown', this.handleKeyDown.bind(this));
             
-            // Восстанавливаем прокрутку body
-            document.body.style.overflow = '';
-        }
-        
-        /**
-         * Показывает модальное окно с анимацией
-         * @returns {void}
-         */
-        showModal() {
-            DOM.modalOverlay.style.display = 'block';
-            
-            if (this.isGSAPAvailable()) {
-                gsap.to(DOM.modalOverlay, {
-                    duration: CONFIG.TIMING.MODAL_OPEN / 1000,
-                    opacity: 1
-                });
-                
-                gsap.to(DOM.modalContent, {
-                    duration: 0.5,
-                    opacity: 1,
-                    scale: 1,
-                    ease: CONFIG.GSAP.EASING
-                });
-            } else {
-                // Fallback анимация без GSAP
-                DOM.modalOverlay.style.opacity = '1';
-                DOM.modalContent.style.opacity = '1';
-                DOM.modalContent.style.transform = 'translate(-50%, -50%) scale(1)';
+            if (document.body) {
+                document.body.style.overflow = '';
             }
         }
         
         /**
-         * Скрывает модальное окно с анимацией
-         * @returns {void}
-         */
-        hideModal() {
-            if (this.isGSAPAvailable()) {
-                gsap.to(DOM.modalContent, {
-                    duration: CONFIG.TIMING.MODAL_CLOSE / 1000,
-                    opacity: 0,
-                    scale: 0.9
-                });
-                
-                gsap.to(DOM.modalOverlay, {
-                    duration: CONFIG.TIMING.MODAL_CLOSE / 1000,
-                    opacity: 0,
-                    onComplete: () => {
-                        DOM.modalOverlay.style.display = 'none';
-                    }
-                });
-            } else {
-                // Fallback анимация без GSAP
-                DOM.modalContent.style.opacity = '0';
-                DOM.modalContent.style.transform = 'translate(-50%, -50%) scale(0.9)';
-                DOM.modalOverlay.style.opacity = '0';
-                
-                setTimeout(() => {
-                    DOM.modalOverlay.style.display = 'none';
-                }, CONFIG.TIMING.MODAL_CLOSE);
-            }
-        }
-        
-        /**
-         * Обновляет содержимое модального окна текущим изображением
-         * @returns {void}
+         * Обновляет содержимое модального окна
          */
         updateModalContent() {
-            const currentImage = this.data[this.currentIndex];
+            if (!this.images[this.currentIndex]) return;
             
-            // Анимация исчезновения текущего изображения
-            DOM.modalImage.classList.add('photo-exit');
+            const currentImage = this.images[this.currentIndex];
             
-            setTimeout(() => {
-                // Обновляем данные изображения
-                DOM.modalImage.src = currentImage.url;
-                DOM.modalImage.alt = currentImage.title;
-                DOM.imageTitle.textContent = currentImage.title;
-                DOM.imageAuthor.textContent = currentImage.author;
-                DOM.imageCounter.textContent = `${this.currentIndex + 1} / ${this.data.length}`;
+            // Анимация смены изображения
+            if (DOM.modalImage) {
+                DOM.modalImage.classList.add('photo-exit');
                 
-                // Анимация появления нового изображения
-                DOM.modalImage.classList.remove('photo-exit');
-                DOM.modalImage.classList.add('photo-enter');
-                
-                // Убираем класс анимации после завершения
                 setTimeout(() => {
-                    DOM.modalImage.classList.remove('photo-enter');
-                }, 500);
-                
-            }, CONFIG.TIMING.IMAGE_TRANSITION);
+                    DOM.modalImage.src = currentImage.url;
+                    DOM.modalImage.alt = currentImage.title;
+                    
+                    if (DOM.imageTitle) DOM.imageTitle.textContent = currentImage.title;
+                    if (DOM.imageAuthor) DOM.imageAuthor.textContent = currentImage.author;
+                    if (DOM.imageCounter) {
+                        DOM.imageCounter.textContent = `${this.currentIndex + 1} / ${this.images.length}`;
+                    }
+                    
+                    DOM.modalImage.classList.remove('photo-exit');
+                    DOM.modalImage.classList.add('photo-enter');
+                    
+                    setTimeout(() => {
+                        DOM.modalImage.classList.remove('photo-enter');
+                    }, 500);
+                    
+                }, CONFIG.TIMING.IMAGE_TRANSITION);
+            }
         }
         
         /**
          * Переходит к предыдущему изображению
-         * @returns {void}
          */
         prevImage() {
+            if (this.images.length === 0) return;
+            
             this.currentIndex = this.currentIndex > 0 
                 ? this.currentIndex - 1 
-                : this.data.length - 1;
+                : this.images.length - 1;
             
             this.updateModalContent();
             this.updateSwipeIndicators();
@@ -444,10 +355,11 @@
         
         /**
          * Переходит к следующему изображению
-         * @returns {void}
          */
         nextImage() {
-            this.currentIndex = this.currentIndex < this.data.length - 1 
+            if (this.images.length === 0) return;
+            
+            this.currentIndex = this.currentIndex < this.images.length - 1 
                 ? this.currentIndex + 1 
                 : 0;
             
@@ -456,11 +368,12 @@
         }
         
         /**
-         * Обновляет состояние индикаторов свайпа
-         * @returns {void}
+         * Обновляет индикаторы свайпа
          */
         updateSwipeIndicators() {
-            const dots = document.querySelectorAll(CONFIG.SELECTORS.SWIPE_DOTS);
+            if (!DOM.swipeIndicator) return;
+            
+            const dots = DOM.swipeIndicator.querySelectorAll('.swipe-dot');
             
             dots.forEach((dot, index) => {
                 if (index === this.currentIndex) {
@@ -472,41 +385,11 @@
                 }
             });
             
-            // Временно показываем индикаторы
             this.showSwipeIndicatorsTemporarily();
         }
         
         /**
-         * Временно показывает индикаторы свайпа
-         * @returns {void}
-         */
-        showSwipeIndicatorsTemporarily() {
-            if (this.isGSAPAvailable()) {
-                gsap.to(DOM.swipeIndicator, {
-                    duration: 0.3,
-                    opacity: 1
-                });
-                
-                setTimeout(() => {
-                    gsap.to(DOM.swipeIndicator, {
-                        duration: 0.5,
-                        opacity: 0,
-                        delay: CONFIG.GSAP.INDICATOR_DELAY
-                    });
-                }, CONFIG.TIMING.INDICATOR_SHOW_TIME);
-            } else {
-                DOM.swipeIndicator.style.opacity = '1';
-                
-                setTimeout(() => {
-                    DOM.swipeIndicator.style.opacity = '0';
-                }, 3000);
-            }
-        }
-        
-        /**
          * Обработчик нажатий клавиш
-         * @param {KeyboardEvent} event - Событие клавиатуры
-         * @returns {void}
          */
         handleKeyDown(event) {
             switch(event.key) {
@@ -519,102 +402,40 @@
                 case 'ArrowRight':
                     this.nextImage();
                     break;
-                case 'ArrowUp':
-                    // Дополнительная навигация (опционально)
-                    break;
-                case 'ArrowDown':
-                    // Дополнительная навигация (опционально)
-                    break;
             }
         }
         
         /**
-         * Обработчик начала свайпа/перетаскивания
-         * @param {MouseEvent|TouchEvent} event - Событие мыши или касания
-         * @returns {void}
-         */
-        handleSwipeStart(event) {
-            swipeState.startX = this.getEventX(event);
-            swipeState.isActive = true;
-        }
-        
-        /**
-         * Обработчик движения при свайпе/перетаскивании
-         * @param {MouseEvent|TouchEvent} event - Событие мыши или касания
-         * @returns {void}
-         */
-        handleSwipeMove(event) {
-            if (!swipeState.isActive) return;
-            
-            swipeState.endX = this.getEventX(event);
-            const diff = swipeState.startX - swipeState.endX;
-            
-            // Показываем превью свайпа если превышен порог
-            if (Math.abs(diff) > CONFIG.SWIPE.PREVIEW_THRESHOLD) {
-                DOM.modalImage.style.transform = `translateX(${-diff / 20}px)`;
-            }
-        }
-        
-        /**
-         * Обработчик окончания свайпа/перетаскивания
-         * @param {MouseEvent|TouchEvent} event - Событие мыши или касания
-         * @returns {void}
-         */
-        handleSwipeEnd(event) {
-            if (!swipeState.isActive) return;
-            
-            swipeState.endX = this.getEventX(event);
-            const diff = swipeState.startX - swipeState.endX;
-            
-            // Сбрасываем трансформацию изображения
-            DOM.modalImage.style.transform = 'translateX(0)';
-            
-            // Определяем направление свайпа и выполняем действие
-            if (Math.abs(diff) > CONFIG.SWIPE.ACTION_THRESHOLD) {
-                if (diff > 0) {
-                    this.nextImage(); // Свайп влево -> следующее изображение
-                } else {
-                    this.prevImage(); // Свайп вправо -> предыдущее изображение
-                }
-            }
-            
-            swipeState.isActive = false;
-        }
-        
-        /**
-         * Возвращает X-координату события (поддержка мыши и касаний)
-         * @param {MouseEvent|TouchEvent} event - Событие
-         * @returns {number} X-координата
-         */
-        getEventX(event) {
-            return event.changedTouches 
-                ? event.changedTouches[0].screenX 
-                : event.clientX;
-        }
-        
-        /**
-         * Настраивает обработчики событий для элементов управления
-         * @returns {void}
+         * Настраивает обработчики событий
          */
         setupEventListeners() {
-            // Кнопки управления
-            DOM.closeModalBtn.addEventListener('click', () => this.closeModal());
-            DOM.prevBtn.addEventListener('click', () => this.prevImage());
-            DOM.nextBtn.addEventListener('click', () => this.nextImage());
+            if (DOM.closeModalBtn) {
+                DOM.closeModalBtn.addEventListener('click', () => this.closeModal());
+            }
             
-            // Закрытие по клику на оверлей
-            DOM.modalOverlay.addEventListener('click', (event) => {
-                if (event.target === DOM.modalOverlay) {
-                    this.closeModal();
-                }
-            });
+            if (DOM.prevBtn) {
+                DOM.prevBtn.addEventListener('click', () => this.prevImage());
+            }
+            
+            if (DOM.nextBtn) {
+                DOM.nextBtn.addEventListener('click', () => this.nextImage());
+            }
+            
+            if (DOM.modalOverlay) {
+                DOM.modalOverlay.addEventListener('click', (event) => {
+                    if (event.target === DOM.modalOverlay) {
+                        this.closeModal();
+                    }
+                });
+            }
         }
         
         /**
-         * Настраивает обработчики событий для модального окна
-         * @returns {void}
+         * Настраивает обработчики свайпа
          */
         setupModalEventListeners() {
+            if (!DOM.modalContent) return;
+            
             const swipeHandlers = {
                 start: this.handleSwipeStart.bind(this),
                 move: this.handleSwipeMove.bind(this),
@@ -622,12 +443,12 @@
                 cancel: () => { swipeState.isActive = false; }
             };
             
-            // Обработчики для touch-событий (мобильные устройства)
+            // Touch события
             DOM.modalContent.addEventListener('touchstart', swipeHandlers.start, { passive: true });
             DOM.modalContent.addEventListener('touchmove', swipeHandlers.move, { passive: true });
             DOM.modalContent.addEventListener('touchend', swipeHandlers.end);
             
-            // Обработчики для mouse-событий (десктоп)
+            // Mouse события
             DOM.modalContent.addEventListener('mousedown', swipeHandlers.start);
             DOM.modalContent.addEventListener('mousemove', swipeHandlers.move);
             DOM.modalContent.addEventListener('mouseup', swipeHandlers.end);
@@ -635,57 +456,122 @@
         }
         
         /**
-         * Удаляет обработчики событий модального окна
-         * @returns {void}
+         * Обработчики свайпа
          */
-        removeModalEventListeners() {
-            // Здесь можно было бы удалить обработчики, но в нашем случае
-            // это не критично, так как они добавляются при каждом открытии
+        handleSwipeStart(event) {
+            swipeState.startX = this.getEventX(event);
+            swipeState.isActive = true;
         }
         
-        /**
-         * Скрывает подсказку о свайпе через заданное время
-         * @returns {void}
-         */
-        hideTouchHintAfterDelay() {
-            setTimeout(() => {
-                if (this.isGSAPAvailable()) {
-                    gsap.to(DOM.touchHint, {
-                        duration: 0.5,
-                        opacity: 0,
-                        delay: 2
-                    });
+        handleSwipeMove(event) {
+            if (!swipeState.isActive || !DOM.modalImage) return;
+            
+            swipeState.endX = this.getEventX(event);
+            const diff = swipeState.startX - swipeState.endX;
+            
+            if (Math.abs(diff) > CONFIG.SWIPE.PREVIEW_THRESHOLD) {
+                DOM.modalImage.style.transform = `translateX(${-diff / 20}px)`;
+            }
+        }
+        
+        handleSwipeEnd(event) {
+            if (!swipeState.isActive || !DOM.modalImage) return;
+            
+            swipeState.endX = this.getEventX(event);
+            const diff = swipeState.startX - swipeState.endX;
+            
+            DOM.modalImage.style.transform = 'translateX(0)';
+            
+            if (Math.abs(diff) > CONFIG.SWIPE.ACTION_THRESHOLD) {
+                if (diff > 0) {
+                    this.nextImage();
                 } else {
-                    DOM.touchHint.style.opacity = '0';
+                    this.prevImage();
                 }
+            }
+            
+            swipeState.isActive = false;
+        }
+        
+        getEventX(event) {
+            return event.changedTouches 
+                ? event.changedTouches[0].screenX 
+                : event.clientX;
+        }
+        
+        showModal() {
+            if (!DOM.modalOverlay) return;
+            
+            DOM.modalOverlay.style.display = 'block';
+            
+            // Простая анимация появления
+            setTimeout(() => {
+                DOM.modalOverlay.style.opacity = '1';
+                if (DOM.modalContent) {
+                    DOM.modalContent.style.opacity = '1';
+                }
+            }, 10);
+        }
+        
+        hideModal() {
+            if (!DOM.modalOverlay) return;
+            
+            DOM.modalOverlay.style.opacity = '0';
+            if (DOM.modalContent) {
+                DOM.modalContent.style.opacity = '0';
+            }
+            
+            setTimeout(() => {
+                DOM.modalOverlay.style.display = 'none';
+            }, CONFIG.TIMING.MODAL_CLOSE);
+        }
+        
+        showSwipeIndicatorsTemporarily() {
+            if (!DOM.swipeIndicator) return;
+            
+            DOM.swipeIndicator.style.opacity = '1';
+            
+            setTimeout(() => {
+                DOM.swipeIndicator.style.opacity = '0';
+            }, CONFIG.TIMING.INDICATOR_SHOW_TIME);
+        }
+        
+        hideTouchHintAfterDelay() {
+            if (!DOM.touchHint) return;
+            
+            setTimeout(() => {
+                DOM.touchHint.style.opacity = '0';
             }, CONFIG.TIMING.HINT_HIDE_DELAY);
         }
         
         /**
-         * Проверяет доступность библиотеки GSAP
-         * @returns {boolean} true если GSAP доступен
+         * Добавляет изображение в галерею динамически
          */
-        isGSAPAvailable() {
-            return typeof gsap !== 'undefined';
+        addImage(url, title = '', author = '') {
+            const newImage = {
+                id: this.images.length + 1,
+                title: title || `Изображение ${this.images.length + 1}`,
+                author: author || 'SocialBeach',
+                url: url
+            };
+            
+            this.images.push(newImage);
+            return this.images.length - 1;
         }
         
         /**
-         * Обновляет данные галереи
-         * @param {Array<Object>} newData - Новые данные изображений
-         * @returns {void}
+         * Обновляет коллекцию изображений
          */
-        setData(newData) {
-            this.data = [...newData];
-            this.currentIndex = 0;
-            this.init();
-        }
-        
-        /**
-         * Возвращает текущие данные галереи
-         * @returns {Array<Object>} Данные галереи
-         */
-        getData() {
-            return [...this.data];
+        refreshImages() {
+            this.collectAllImages();
+            
+            if (DOM.thumbnailsContainer) {
+                this.createThumbnails();
+            }
+            
+            if (DOM.swipeIndicator) {
+                this.createSwipeIndicators();
+            }
         }
     }
     
@@ -693,108 +579,82 @@
     // 5. ИНИЦИАЛИЗАЦИЯ И ПУБЛИЧНЫЙ API
     // ============================================================================
     
-    /**
-     * Инициализирует галерею при загрузке документа
-     * @returns {void}
-     */
     function initializeGallery() {
         const gallery = new GalleryManager();
         gallery.init();
         
-        // Экспортируем публичный API
+        // Публичный API
         window.GalleryModule = {
-            /**
-             * Инициализирует галерею
-             * @returns {GalleryManager} Экземпляр менеджера галереи
-             */
             init: () => {
                 gallery.init();
                 return gallery;
             },
             
-            /**
-             * Открывает модальное окно с указанным изображением
-             * @param {number} index - Индекс изображения
-             * @returns {void}
-             */
             open: (index) => gallery.openModal(index),
             
-            /**
-             * Закрывает модальное окно
-             * @returns {void}
-             */
+            openByImage: (imageElement) => {
+                // Находим изображение по элементу
+                const index = Array.from(gallery.images).findIndex(
+                    img => img.element === imageElement || img.url === imageElement.src
+                );
+                if (index !== -1) {
+                    gallery.openModal(index);
+                }
+            },
+            
             close: () => gallery.closeModal(),
             
-            /**
-             * Переходит к следующему изображению
-             * @returns {void}
-             */
             next: () => gallery.nextImage(),
             
-            /**
-             * Переходит к предыдущему изображению
-             * @returns {void}
-             */
             prev: () => gallery.prevImage(),
             
-            /**
-             * Обновляет данные галереи
-             * @param {Array<Object>} newData - Новые данные
-             * @returns {void}
-             */
-            setData: (newData) => gallery.setData(newData),
+            addImage: (url, title, author) => gallery.addImage(url, title, author),
             
-            /**
-             * Возвращает текущие данные галереи
-             * @returns {Array<Object>} Данные галереи
-             */
-            getData: () => gallery.getData(),
+            refresh: () => gallery.refreshImages(),
             
-            /**
-             * Возвращает текущий индекс изображения
-             * @returns {number} Текущий индекс
-             */
             getCurrentIndex: () => gallery.currentIndex,
             
-            /**
-             * Возвращает общее количество изображений
-             * @returns {number} Количество изображений
-             */
-            getTotalImages: () => gallery.data.length,
+            getTotalImages: () => gallery.images.length,
             
-            /**
-             * Проверяет, открыто ли модальное окно
-             * @returns {boolean} true если модальное окно открыто
-             */
+            getImages: () => gallery.images,
+            
             isOpen: () => gallery.isModalOpen,
         };
+        
+        // Делаем галерею доступной для изображений
+        document.addEventListener('click', (e) => {
+            if (e.target.tagName === 'IMG' && !e.target.closest('.photo-thumb')) {
+                e.preventDefault();
+                
+                const img = e.target;
+                const index = Array.from(gallery.images).findIndex(
+                    imageData => imageData.element === img || imageData.url === img.src
+                );
+                
+                if (index !== -1) {
+                    gallery.openModal(index);
+                } else {
+                    // Если изображение еще не в галерее, добавляем его
+                    const newIndex = gallery.addImage(img.src, img.alt);
+                    gallery.openModal(newIndex);
+                }
+            }
+        });
     }
     
     // ============================================================================
-    // 6. УТИЛИТЫ И ХЕЛПЕРЫ
+    // 6. УТИЛИТЫ
     // ============================================================================
     
-    /**
-     * Проверяет, загружен ли DOM
-     * @returns {boolean} true если DOM загружен
-     */
-    function isDOMReady() {
-        return document.readyState !== 'loading';
-    }
-    
-    /**
-     * Ожидает загрузки DOM и инициализирует галерею
-     * @returns {void}
-     */
     function waitForDOMAndInit() {
-        if (isDOMReady()) {
+        if (document.readyState !== 'loading') {
             initializeGallery();
         } else {
             document.addEventListener('DOMContentLoaded', initializeGallery);
         }
     }
     
-    // Запуск инициализации
+    // Автоматическая инициализация
     waitForDOMAndInit();
     
 })();

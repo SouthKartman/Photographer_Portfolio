@@ -1396,6 +1396,17 @@ a {
 }
 
 @media (max-width: 480px) {
+
+    .main-header {
+        height: 35vh !important; 
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .logo
+    {
+      display: none;
+    }
     .footer {
         padding: 40px 15px 20px;
     }
