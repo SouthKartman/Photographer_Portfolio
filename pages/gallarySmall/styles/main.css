@@ -1,0 +1,1381 @@
+/* ============================================================================
+   CSS РЕФАКТОРИНГ И СТРУКТУРИРОВАНИЕ
+   ============================================================================
+
+   СТРУКТУРА:
+   1. СБРОС И БАЗОВЫЕ СТИЛИ
+   2. CSS-ПЕРЕМЕННЫЕ
+   3. FONT-FACE ОПРЕДЕЛЕНИЯ
+   4. ОСНОВНОЙ КОНТЕЙНЕР И ШАПКА
+   5. МОДУЛЬ ГАЛЕРЕИ
+     5.1. Общие стили модуля
+     5.2. Сетка миниатюр
+     5.3. Карточки миниатюр
+     5.4. Модальное окно
+     5.5. Анимации галереи
+     5.6. Индикаторы и подсказки
+   6. СУЩЕСТВУЮЩИЕ КОМПОНЕНТЫ САЙТА
+   7. АДАПТИВНОСТЬ
+   ============================================================================ */
+
+/* 1. СБРОС И БАЗОВЫЕ СТИЛИ
+   ============================================================================ */
+
+/* 
+   Reset - убираем стандартные отступы и устанавливаем box-sizing
+   для более предсказуемой работы с размерами элементов
+*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 
+   Базовые стили документа - задаем основной фон, цвет текста
+   и параметры шрифта для всего сайта
+*/
+body {
+  font-family: sans-serif;
+  background-color: #000;
+  color: #fff;
+  line-height: 1.25;
+}
+
+a, img, span, input, button {
+    display: block;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* 2. CSS-ПЕРЕМЕННЫЕ (Custom Properties)
+   ============================================================================ */
+
+/* 
+   CSS Custom Properties для централизованного управления
+   дизайн-токенами сайта
+*/
+:root {
+  /* Основной акцентный цвет сайта */
+  --accent: #fff;
+  
+  /* Базовый интервал для отступов и промежутков */
+  --gap: 1rem;
+  
+  /* Цветовая палитра для модуля галереи */
+  --gallery-primary: #ffffff;
+  --gallery-secondary: #2cb67d;
+  --gallery-bg: #16161a;
+  --gallery-text-light: #919191;
+  --gallery-overlay: rgba(0, 0, 0, 0.95);
+  --gallery-card-bg: #f5f5f5;
+  
+  /* Прозрачности для слоев и эффектов */
+  --opacity-low: 0.2;
+  --opacity-medium: 0.6;
+  --opacity-high: 0.9;
+  
+  /* Тени для элементов */
+  --shadow-light: 0 5px 15px rgba(0, 0, 0, 0.2);
+  --shadow-medium: 0 10px 25px rgba(0, 0, 0, 0.5);
+  --shadow-heavy: 0 20px 40px rgba(0, 0, 0, 0.5);
+  
+  /* Закругления углов */
+  --radius-small: 8px;
+  --radius-medium: 12px;
+  --radius-large: 20px;
+  --radius-circle: 50%;
+  
+  /* Анимации и переходы */
+  --transition-fast: 0.3s ease;
+  --transition-medium: 0.4s ease;
+  --transition-slow: 0.5s ease;
+  --transition-bounce: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  
+  /* Размеры для адаптивности */
+  --breakpoint-mobile: 480px;
+  --breakpoint-tablet: 768px;
+  --breakpoint-desktop: 1024px;
+}
+
+/* 3. FONT-FACE ОПРЕДЕЛЕНИЯ
+   ============================================================================ */
+
+/* 
+   Подключение кастомных шрифтов для брендинга сайта
+   Mansalva - для логотипа и акцентов
+   AUC - для заголовков и фирменного текста
+*/
+@font-face {
+  font-family: Mansalva;
+  src: url(../../../fonts/Mansalva-Regular.ttf);
+  font-display: swap; /* Стратегия загрузки шрифтов */
+}
+
+@font-face {
+  font-family: AUC;
+  src: url(../../../fonts/AUC75.otf);
+  font-display: swap;
+}
+
+/* 4. ОСНОВНОЙ КОНТЕЙНЕР И ШАПКА
+   ============================================================================ */
+
+/* 
+   Главная шапка сайта - полноэкранный герой-раздел
+   с параллакс эффектом и интерактивными карточками
+*/
+.main-header {
+  position: relative;
+  height: 100vh;
+  overflow: hidden; /* Скрываем выходящие за пределы элементы */
+}
+
+/* Логотип в левом верхнем углу */
+.logo {
+  position: absolute;
+  font-size: 22px;
+  top: 40px;
+  left: 10%;
+  font-family: Mansalva, cursive;
+  font-weight: 500;
+  z-index: 10; /* Поверх других элементов */
+}
+
+/* Акцентный элемент в логотипе */
+.logo span {
+  color: var(--accent);
+}
+
+/* Кнопка добавления нового контента (временно скрыта) */
+.add-new {
+  color: var(--accent);
+  text-decoration: none;
+  padding: 12px 30px;
+  border: 1px solid var(--accent);
+  position: absolute;
+  top: 35px;
+  right: 10%;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 14px;
+  z-index: 10;
+  transition: all var(--transition-fast);
+}
+
+.add-new:hover {
+  background-color: var(--accent);
+  color: #000;
+}
+
+/* Центральный заголовок страницы */
+.head-text {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  font-family: AUC, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  text-align: center;
+  text-transform: uppercase;
+  line-height: 0.975;
+  letter-spacing: -1.5px;
+  z-index: 10;
+  pointer-events: none; /* Не перехватывает события мыши */
+}
+
+.head-text span {
+  color: var(--accent);
+}
+
+/* 5. МОДУЛЬ ГАЛЕРЕИ
+   ============================================================================ */
+
+/* 5.1. Общие стили модуля */
+
+/* 
+   Основной контейнер модуля галереи
+   Изолирован от стилей сайта через класс gallery-module
+*/
+.gallery-module {
+  font-family: Mansalva, system-ui, sans-serif;
+  position: relative;
+}
+
+/* 5.2. Сетка миниатюр */
+
+/* 
+   Адаптивная сетка для миниатюр фотографий
+   Использует CSS Grid для автоматического заполнения
+*/
+.gallery-module .thumbnails-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 15px;
+  margin: 0;
+}
+
+/* 5.3. Карточки миниатюр */
+
+/* 
+   Карточка миниатюры - основной интерактивный элемент
+   Имеет hover-эффекты и плавные переходы
+*/
+.gallery-module .photo-thumb {
+  border-radius: var(--radius-medium);
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  aspect-ratio: 4/3; /* Сохраняем пропорции 4:3 для всех миниатюр */
+  transition: transform var(--transition-bounce);
+  box-shadow: var(--shadow-light);
+  background: var(--gallery-card-bg);
+}
+
+/* Эффект при наведении - "подъем" карточки */
+.gallery-module .photo-thumb:hover {
+  transform: translateY(-5px) scale(1.03);
+}
+
+/* Изображение внутри миниатюры */
+.gallery-module .photo-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Заполняем контейнер с сохранением пропорций */
+  transition: transform var(--transition-slow);
+}
+
+/* Увеличение изображения при наведении */
+.gallery-module .photo-thumb:hover img {
+  transform: scale(1.08);
+}
+
+/* 
+   Панель с информацией о фото
+   Показывается при наведении на миниатюру
+*/
+.gallery-module .photo-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+  padding: 15px 10px 10px;
+  transform: translateY(10px);
+  opacity: 0;
+  transition: all var(--transition-fast);
+}
+
+/* Анимация появления информации при наведении */
+.gallery-module .photo-thumb:hover .photo-info {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Заголовок фотографии в миниатюре */
+.gallery-module .photo-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 3px;
+  color: white;
+}
+
+/* Автор фотографии в миниатюре */
+.gallery-module .photo-author {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* 5.4. Модальное окно */
+
+/* 
+   Фон модального окна - затемняет весь экран
+   Имеет размытие фона (backdrop-filter) для эффекта стекла
+*/
+.gallery-module .modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--gallery-overlay);
+  z-index: 10000; /* Очень высокий z-index поверх всех элементов */
+  display: none;
+  opacity: 0;
+  backdrop-filter: blur(10px);
+}
+
+/* 
+   Контейнер модального окна
+   Центрируется по середине экрана с анимацией появления
+*/
+.gallery-module .modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  /* width: 50%; */
+  /* height: 50%; */
+  /* max-width: 1400px; */
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-large);
+  overflow: hidden;
+  box-shadow: var(--shadow-heavy);
+  background: var(--gallery-bg);
+  opacity: 0;
+}
+
+/* Шапка модального окна */
+.gallery-module .modal-header {
+  padding: 15px 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(22, 22, 26, 0.95);
+  border-bottom: 1px solid #2a2a3a;
+}
+
+/* Заголовок в шапке модального окна */
+.gallery-module .modal-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: white;
+}
+
+/* Кнопка закрытия модального окна */
+.gallery-module .close-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: white;
+  width: 45px;
+  height: 45px;
+  border-radius: var(--radius-circle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-size: 1.3rem;
+}
+
+/* Эффект вращения при наведении на кнопку закрытия */
+.gallery-module .close-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: rotate(90deg);
+}
+
+/* Основная область модального окна для изображения */
+.gallery-module .modal-body {
+  flex: 1; /* Занимает все доступное пространство */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 15px;
+}
+
+/* Контейнер для полноразмерного изображения */
+.gallery-module .modal-image-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* Полноразмерное изображение в модальном окне */
+.gallery-module .modal-image {
+  max-width: 50%;
+  max-height: 50%;
+  object-fit: contain;
+  border-radius: var(--radius-small);
+  box-shadow: var(--shadow-medium);
+}
+
+/* Кнопки навигации (вперед/назад) */
+.gallery-module .nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  color: white;
+  width: 55px;
+  height: 55px;
+  border-radius: var(--radius-circle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.5rem;
+  transition: all var(--transition-fast);
+  z-index: 10;
+  backdrop-filter: blur(5px); /* Эффект матового стекла */
+}
+
+/* Эффект увеличения при наведении на кнопки навигации */
+.gallery-module .nav-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-50%) scale(1.1);
+}
+
+/* Позиционирование кнопки "Назад" */
+.gallery-module .prev-btn {
+  left: 20px;
+}
+
+/* Позиционирование кнопки "Вперед" */
+.gallery-module .next-btn {
+  right: 20px;
+}
+
+/* Подвал модального окна с информацией */
+.gallery-module .modal-footer {
+  padding: 15px 25px;
+  background: rgba(22, 22, 26, 0.95);
+  border-top: 1px solid #2a2a3a;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Контейнер для информации об изображении */
+.gallery-module .image-info {
+  flex: 1;
+  text-align: left;
+}
+
+/* Заголовок изображения в подвале */
+.gallery-module .image-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: white;
+}
+
+/* Автор изображения в подвале */
+.gallery-module .image-author {
+  color: var(--gallery-text-light);
+  font-size: 0.95rem;
+}
+
+/* Счетчик изображений (например: 1/12) */
+.gallery-module .image-counter {
+  font-size: 1.1rem;
+  color: var(--gallery-primary);
+  font-weight: 600;
+  background: rgba(0, 0, 0, 0.486);
+  padding: 6px 18px;
+  border-radius: 50px;
+}
+
+/* 5.5. Анимации галереи */
+
+/* 
+   Анимация появления нового изображения
+   Использует bounce-эффект для плавного масштабирования
+*/
+.gallery-module .photo-enter {
+  animation: photoEnter 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes photoEnter {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* 
+   Анимация исчезновения текущего изображения
+   Плавное уменьшение и исчезновение
+*/
+.gallery-module .photo-exit {
+  animation: photoExit var(--transition-medium) ease forwards;
+}
+
+@keyframes photoExit {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+}
+
+/* 5.6. Индикаторы и подсказки */
+
+/* Подсказка о возможности свайпа (для мобильных устройств) */
+.gallery-module .touch-hint {
+  position: absolute;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.1);
+  padding: 8px 18px;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  backdrop-filter: blur(5px);
+  opacity: 0.8;
+  color: white;
+}
+
+/* Иконка в подсказке о свайпе */
+.gallery-module .touch-hint i {
+  color: var(--gallery-secondary);
+  font-size: 1.1rem;
+}
+
+/* Контейнер для индикаторов свайпа (точек навигации) */
+.gallery-module .swipe-indicator {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+/* Отдельная точка в индикаторе свайпа */
+.gallery-module .swipe-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-circle);
+  background: rgba(255, 255, 255, 0.3);
+  transition: all var(--transition-fast);
+}
+
+/* Активная точка в индикаторе свайпа */
+.gallery-module .swipe-dot.active {
+  background: var(--gallery-primary);
+  transform: scale(1.3);
+}
+
+/* 6. СУЩЕСТВУЮЩИЕ КОМПОНЕНТЫ САЙТА
+   ============================================================================ */
+
+/* Плавающие карточки в шапке с параллакс эффектом */
+.card {
+  position: absolute;
+  padding: 10px;
+  opacity: var(--opacity-medium);
+  cursor: pointer;
+  transition: opacity var(--transition-fast), transform 0.75s ease-out;
+}
+
+.card img {
+  width: 100%;
+}
+
+.card:hover {
+  opacity: var(--opacity-high);
+}
+
+.card h3 {
+  text-transform: uppercase;
+  font-size: 14px;
+  margin-top: 5px;
+  margin-bottom: 2.5px;
+  font-family: AUC, sans-serif;
+}
+
+.card p {
+  padding: 0;
+  font-size: 11px;
+}
+
+/* Параллакс-эффекты для карточек разной глубины */
+.card[data-depth="1"] {
+  transform: translate(
+    calc(var(--mouse-x) * 12.5px),
+    calc(var(--mouse-y) * 12.5px)
+  );
+}
+
+.card[data-depth="2"] {
+  transform: translate(
+    calc(var(--mouse-x) * 20px),
+    calc(var(--mouse-y) * 20px)
+  );
+}
+
+.card[data-depth="3"] {
+  transform: translate(
+    calc(var(--mouse-x) * 30px),
+    calc(var(--mouse-y) * 30px)
+  );
+}
+
+.card[data-depth="4"] {
+  transform: translate(
+    calc(var(--mouse-x) * 40px),
+    calc(var(--mouse-y) * 40px)
+  );
+}
+
+.card[data-depth="5"] {
+  transform: translate(
+    calc(var(--mouse-x) * 50px),
+    calc(var(--mouse-y) * 50px)
+  );
+}
+
+/* Основной контент под шапкой */
+.othercontent {
+  min-height: 100vh;
+  color: #555;
+  padding-top: 30px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-top: 60px;
+  border-top: 1px solid rgba(255 255 255 / var(--opacity-low));
+}
+
+/* Многоколоночный список изображений */
+.list {
+  columns: 300px;
+  column-gap: var(--gap);
+  padding: calc(var(--gap) / 1.25);
+}
+
+/* Элемент в списке изображений */
+.item {
+  margin-bottom: var(--gap);
+  cursor: pointer;
+  transition: transform var(--transition-fast);
+  break-inside: avoid; /* Предотвращает разрыв элементов между колонками */
+}
+
+/* Эффект при наведении на элемент списка */
+.item:hover {
+  transform: scale(1.02);
+}
+
+/* Изображение в элементе списка */
+.item img {
+  width: 100%;
+  display: block;
+  border-radius: var(--radius-small);
+}
+
+/* Секция для размещения модуля галереи */
+.gallery-section {
+  padding: 40px 20px;
+}
+
+/* Заголовок секции галереи */
+.gallery-section h2 {
+  font-family: AUC, sans-serif;
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+/* Текст с инструкцией по использованию галереи */
+.gallery-instruction {
+  text-align: center;
+  color: var(--gallery-text-light);
+  margin-bottom: 30px;
+  font-size: 0.95rem;
+}
+
+/* Иконки в тексте инструкции */
+.gallery-instruction i {
+  color: var(--gallery-primary);
+  margin: 0 5px;
+}
+
+/* 7. АДАПТИВНОСТЬ
+   ============================================================================ */
+
+/* 
+   Адаптивные стили для планшетов и небольших экранов
+   Брейкпоинт: 768px
+*/
+@media (max-width: 768px) {
+  /* Уменьшение размера заголовка на мобильных */
+  .head-text {
+    font-size: 2rem;
+  }
+  
+  /* Адаптация модуля галереи */
+  .gallery-module .thumbnails-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+  
+  .gallery-module .modal-header,
+  .gallery-module .modal-footer {
+    padding: 12px 18px;
+  }
+  
+  .gallery-module .nav-btn {
+    width: 45px;
+    height: 45px;
+    font-size: 1.3rem;
+  }
+  
+  .gallery-module .prev-btn {
+    left: 10px;
+  }
+  
+  .gallery-module .next-btn {
+    right: 10px;
+  }
+  
+  .gallery-module .touch-hint {
+    font-size: 0.75rem;
+    padding: 6px 14px;
+    bottom: 20px;
+  }
+}
+
+/* 
+   Адаптивные стили для мобильных устройств
+   Брейкпоинт: 480px
+*/
+
+@media (max-width: 1024px) {
+  /* Дальнейшая адаптация модуля галереи */
+  .head-text
+  {
+    font-size: 3.5vmin;
+  }
+  .main-header
+  {
+    height: 70vh;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Дальнейшая адаптация модуля галереи */
+  .gallery-module .thumbnails-grid {
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 10px;
+  }
+  
+  .gallery-module .modal-content 
+  {
+    width: 100%;
+    height: 100%;
+  }
+  .gallery-module .modal-image
+  {
+    max-width: 90%;
+    max-height: 80%;
+  } 
+
+  .gallery-module .modal-title {
+    font-size: 1.1rem;
+  }
+  
+  .gallery-module .image-title {
+    font-size: 1.1rem;
+  }
+  
+  .gallery-module .image-counter {
+    font-size: 1rem;
+    padding: 5px 14px;
+  }
+  
+  .gallery-module .nav-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 1.1rem;
+  }
+    .main-header
+  {
+    height: 50vh;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ==========================================================================
+   12. FOOTER
+   ========================================================================== */
+.footer {
+    border-top: 1px solid #2a2a2a;
+}
+
+.footer-container {
+    max-width: 80%;
+    margin: 0 auto;
+}
+
+.footer-top {
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 80px;
+    gap: 40px;
+    width: 50%;
+}
+
+.footer-slogan {
+    font-size: 50px;
+    font-weight: 300;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #ffffff;
+    line-height: 1.3;
+    flex: 1;
+    max-width: 600px;
+}
+
+.footer-Desc {
+    font-size: 20px;
+    font-weight: 300;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: #ffffff;
+    line-height: 1.3;
+    flex: 1;
+    max-width: 600px;
+    padding: 20px 0px;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 15px 35px;
+    border: 1px solid #ffffff;
+    background: transparent;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 0.9rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    font-weight: 300;
+    white-space: nowrap;
+    margin-top: 10px;
+}
+
+.cta-button:hover {
+    background: #ffffff;
+    color: #000000;
+}
+
+.footer-main {
+    display: grid;
+    grid-template-columns: 0.5fr 0.5fr 0.5fr;
+    gap: 60px;
+    margin-bottom: 50px;
+    align-items: start;
+    justify-content: right;
+    width: 50%;
+}
+
+.footer-section h3 {
+    font-size: 18px;
+    font-weight: 400;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 25px;
+    color: #ffffff;
+    border-bottom: 1px solid #333;
+    padding-bottom: 12px;
+}
+
+.footer-nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+.nav-column ul {
+    list-style: none;
+}
+
+.nav-column li {
+    margin-bottom: 12px;
+}
+
+.nav-column a {
+    color: #cccccc;
+    text-decoration: none;
+    font-size: 18px;
+    letter-spacing: 1px;
+    transition: color 0.3s ease;
+    font-weight: 300;
+}
+
+.nav-column a:hover {
+    color: #ffffff;
+}
+
+.portfolio-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.portfolio-item {
+    color: #cccccc;
+    font-size: 18px;
+    font-weight: 300;
+    padding: 4px 0;
+}
+
+.contact-info {
+    font-size: 18px;
+    color: #cccccc;
+    font-weight: 300;
+}
+
+.contact-info p {
+    margin-bottom: 12px;
+}
+
+.footer-bottom {
+    padding-top: 30px;
+    border-top: 1px solid #2a2a2a;
+    display: flex;
+    padding: 30px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.legal-links {
+    display: flex;
+    gap: 30px;
+}
+
+.legal-links a {
+    color: #666666;
+    text-decoration: none;
+    font-size: 18px;
+    transition: color 0.3s ease;
+    font-weight: 300;
+}
+
+.legal-links a:hover {
+    color: #cccccc;
+}
+
+.copyright {
+    color: #666666;
+    font-size: 18px;
+    font-weight: 300;
+}
+
+.content_footer {
+    display: flex;
+    height: 500px;
+    align-items: center;
+    border-right: 1px solid #2a2a2a;
+    border-left: 1px solid #2a2a2a;
+    padding: 25px;
+}
+
+/* ==========================================================================
+   13. RESPONSIVE STYLES
+   ========================================================================== */
+
+/* Общие адаптивные стили */
+.possibilities-items {
+    padding: 20px 10px;
+    border: 1px solid #1C1C21;
+    border-radius: 12px;
+    text-transform: none;
+}
+
+.main-nav {
+    font-weight: bold;
+}
+
+.faq-question span {
+    font-weight: 600;
+    color: #AFB0B6;
+}
+
+.button svg {
+    width: 12px;
+    height: 12px;
+    margin: 0px 0px 0px 6px;
+    color: var(--button-text-active);
+}
+
+.button {
+    color: var(--button-text-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.button:hover {
+    border-bottom: 1px solid #62646C;
+    color: var(--button-text-active);
+}
+
+.price_text {
+    font-size: 2.2rem;
+    text-align: left;
+    font-weight: lighter;
+}
+
+.arrow {
+    width: 12px;
+    height: 12px;
+    margin: 0px 0px 0px 6px;
+    color: var(--button-text-color);
+}
+
+.gallery__item_contact a {
+    color: var(--button-text-color);
+}
+
+.gallery__item_contact a:hover {
+    color: var(--button-text-active);
+    cursor: pointer;
+}
+
+.gallery__item_contact svg:hover {
+    color: var(--button-text-active);
+}
+
+.second-title {
+    color: var(--second-title-color);
+}
+
+/* Медиа-запросы */
+@media (max-width: 1024px) {
+    :root {
+        --index: calc(1.2vw + 1vh);
+        --gallery-gap: calc(var(--index) * 6); 
+    }
+    .contact-from-item
+    {
+        display: none;
+    }
+    .gallery {
+        display: block;
+        width: 90%;
+        margin: auto;
+    }
+    
+    .gallery__left,
+    .gallery__right {
+        width: 100%;
+    }
+    
+    .gallery__item {
+        width: 100%;
+    }
+    
+    .gallery__left img {
+        width: 60%;
+        height: 500px;
+    }
+    
+    .gallery__item:nth-child(2) img {
+        display: none;
+    }
+    
+    .ps-slide-content img {
+        width: 100% !important;
+    }
+    
+    .ps-slider-arrow {
+        transform: translateY(300%) !important;
+    }
+    
+    .rogat-slider__header a {
+        display: none;
+    }
+    .rogat-slider__track {
+        display: flex;
+        transition: transform 0.5s;
+    }
+    .rogat-slider__info
+    {
+        margin: 50px 0px;
+    }
+    .gallery__right img {
+        width: 70%;
+        margin: auto;
+    }
+    
+    .main-header {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .main-quote {
+        display: none;
+    }
+    
+    .hero {
+        display: none;
+    }
+    
+    .price-container-gallery {
+        display: block;
+    }
+    
+    .container {
+        padding: 0vw 2vw;
+    }
+    
+    .gallery__item {
+        max-width: 85%;
+    }
+    
+    .gallery_contact-text {
+        display: block;
+    }
+    
+    .contact-button {
+        display: none;
+    }
+    
+    .price_num {
+        font-size: 40px;
+    }
+    
+    .content_footer {
+        display: block;
+        height: 100%;
+    }
+    
+    .footer-main {
+        display: none;
+    }
+    
+    .footer-top {
+        width: 100%;
+    }
+    
+    .legal-links {
+        display: none;
+    }
+    
+    .gallery-img {
+        max-width: 100%;
+        object-fit: cover;
+        display: flex;
+    }
+    
+    .gallery-img img {
+        max-width: 100%;
+    }
+    
+    .FAQ_Container {
+        display: none;
+    }
+    
+    .main-nav {
+        display: none !important;
+    }
+    
+    .header-content {
+        justify-content: space-between;
+    }
+    
+    .logo {
+        width: 50%;
+        margin: 35px;
+    }
+    
+    .menu a {
+        display: none;
+    }
+    
+    .gallery-img {
+        width: 700px;
+    }
+    .title_gallary_card 
+    {
+        display: none;
+    }
+    .title_gallary_place
+    {
+        display: block;
+    }
+    .rogat-slider__header a {
+        display: block !important;
+    }
+    .title_gallary_place_buttons
+    {
+        width: 100%;
+    }
+    .rogat-slider__link {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+@media (max-width: 992px) {
+    .rogat-slider__slide {
+        flex: 0 0 50%;
+    }
+}
+
+@media (max-width: 968px) {
+    .footer-top {
+        flex-direction: column;
+        gap: 30px;
+        margin-bottom: 60px;
+    }
+    
+    .footer-slogan {
+        font-size: 1.8rem;
+        letter-spacing: 4px;
+        max-width: 100%;
+    }
+
+}
+
+@media (max-width: 768px) {
+    .head
+    {
+        height: 80px;
+    }
+    .main-title {
+        font-size: calc(var(--index) * 3.5); /* Уменьшаем множитель */
+        top: 40vh; /* Немного опускаем */
+        right: auto;
+    }
+    
+    .main-description {
+        font-size: calc(var(--index) * 1.1);
+        top: 35vh;
+        right: auto;
+    }
+    .footer-main {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    .gallery__left img {
+        width: 60%;
+        height: 400px;
+    }
+    .footer-nav {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+    
+    .footer-slogan {
+        font-size: 1.5rem;
+        letter-spacing: 3px;
+    }
+    
+    .footer-bottom {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
+    
+    .legal-links {
+        order: 2;
+    }
+    
+    .copyright {
+        order: 1;
+    }
+}
+
+@media (max-width: 576px) {
+    .rogat-slider__slide {
+        flex: 0 0 100%;
+    }
+    
+    .rogat-slider__header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .title_gallary_place_buttons
+    {
+        justify-content: center;
+    }
+    /* .rogat-slider__link {
+        margin-top: 10px;
+    } */
+    .rogat-slider__link{
+        font-size: var(--font-size-xs);
+    }
+    .title_gallary_card_mobile
+    {
+        display: block;
+        height: 100%;
+        /* text-transform: uppercase; */
+        font-size: 28px;
+        letter-spacing: 0.07cap;
+        text-align: center;
+        margin: auto;
+        width: 100%;
+    }
+    .title_gallary_card_mobile h5
+    {
+        font-size: 14px;
+    }
+    .rogat-slider__slide
+    {
+        padding: 0px;
+    }
+    .rogat-slider__nav-button
+    {
+        width: 50px;
+        height: 50px;
+        font-size: var(--font-size-xs);
+    }
+}
+
+@media (max-width: 480px) {
+    .footer {
+        padding: 40px 15px 20px;
+    }
+    
+    .footer-slogan {
+        font-size: 1.3rem;
+        letter-spacing: 2px;
+    }
+    
+    .cta-button {
+        padding: 12px 25px;
+        font-size: 0.8rem;
+        letter-spacing: 2px;
+        width: 100%;
+        text-align: center;
+    }
+}
+
+

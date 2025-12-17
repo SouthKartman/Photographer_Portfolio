@@ -209,6 +209,10 @@
     .ps-slide-content {
         padding: 0 15px;
     }
+    .ps-slider-container
+    {
+        display: none !important; 
+    }
 
 }
 .nav_ps_slider

@@ -1,0 +1,22 @@
+    .soundbutton {
+		position: fixed;
+		bottom: 5vh;
+		right: 5vw;
+		cursor: pointer;
+		width: 32px;
+		transition: .25s ease;
+		z-index: 1000;
+	}
+	.soundbutton.paused {
+		opacity: .25;
+	}
+
+@media screen  and (max-width:600px)  {
+    .soundbutton   {
+			display: none;
+		}
+		.scroll-to-top
+		{
+			display: none;
+		}
+    }
