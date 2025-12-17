@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Счастье спорта - Фотосессия</title>
+
+  <script src="vendor/gsap/gsap.min.js" defer></script>
+  <script src="vendor/gsap/ScrollTrigger.min.js" defer></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="scripts/app.js" type="module"></script>
+  <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+
+<!-- preloader -->
+<style>.preloader{position:fixed;inset:0;background:#000;display:grid;place-items:center;z-index:9999;opacity:1;transition:opacity 0.5s ease}.loader{width:40px;height:40px;border:3px solid #333;border-top:3px solid #fff;border-radius:50%;animation:spin 1s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}</style>
+<div class="preloader"><div class="loader"></div></div>
+<script>window.onload=()=>{document.querySelector('.preloader').style.opacity='0';setTimeout(()=>document.querySelector('.preloader').remove(),500)}</script>
+
+
+  <div class="wrapper">
+    <div class="content">
+
+      <header class="main-header">
+
+        <div class="logo"><span></span><a href="../../index.html">SOCIAL BEACH</a></div>
+
+        <!-- <a href="#" class="add-new">Add New</a> -->
+
+        <div class="head-text">
+          <h1 data-speed=".8">Счастье спорта</h1>
+        </div>
+
+        <!-- .card*8>img[src="images/$.jpg"][alt="Alt"]+h3>lorem3^p>lorem10 -->
+        <div class="card">
+          <img src="../../img/gallery/HappySport/1.jpg" alt="Alt">
+          <!-- <h3>Lorem, ipsum dolor.</h3>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum, repellendus!</p> -->
+        </div>
+        <div class="card">
+          <img src="../../img/gallery/HappySport/2.jpg" alt="Alt">
+          <!-- <h3>Lorem, ipsum dolor.</h3>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum, repellendus!</p> -->
+        </div>
+        <div class="card">
+          <img src="../../img/gallery/HappySport/3.jpg" alt="Alt">
+          <!-- <h3>Lorem, ipsum dolor.</h3>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum, repellendus!</p> -->
+        </div>
+        <div class="card">
+          <img src="../../img/gallery/HappySport/4.jpg" alt="Alt">
+          <!-- <h3>Lorem, ipsum dolor.</h3>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum, repellendus!</p> -->
+        </div>
+        <div class="card">
+          <img src="../../img/gallery/HappySport/5.jpg" alt="Alt">
+          <!-- <h3>Lorem, ipsum dolor.</h3>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum, repellendus!</p> -->
+        </div>
+        <div class="card">
+          <img src="../../img/gallery/HappySport/6.jpg" alt="Alt">
+          <!-- <h3>Lorem, ipsum dolor.</h3>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum, repellendus!</p> -->
+        </div>
+        <div class="card">
+          <img src="../../img/gallery/HappySport/7.jpg" alt="Alt">
+          <!-- <h3>Lorem, ipsum dolor.</h3>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum, repellendus!</p> -->
+        </div>
+
+      </header>
+
+      <div class="othercontent">
+        <!-- МОДУЛЬ ГАЛЕРЕИ -->
+        <div class="gallery-section">
+          <h2>Галерея фотосессии</h2>
+          
+          <div class="gallery-module" id="galleryModule">
+            <!-- Миниатюры галереи -->
+            <div class="thumbnails-grid" style="display: none;" id="thumbnailsContainer">
+              <!-- Миниатюры будут добавлены через JavaScript -->
+            </div>
+            
+            <!-- Модальное окно для просмотра фотографий -->
+            <div class="modal-overlay" id="modalOverlay">
+              <div class="modal-content" id="modalContent">
+                <div class="modal-header">
+                  <div class="modal-title">Фотосессия "Пара из сквера"</div>
+                  <button class="close-btn" id="closeModal">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+                
+                <div class="modal-body">
+                  <button class="nav-btn prev-btn" id="prevBtn">
+                    <i class="fas fa-chevron-left"></i>
+                  </button>
+                  
+                  <div class="modal-image-container" id="imageContainer">
+                    <img class="modal-image" id="modalImage" src="" alt="">
+                  </div>
+                  
+                  <button class="nav-btn next-btn" id="nextBtn">
+                    <i class="fas fa-chevron-right"></i>
+                  </button>
+                  
+                  <div class="touch-hint" id="touchHint">
+                    <i class="fas fa-hand-point-up"></i>
+                    <span>Свайпните влево или вправо для навигации</span>
+                  </div>
+                  
+                  <div class="swipe-indicator" id="swipeIndicator">
+                    <!-- Индикаторы будут добавлены через JavaScript -->
+                  </div>
+                </div>
+                
+                <div class="modal-footer">
+                  <div class="image-info">
+                    <div class="image-title" id="imageTitle"></div>
+                    <div class="image-author" id="imageAuthor"></div>
+                  </div>
+                  <div class="image-counter" id="imageCounter"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- КОНЕЦ МОДУЛЯ ГАЛЕРЕИ -->
+        
+        <!-- Существующий список изображений -->
+        <div class="list">
+          <div class="item"><img src="../../img/gallery/HappySport/1.jpg" alt="Пара из сквера фото 1"></div>
+          <div class="item"><img src="../../img/gallery/HappySport/2.jpg" alt="Пара из сквера фото 2"></div>
+          <div class="item"><img src="../../img/gallery/HappySport/3.jpg" alt="Пара из сквера фото 3"></div>
+          <div class="item"><img src="../../img/gallery/HappySport/4.jpg" alt="Пара из сквера фото 4"></div>
+          <div class="item"><img src="../../img/gallery/HappySport/5.jpg" alt="Пара из сквера фото 5"></div>
+          <div class="item"><img src="../../img/gallery/HappySport/6.jpg" alt="Пара из сквера фото 6"></div>
+          <div class="item"><img src="../../img/gallery/HappySport/7.jpg" alt="Пара из сквера фото 7"></div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			<footer class="footer">
+					<!-- Нижняя часть -->
+						<div class="footer-bottom">
+							<div class="legal-links">
+								<a>NonPhix develope for Love</a>
+								<!-- <a href="#privacy">Privacy Policy</a> -->
+							</div>
+							<div class="footer_media">
+								<div class="contact-media" style=" margin:0px">
+												<a class="icon" href="https://github.com/SouthKartman">
+													<svg width="20" height="20" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+														<g clip-path="url(#clip0_910_44)">
+														<path fill-rule="evenodd" clip-rule="evenodd" d="M24.0199 0C10.7375 0 0 10.8167 0 24.1983C0 34.895 6.87988 43.9495 16.4241 47.1542C17.6174 47.3951 18.0545 46.6335 18.0545 45.9929C18.0545 45.4319 18.0151 43.509 18.0151 41.5055C11.3334 42.948 9.94198 38.6209 9.94198 38.6209C8.86818 35.8164 7.27715 35.0956 7.27715 35.0956C5.09022 33.6132 7.43645 33.6132 7.43645 33.6132C9.86233 33.7735 11.1353 36.0971 11.1353 36.0971C13.2824 39.7827 16.7422 38.7413 18.1341 38.1002C18.3328 36.5377 18.9695 35.456 19.6455 34.8552C14.3163 34.2942 8.70937 32.211 8.70937 22.9161C8.70937 20.2719 9.66321 18.1086 11.1746 16.4261C10.9361 15.8253 10.1008 13.3409 11.4135 10.0157C11.4135 10.0157 13.4417 9.3746 18.0146 12.4996C19.9725 11.9699 21.9916 11.7005 24.0199 11.6982C26.048 11.6982 28.1154 11.979 30.0246 12.4996C34.5981 9.3746 36.6262 10.0157 36.6262 10.0157C37.9389 13.3409 37.1031 15.8253 36.8646 16.4261C38.4158 18.1086 39.3303 20.2719 39.3303 22.9161C39.3303 32.211 33.7234 34.2539 28.3544 34.8552C29.2296 35.6163 29.9848 37.0583 29.9848 39.3421C29.9848 42.5871 29.9454 45.1915 29.9454 45.9924C29.9454 46.6335 30.383 47.3951 31.5758 47.1547C41.12 43.9491 47.9999 34.895 47.9999 24.1983C48.0392 10.8167 37.2624 0 24.0199 0Z" fill="white"/>
+														</g>
+														<defs>
+														<clipPath id="clip0_910_44">
+														<rect width="48" height="48" fill="white"/>
+														</clipPath>
+														</defs>
+													</svg>
+
+												</a>
+												<a class="icon" href="https://t.me/South_Kartman">
+													<svg width="20" height="20" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+														<g clip-path="url(#clip0_318_75)">
+														<path fill-rule="evenodd" clip-rule="evenodd" d="M48 24C48 37.2548 37.2548 48 24 48C10.7452 48 0 37.2548 0 24C0 10.7452 10.7452 0 24 0C37.2548 0 48 10.7452 48 24ZM24.8601 17.7179C22.5257 18.6888 17.8603 20.6984 10.8638 23.7466C9.72766 24.1984 9.13251 24.6404 9.07834 25.0726C8.98677 25.803 9.90142 26.0906 11.1469 26.4822C11.3164 26.5355 11.4919 26.5907 11.6719 26.6492C12.8973 27.0475 14.5457 27.5135 15.4026 27.5321C16.1799 27.5489 17.0475 27.2284 18.0053 26.5707C24.5423 22.158 27.9168 19.9276 28.1286 19.8795C28.2781 19.8456 28.4852 19.803 28.6255 19.9277C28.7659 20.0524 28.7521 20.2886 28.7372 20.352C28.6466 20.7383 25.0562 24.0762 23.1982 25.8036C22.619 26.3421 22.2081 26.724 22.1242 26.8113C21.936 27.0067 21.7443 27.1915 21.56 27.3692C20.4215 28.4667 19.5678 29.2896 21.6072 30.6336C22.5873 31.2794 23.3715 31.8135 24.1539 32.3463C25.0084 32.9282 25.8606 33.5085 26.9632 34.2313C27.2442 34.4155 27.5125 34.6068 27.7738 34.7931C28.7681 35.5019 29.6615 36.1388 30.7652 36.0373C31.4065 35.9782 32.0689 35.3752 32.4053 33.5767C33.2004 29.3263 34.7633 20.1169 35.1244 16.3219C35.1561 15.9895 35.1163 15.5639 35.0843 15.3771C35.0523 15.1904 34.9855 14.9242 34.7427 14.7272C34.4552 14.4939 34.0113 14.4447 33.8127 14.4482C32.91 14.4641 31.5251 14.9456 24.8601 17.7179Z" fill="white"/>
+														</g>
+														<defs>
+														<clipPath id="clip0_318_75">
+														<rect width="48" height="48" fill="white"/>
+														</clipPath>
+														</defs>
+													</svg>
+
+												</a>
+												<a class="icon" href="https://vk.com/fresh_player">
+													<svg width="20" height="20" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+														<g clip-path="url(#clip0_1106_8)">
+														<path fill-rule="evenodd" clip-rule="evenodd" d="M3.37413 3.37413C0 6.74826 0 12.1788 0 23.04V24.96C0 35.8212 0 41.2517 3.37413 44.6259C6.74826 48 12.1788 48 23.04 48H24.96C35.8212 48 41.2517 48 44.6259 44.6259C48 41.2517 48 35.8212 48 24.96V23.04C48 12.1788 48 6.74826 44.6259 3.37413C41.2517 0 35.8212 0 24.96 0H23.04C12.1788 0 6.74826 0 3.37413 3.37413ZM8.10012 14.6001C8.36012 27.0801 14.6001 34.5801 25.5401 34.5801H26.1602V27.4401C30.1802 27.8401 33.22 30.7801 34.44 34.5801H40.1201C38.5601 28.9001 34.4599 25.7601 31.8999 24.5601C34.4599 23.0801 38.0599 19.4801 38.9199 14.6001H33.7598C32.6398 18.5601 29.3202 22.1601 26.1602 22.5001V14.6001H21V28.4401C17.8 27.6401 13.7601 23.7601 13.5801 14.6001H8.10012Z" fill="white"/>
+														</g>
+														<defs>
+														<clipPath id="clip0_1106_8">
+														<rect width="48" height="48" fill="white"/>
+														</clipPath>
+														</defs>
+													</svg>
+
+												</a>
+												<a class="icon" href="https://southkartman.github.io/webdev-portfolio/">
+													<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+														<path d="M15.5 9L15.6716 9.17157C17.0049 10.5049 17.6716 11.1716 17.6716 12C17.6716 12.8284 17.0049 13.4951 15.6716 14.8284L15.5 15" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+														<path d="M13.2941 7.16992L12 11.9996L10.7059 16.8292" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+														<path d="M8.49994 9L8.32837 9.17157C6.99504 10.5049 6.32837 11.1716 6.32837 12C6.32837 12.8284 6.99504 13.4951 8.32837 14.8284L8.49994 15" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+														<path opacity="0.5" d="M2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2C16.714 2 19.0711 2 20.5355 3.46447C22 4.92893 22 7.28595 22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12Z" stroke="white" stroke-width="1.5"/>
+													</svg>
+
+
+												</a>
+											</div>
+							</div>
+							<div class="copyright">
+								© 2025 SocialBeach Photography. All rights reserved.
+							</div>
+						</div>
+						
+				</footer>
+
+
+
+
+
+
+
+
+  </div>
+
+  <script src="./scripts/modal.js" defer></script>
+</body>
+</html>

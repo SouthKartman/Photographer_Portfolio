@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Модульное окно галереи</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* СТИЛИ МОДУЛЯ ГАЛЕРЕИ */
+        .gallery-module {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            position: relative;
+        }
+
+        /* Миниатюры галереи */
+        .gallery-module .thumbnails-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 15px;
+            margin: 0;
+        }
+
+        .gallery-module .photo-thumb {
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+            aspect-ratio: 4/3;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            background: #f5f5f5;
+        }
+
+        .gallery-module .photo-thumb:hover {
+            transform: translateY(-5px) scale(1.03);
+        }
+
+        .gallery-module .photo-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-module .photo-thumb:hover img {
+            transform: scale(1.08);
+        }
+
+        .gallery-module .photo-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            padding: 15px 10px 10px;
+            transform: translateY(10px);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .gallery-module .photo-thumb:hover .photo-info {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .gallery-module .photo-title {
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 3px;
+            color: white;
+        }
+
+        .gallery-module .photo-author {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Модальное окно */
+        .gallery-module .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 10000;
+            display: none;
+            opacity: 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .gallery-module .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            width: 95%;
+            height: 95%;
+            max-width: 1400px;
+            display: flex;
+            flex-direction: column;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            background: #16161a;
+            opacity: 0;
+        }
+
+        .gallery-module .modal-header {
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(22, 22, 26, 0.95);
+            border-bottom: 1px solid #2a2a3a;
+        }
+
+        .gallery-module .modal-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: white;
+        }
+
+        .gallery-module .close-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.3rem;
+        }
+
+        .gallery-module .close-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
+        }
+
+        .gallery-module .modal-body {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 15px;
+        }
+
+        .gallery-module .modal-image-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .gallery-module .modal-image {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        .gallery-module .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.15);
+            border: none;
+            color: white;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            z-index: 10;
+            backdrop-filter: blur(5px);
+        }
+
+        .gallery-module .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .gallery-module .prev-btn {
+            left: 20px;
+        }
+
+        .gallery-module .next-btn {
+            right: 20px;
+        }
+
+        .gallery-module .modal-footer {
+            padding: 15px 25px;
+            background: rgba(22, 22, 26, 0.95);
+            border-top: 1px solid #2a2a3a;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .gallery-module .image-info {
+            flex: 1;
+            text-align: left;
+        }
+
+        .gallery-module .image-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: white;
+        }
+
+        .gallery-module .image-author {
+            color: #94a1b2;
+            font-size: 0.95rem;
+        }
+
+        .gallery-module .image-counter {
+            font-size: 1.1rem;
+            color: #7f5af0;
+            font-weight: 600;
+            background: rgba(127, 90, 240, 0.1);
+            padding: 6px 18px;
+            border-radius: 50px;
+        }
+
+        .gallery-module .touch-hint {
+            position: absolute;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            backdrop-filter: blur(5px);
+            opacity: 0.8;
+            color: white;
+        }
+
+        .gallery-module .touch-hint i {
+            color: #2cb67d;
+            font-size: 1.1rem;
+        }
+
+        /* Индикатор свайпа */
+        .gallery-module .swipe-indicator {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-module .swipe-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .gallery-module .swipe-dot.active {
+            background: #7f5af0;
+            transform: scale(1.3);
+        }
+
+        /* Анимации */
+        .gallery-module .photo-enter {
+            animation: photoEnter 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes photoEnter {
+            0% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .gallery-module .photo-exit {
+            animation: photoExit 0.4s ease forwards;
+        }
+
+        @keyframes photoExit {
+            0% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .gallery-module .thumbnails-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+
+            .gallery-module .modal-header,
+            .gallery-module .modal-footer {
+                padding: 12px 18px;
+            }
+
+            .gallery-module .nav-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+            }
+
+            .gallery-module .prev-btn {
+                left: 10px;
+            }
+
+            .gallery-module .next-btn {
+                right: 10px;
+            }
+
+            .gallery-module .touch-hint {
+                font-size: 0.75rem;
+                padding: 6px 14px;
+                bottom: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .gallery-module .thumbnails-grid {
+                grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+                gap: 10px;
+            }
+
+            .gallery-module .modal-title {
+                font-size: 1.1rem;
+            }
+
+            .gallery-module .image-title {
+                font-size: 1.1rem;
+            }
+
+            .gallery-module .image-counter {
+                font-size: 1rem;
+                padding: 5px 14px;
+            }
+
+            .gallery-module .nav-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1.1rem;
+            }
+        }
+
+        /* Демо-стили для примера (удалить при внедрении) */
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #f0f0f0;
+            min-height: 100vh;
+            padding: 20px;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        .demo-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .demo-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #7f5af0, #2cb67d);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 800;
+        }
+
+        .demo-subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            color: #94a1b2;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+
+        .instructions {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .instructions h3 {
+            color: #2cb67d;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .instructions p {
+            color: #94a1b2;
+            margin-bottom: 8px;
+            line-height: 1.5;
+            font-size: 0.95rem;
+        }
+
+        .code-block {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+            font-family: monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            border-left: 3px solid #7f5af0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Демо-контейнер (удалить при внедрении) -->
+    <div class="demo-container">
+        <h1 class="demo-title">МОДУЛЬ ГАЛЕРЕИ</h1>
+        <p class="demo-subtitle">Этот модуль можно легко встроить на любую страницу. Ниже показан пример его работы.</p>
+        
+        <!-- САМ МОДУЛЬ ГАЛЕРЕИ (эту часть копировать для внедрения) -->
+        <div class="gallery-module" id="galleryModule">
+            <!-- Миниатюры галереи -->
+            <div class="thumbnails-grid" id="thumbnailsContainer">
+                <!-- Миниатюры будут добавлены через JavaScript -->
+            </div>
+            
+            <!-- Модальное окно для просмотра фотографий -->
+            <div class="modal-overlay" id="modalOverlay">
+                <div class="modal-content" id="modalContent">
+                    <div class="modal-header">
+                        <div class="modal-title">Просмотр фотографии</div>
+                        <button class="close-btn" id="closeModal">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="modal-body">
+                        <button class="nav-btn prev-btn" id="prevBtn">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        
+                        <div class="modal-image-container" id="imageContainer">
+                            <img class="modal-image" id="modalImage" src="" alt="">
+                        </div>
+                        
+                        <button class="nav-btn next-btn" id="nextBtn">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                        
+                        <div class="touch-hint" id="touchHint">
+                            <i class="fas fa-hand-point-up"></i>
+                            <span>Свайпните влево или вправо для навигации</span>
+                        </div>
+                        
+                        <div class="swipe-indicator" id="swipeIndicator">
+                            <!-- Индикаторы будут добавлены через JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <div class="modal-footer">
+                        <div class="image-info">
+                            <div class="image-title" id="imageTitle"></div>
+                            <div class="image-author" id="imageAuthor"></div>
+                        </div>
+                        <div class="image-counter" id="imageCounter"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- КОНЕЦ МОДУЛЯ ГАЛЕРЕИ -->
+        
+        <!-- Инструкция по внедрению (удалить при внедрении) -->
+        <div class="instructions">
+            <h3>Как внедрить этот модуль на свою страницу:</h3>
+            <p>1. Скопируйте HTML-разметку модуля (от "&lt;div class='gallery-module'" до "&lt;/div&gt;")</p>
+            <p>2. Скопируйте CSS-стили с классами, начинающимися на ".gallery-module"</p>
+            <p>3. Скопируйте JavaScript-код (все, что внутри тега &lt;script&gt;)</p>
+            <p>4. Подключите библиотеки FontAwesome и GSAP (если их еще нет на вашей странице)</p>
+            
+            <div class="code-block">
+                &lt;!-- Подключение библиотек --&gt;<br>
+                &lt;link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"&gt;<br>
+                &lt;script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"&gt;&lt;/script&gt;
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // МОДУЛЬ ГАЛЕРЕИ - JavaScript код
+        (function() {
+            'use strict';
+            
+            // Данные для галереи (можно заменить своими данными)
+            const galleryData = [
+                {
+                    id: 1,
+                    title: "Горный пейзаж",
+                    author: "Александр Новиков",
+                    url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80"
+                },
+                {
+                    id: 2,
+                    title: "Лесная тропа",
+                    author: "Мария Семенова",
+                    url: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80"
+                },
+                {
+                    id: 3,
+                    title: "Городской закат",
+                    author: "Иван Петров",
+                    url: "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80"
+                },
+                {
+                    id: 4,
+                    title: "Океанские волны",
+                    author: "Екатерина Волкова",
+                    url: "https://images.unsplash.com/photo-1505142468610-359e7d316be0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80"
+                },
+                {
+                    id: 5,
+                    title: "Пустынный восход",
+                    author: "Сергей Иванов",
+                    url: "https://images.unsplash.com/photo-1505118380757-91f5f5632de0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80"
+                },
+                {
+                    id: 6,
+                    title: "Северное сияние",
+                    author: "Анна Кузнецова",
+                    url: "https://images.unsplash.com/photo-1502134249126-9f3755a50d78?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80"
+                },
+                {
+                    id: 7,
+                    title: "Осенний лес",
+                    author: "Дмитрий Смирнов",
+                    url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80"
+                },
+                {
+                    id: 8,
+                    title: "Зимний горный хребет",
+                    author: "Ольга Морозова",
+                    url: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80"
+                }
+            ];
+
+            // Текущий индекс просматриваемого изображения
+            let currentImageIndex = 0;
+            
+            // Переменные для обработки свайпа
+            let touchStartX = 0;
+            let touchEndX = 0;
+            let isSwiping = false;
+            
+            // DOM элементы модуля
+            const galleryModule = document.getElementById('galleryModule');
+            const thumbnailsContainer = document.getElementById('thumbnailsContainer');
+            const modalOverlay = document.getElementById('modalOverlay');
+            const modalContent = document.getElementById('modalContent');
+            const modalImage = document.getElementById('modalImage');
+            const imageTitle = document.getElementById('imageTitle');
+            const imageAuthor = document.getElementById('imageAuthor');
+            const imageCounter = document.getElementById('imageCounter');
+            const closeModalBtn = document.getElementById('closeModal');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const touchHint = document.getElementById('touchHint');
+            const swipeIndicator = document.getElementById('swipeIndicator');
+            
+            // Инициализация галереи
+            function initGallery() {
+                // Очищаем контейнер миниатюр
+                thumbnailsContainer.innerHTML = '';
+                
+                // Создаем миниатюры для галереи
+                galleryData.forEach((item, index) => {
+                    const thumb = document.createElement('div');
+                    thumb.className = 'photo-thumb';
+                    thumb.setAttribute('data-index', index);
+                    
+                    thumb.innerHTML = `
+                        <img src="${item.url}" alt="${item.title}" loading="lazy">
+                        <div class="photo-info">
+                            <div class="photo-title">${item.title}</div>
+                            <div class="photo-author">${item.author}</div>
+                        </div>
+                    `;
+                    
+                    thumb.addEventListener('click', () => openModal(index));
+                    thumbnailsContainer.appendChild(thumb);
+                });
+                
+                // Создаем индикаторы свайпа
+                swipeIndicator.innerHTML = '';
+                galleryData.forEach((_, index) => {
+                    const dot = document.createElement('div');
+                    dot.className = 'swipe-dot';
+                    dot.setAttribute('data-index', index);
+                    swipeIndicator.appendChild(dot);
+                });
+            }
+            
+            // Открытие модального окна
+            function openModal(index) {
+                currentImageIndex = index;
+                updateModal();
+                
+                // Показываем модальное окно с анимацией
+                modalOverlay.style.display = 'block';
+                
+                // Анимация появления с помощью GSAP
+                gsap.to(modalOverlay, {duration: 0.3, opacity: 1});
+                gsap.to(modalContent, {duration: 0.5, opacity: 1, scale: 1, ease: "back.out(1.7)"});
+                
+                // Добавляем обработчики для клавиатуры
+                document.addEventListener('keydown', handleKeyDown);
+                
+                // Обновляем индикаторы свайпа
+                updateSwipeIndicator();
+            }
+            
+            // Закрытие модального окна
+            function closeModal() {
+                // Анимация скрытия с помощью GSAP
+                gsap.to(modalContent, {duration: 0.3, opacity: 0, scale: 0.9});
+                gsap.to(modalOverlay, {
+                    duration: 0.3, 
+                    opacity: 0, 
+                    onComplete: () => {
+                        modalOverlay.style.display = 'none';
+                    }
+                });
+                
+                // Убираем обработчики клавиатуры
+                document.removeEventListener('keydown', handleKeyDown);
+            }
+            
+            // Обновление содержимого модального окна
+            function updateModal() {
+                const currentImage = galleryData[currentImageIndex];
+                
+                // Добавляем анимацию смены фото
+                modalImage.classList.add('photo-exit');
+                
+                setTimeout(() => {
+                    modalImage.src = currentImage.url;
+                    modalImage.alt = currentImage.title;
+                    imageTitle.textContent = currentImage.title;
+                    imageAuthor.textContent = currentImage.author;
+                    imageCounter.textContent = `${currentImageIndex + 1} / ${galleryData.length}`;
+                    
+                    modalImage.classList.remove('photo-exit');
+                    modalImage.classList.add('photo-enter');
+                    
+                    setTimeout(() => {
+                        modalImage.classList.remove('photo-enter');
+                    }, 500);
+                }, 400);
+                
+                // Обновляем индикаторы свайпа
+                updateSwipeIndicator();
+            }
+            
+            // Навигация к предыдущему изображению
+            function prevImage() {
+                currentImageIndex = currentImageIndex > 0 ? currentImageIndex - 1 : galleryData.length - 1;
+                updateModal();
+            }
+            
+            // Навигация к следующему изображению
+            function nextImage() {
+                currentImageIndex = currentImageIndex < galleryData.length - 1 ? currentImageIndex + 1 : 0;
+                updateModal();
+            }
+            
+            // Обновление индикаторов свайпа
+            function updateSwipeIndicator() {
+                const dots = document.querySelectorAll('.gallery-module .swipe-dot');
+                dots.forEach((dot, index) => {
+                    if (index === currentImageIndex) {
+                        dot.classList.add('active');
+                    } else {
+                        dot.classList.remove('active');
+                    }
+                });
+                
+                // Показываем индикаторы на короткое время
+                gsap.to(swipeIndicator, {duration: 0.3, opacity: 1});
+                
+                setTimeout(() => {
+                    gsap.to(swipeIndicator, {duration: 0.5, opacity: 0, delay: 1});
+                }, 2000);
+            }
+            
+            // Обработка нажатий клавиш
+            function handleKeyDown(e) {
+                switch(e.key) {
+                    case 'Escape':
+                        closeModal();
+                        break;
+                    case 'ArrowLeft':
+                        prevImage();
+                        break;
+                    case 'ArrowRight':
+                        nextImage();
+                        break;
+                }
+            }
+            
+            // Обработка свайпов
+            function handleTouchStart(e) {
+                touchStartX = e.changedTouches ? e.changedTouches[0].screenX : e.clientX;
+                isSwiping = true;
+            }
+            
+            function handleTouchMove(e) {
+                if (!isSwiping) return;
+                
+                touchEndX = e.changedTouches ? e.changedTouches[0].screenX : e.clientX;
+                
+                // Вычисляем разницу для превью свайпа
+                const diff = touchStartX - touchEndX;
+                
+                // Если свайп значительный, даем визуальную обратную связь
+                if (Math.abs(diff) > 30) {
+                    modalImage.style.transform = `translateX(${-diff/20}px)`;
+                }
+            }
+            
+            function handleTouchEnd(e) {
+                if (!isSwiping) return;
+                
+                touchEndX = e.changedTouches ? e.changedTouches[0].screenX : e.clientX;
+                const diff = touchStartX - touchEndX;
+                
+                // Возвращаем изображение на место
+                modalImage.style.transform = 'translateX(0)';
+                
+                // Определяем направление свайпа
+                if (Math.abs(diff) > 50) { // Порог для определения свайпа
+                    if (diff > 0) {
+                        // Свайп влево - следующее изображение
+                        nextImage();
+                    } else {
+                        // Свайп вправо - предыдущее изображение
+                        prevImage();
+                    }
+                }
+                
+                isSwiping = false;
+            }
+            
+            // Инициализация модуля
+            function initGalleryModule() {
+                initGallery();
+                
+                // Обработчики для кнопок
+                closeModalBtn.addEventListener('click', closeModal);
+                prevBtn.addEventListener('click', prevImage);
+                nextBtn.addEventListener('click', nextImage);
+                
+                // Обработчики для свайпа
+                modalContent.addEventListener('touchstart', handleTouchStart, { passive: true });
+                modalContent.addEventListener('touchmove', handleTouchMove, { passive: true });
+                modalContent.addEventListener('touchend', handleTouchEnd);
+                
+                // Обработчики для мыши (для десктопа)
+                modalContent.addEventListener('mousedown', handleTouchStart);
+                modalContent.addEventListener('mousemove', handleTouchMove);
+                modalContent.addEventListener('mouseup', handleTouchEnd);
+                modalContent.addEventListener('mouseleave', () => { isSwiping = false; });
+                
+                // Закрытие по клику на оверлей
+                modalOverlay.addEventListener('click', (e) => {
+                    if (e.target === modalOverlay) {
+                        closeModal();
+                    }
+                });
+                
+                // Прячем подсказку о свайпе через 5 секунд
+                setTimeout(() => {
+                    gsap.to(touchHint, {duration: 0.5, opacity: 0, delay: 2});
+                }, 5000);
+            }
+            
+            // Инициализация при загрузке
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initGalleryModule);
+            } else {
+                initGalleryModule();
+            }
+            
+            // Экспорт функций для использования извне (опционально)
+            window.GalleryModule = {
+                init: initGalleryModule,
+                open: openModal,
+                close: closeModal,
+                next: nextImage,
+                prev: prevImage,
+                setData: function(newData) {
+                    // Метод для обновления данных галереи
+                    galleryData.length = 0;
+                    galleryData.push(...newData);
+                    initGallery();
+                }
+            };
+            
+        })();
+    </script>
+</body>
+</html>
