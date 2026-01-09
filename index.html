@@ -78,7 +78,7 @@
 </head>
 <body>
 <!-- preloader -->
-<style>.preloader{position:fixed;inset:0;background:#000;display:grid;place-items:center;z-index:9999;opacity:1;transition:opacity 0.5s ease}.loader{width:40px;height:40px;border:3px solid #333;border-top:3px solid #fff;border-radius:50%;animation:spin 1s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}</style>
+<style>@media(max-width: 768px){.preloader {display:none!important;}}.preloader{position:fixed;inset:0;background:#000;display:grid;place-items:center;z-index:9999;opacity:1;transition:opacity 0.5s ease}.loader{width:40px;height:40px;border:3px solid #333;border-top:3px solid #fff;border-radius:50%;animation:spin 1s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}</style>
 <div class="preloader"><div class="loader"></div></div>
 <script>window.onload=()=>{document.querySelector('.preloader').style.opacity='0';setTimeout(()=>document.querySelector('.preloader').remove(),500)}</script>
 
@@ -1745,4 +1745,5 @@
 	<script src="./js/cookie.js"></script>
 
 </body>
+
 </html>
